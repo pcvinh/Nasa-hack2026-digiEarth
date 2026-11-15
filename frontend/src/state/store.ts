@@ -40,7 +40,7 @@ interface State {
 const initial = {
   view: 'explore' as View, variableId: null, region: null, startYear: 2001, endYear: 2025,
   showTrendMap: false, chartMode: 'annual' as ChartMode, guideMessages: [] as GuideMessage[],
-  guideOpen: true, wizardOpen: false, pickMode: false, sessionId: null, notice: null, demo: null,
+  guideOpen: false, wizardOpen: false, pickMode: false, sessionId: null, notice: null, demo: null,
 };
 
 export const useStore = create<State>((set, get) => ({

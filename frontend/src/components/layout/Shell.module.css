@@ -11,3 +11,4 @@
 .panel { width: var(--panel-w); overflow-y: auto; background: var(--surface); border-right: 1px solid var(--line); padding: 16px; }
 .globe { flex: 1; position: relative; background: #0b1b2e; min-width: 0; }
 .drawer { width: var(--drawer-w); background: var(--surface); border-left: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+.navItem[aria-current='true'] { background: var(--blue-sel); color: var(--blue-dark); font-weight: 700; }

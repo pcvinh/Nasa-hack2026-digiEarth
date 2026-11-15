@@ -67,3 +67,45 @@ def test_imerg_transpose(tmp_path):
 def test_month_list():
     m = month_list("2001-11", "2002-02")
     assert m == ["2001-11", "2001-12", "2002-01", "2002-02"]
+
+
+def test_merra2_kelvin_to_celsius_and_fill(tmp_path):
+    import netCDF4
+
+    from edt.pipeline.readers import read_merra2
+
+    p = tmp_path / "m.nc4"
+    with netCDF4.Dataset(p, "w") as n:
+        n.createDimension("time", 1)
+        n.createDimension("lat", 2)
+        n.createDimension("lon", 2)
+        n.createVariable("lat", "f8", ("lat",))[:] = [-90.0, 90.0]
+        n.createVariable("lon", "f8", ("lon",))[:] = [-180.0, 179.375]
+        v = n.createVariable("T2M", "f4", ("time", "lat", "lon"), fill_value=1e15)
+        v[:] = np.array([[[273.15, 300.0], [250.0, 1e15]]], dtype=np.float32)
+    a, lat, lon = read_merra2(p, 2020, 7)
+    assert a[0, 0] == pytest.approx(0.0, abs=1e-4)
+    assert a[0, 1] == pytest.approx(26.85, abs=1e-3)
+    assert np.isnan(a[1, 1])
+
+
+def test_ndvi_scale_fill_and_north_up_flip(tmp_path):
+    from pyhdf.SD import SD, SDC
+
+    from edt.pipeline.readers import read_mod13c2
+
+    p = tmp_path / "m.hdf"
+    h = SD(str(p), SDC.WRITE | SDC.CREATE)
+    d = h.create("CMG 0.05 Deg Monthly NDVI", SDC.INT16, (2, 2))
+    d[:] = np.array([[5000, -3000], [-2500, 10000]], dtype=np.int16)  # row 0 = north
+    d.valid_range = [-2000, 10000]
+    d.setfillvalue(-3000)
+    d.scale_factor = 10000.0
+    d.endaccess()
+    h.end()
+    a, lat, lon = read_mod13c2(p, 2020, 7)
+    assert lat.tolist() == [-45.0, 45.0] and lon.tolist() == [-90.0, 90.0]
+    assert np.isnan(a[0, 0])  # -2500 outside valid range (south-west after flip)
+    assert a[0, 1] == pytest.approx(1.0)
+    assert a[1, 0] == pytest.approx(0.5)
+    assert np.isnan(a[1, 1])  # fill

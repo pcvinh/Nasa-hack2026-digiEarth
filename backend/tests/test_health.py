@@ -24,8 +24,10 @@ def test_health_degraded_without_cubes_validates_contract(client, contract):
 
 
 def test_health_ok_when_all_cubes_exist(settings, contract):
+    from synth import make_cube
+
     for vid in ("precipitation", "air_temperature", "soil_moisture", "ndvi"):
-        (settings.cube_dir / f"{vid}.zarr").mkdir(parents=True)
+        make_cube(settings, vid)
     (settings.data_root / "manifest.json").write_text('{"dataVersion": "2026-11-20.1"}')
     r = TestClient(create_app(settings)).get("/api/v1/health")
     contract.check("get", "/health", r)

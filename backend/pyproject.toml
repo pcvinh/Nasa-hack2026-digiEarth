@@ -5,6 +5,7 @@ description = "Earth Digital Twin - Trend Detective: data pipeline, statistics a
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "certifi>=2026.10.23",
     "earthaccess>=0.19.0",
     "fastapi>=0.163.1",
     "h5netcdf>=1.8.3",
@@ -49,3 +50,6 @@ dev = [
     "pytest>=9.2.0",
     "ruff>=0.17.5",
 ]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Query", "fastapi.Depends"]

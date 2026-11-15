@@ -1,42 +1,23 @@
 from __future__ import annotations
 
-import json
-
 from fastapi import APIRouter, Request
 
-from edt.api.models import Health, VariableHealth
-from edt.catalogue import P0_VARIABLE_IDS
+from edt.api.models import Health
+from edt.catalogue import variables
+from edt.data import data_version, variable_status
 
 router = APIRouter(tags=["system"])
 
-UNINITIALISED_VERSION = "uninitialised"
-
-
-def read_data_version(manifest_path) -> str:
-    """dataVersion comes from manifest.json once the pipeline has written it."""
-    try:
-        return str(json.loads(manifest_path.read_text())["dataVersion"])
-    except (OSError, KeyError, ValueError):
-        return UNINITIALISED_VERSION
-
-
-def cube_exists(settings, variable_id: str) -> bool:
-    return (settings.cube_dir / f"{variable_id}.zarr").exists()
-
 
 @router.get("/health", response_model=Health, operation_id="getHealth")
-def get_health(request: Request) -> Health:
+def get_health(request: Request) -> dict:
     settings = request.app.state.settings
-    variables = [
-        VariableHealth(
-            id=vid,
-            status="source_backed" if cube_exists(settings, vid) else "unavailable",
-        )
-        for vid in P0_VARIABLE_IDS
+    items = [
+        {"id": vid, "status": variable_status(settings, v)[0]} for vid, v in variables().items()
     ]
-    degraded = any(v.status == "unavailable" for v in variables)
-    return Health(
-        status="degraded" if degraded else "ok",
-        dataVersion=read_data_version(settings.manifest_path),
-        variables=variables,
-    )
+    degraded = any(i["status"] != "source_backed" for i in items)
+    return {
+        "status": "degraded" if degraded else "ok",
+        "dataVersion": data_version(settings),
+        "variables": items,
+    }

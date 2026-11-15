@@ -1,0 +1,46 @@
+# Rules for the Detective Guide (P0, no LLM). The Guide never returns statistics.
+regionTypes:
+  river_delta:
+    - {variableId: precipitation, reason: "Deltas depend on monsoon rain; changes affect floods and fresh water."}
+    - {variableId: soil_moisture, reason: "Topsoil water shows whether the land is getting drier or wetter."}
+    - {variableId: ndvi, reason: "Greenness tracks crops and mangroves across the delta."}
+  rainforest:
+    - {variableId: precipitation, reason: "Rainforests need steady, heavy rain all year."}
+    - {variableId: ndvi, reason: "Greenness can reveal forest loss or regrowth."}
+    - {variableId: air_temperature, reason: "Warming adds heat stress to trees."}
+  desert_edge:
+    - {variableId: precipitation, reason: "At the desert edge, rainfall decides whether plants can grow."}
+    - {variableId: ndvi, reason: "Greenness shows whether the desert edge is greening or browning."}
+    - {variableId: soil_moisture, reason: "Topsoil water shows how long moisture lasts after rain."}
+  agricultural:
+    - {variableId: precipitation, reason: "Farms depend on rain arriving in the right amounts."}
+    - {variableId: soil_moisture, reason: "Topsoil water is what crops can actually use."}
+    - {variableId: ndvi, reason: "Greenness tracks how much the fields and plantations are growing."}
+  megacity:
+    - {variableId: air_temperature, reason: "Cities are warming; heat matters for health."}
+    - {variableId: precipitation, reason: "Heavy rain drives urban flooding."}
+  other:
+    - {variableId: precipitation, reason: "Rainfall is a good first variable for almost any place."}
+    - {variableId: air_temperature, reason: "Air temperature shows whether a place is warming."}
+
+keywords:
+  precipitation: [rain, rainfall, precipitation, flood, flooding, drought, monsoon, wet, storm, water]
+  air_temperature: [heat, hot, temperature, warm, warming, cold, cool, climate]
+  soil_moisture: [soil, moisture, dry, dryness, irrigation, groundwater]
+  ndvi: [green, greenness, vegetation, plant, plants, forest, deforestation, tree, trees, ndvi, crop, crops, farm, farming, leaf]
+
+topics:
+  water: [precipitation, soil_moisture]
+  heat: [air_temperature]
+  vegetation: [ndvi]
+  air_quality: []
+
+unsupported:
+  - pattern: "\\b(yield|yields|harvest size|tonnes? per hectare)\\b"
+    reply: "This tool can't estimate crop yields. It can show how rainfall, soil moisture, temperature or vegetation greenness have changed, which are things farmers care about."
+  - pattern: "\\b(predict|prediction|forecast|future|next year|will it|will there|going to|projection)\\b|\\b20[3-9][0-9]\\b"
+    reply: "This tool can't forecast the future. It shows what has already changed from 2001 to 2025 in NASA data."
+  - pattern: "\\b(why|cause|caused|causes|because|reason for|blame)\\b"
+    reply: "This tool can't say why something changed; a trend is not a cause. It can show what changed, where, by how much, and whether the change is statistically significant."
+
+airQualityReply: "Air quality variables are not available yet. You can explore rainfall, air temperature, topsoil moisture or vegetation greenness."

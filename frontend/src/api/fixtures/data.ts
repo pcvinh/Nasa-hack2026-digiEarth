@@ -10,15 +10,15 @@ const prov = (id: string, name: string): Provenance => ({
 });
 
 const v = (id: string, name: string, topic: Variable['topic'], unit: string, annualUnit: string,
-  agg: 'mean' | 'sum', def: string, why: string, unavailable?: string): Variable => ({
+  agg: 'mean' | 'sum', def: string, why: string, unavailable?: string, coverageEnd = '2025-12'): Variable => ({
   id, name, topic, shortDefinition: def, whyItMatters: why, unit, annualUnit, annualAggregation: agg,
-  coverage: { start: '2001-01', end: '2025-12', landOnly: false },
+  coverage: { start: '2001-01', end: coverageEnd, landOnly: false },
   status: unavailable ? 'unavailable' : 'sample', unavailableReason: unavailable ?? null,
   provenance: prov(id, `${name} (sample)`),
 });
 
 export const VARIABLES: Variable[] = [
-  v('precipitation', 'Rainfall', 'water', 'mm/month', 'mm/year', 'sum', 'How much rain and snow falls on the ground.', 'Water supply and flooding depend on it.'),
+  v('precipitation', 'Rainfall', 'water', 'mm/month', 'mm/year', 'sum', 'How much rain and snow falls on the ground.', 'Water supply and flooding depend on it.', undefined, '2025-09'),
   v('soil_moisture', 'Topsoil moisture', 'water', 'kg/m²', 'kg/m²', 'mean', 'How wet the top few centimetres of soil are.', 'Plants take their water from here.'),
   v('air_temperature', 'Air temperature', 'heat', '°C', '°C', 'mean', 'Temperature of the air near the ground.', 'Heat affects people, crops and ecosystems.'),
   v('ndvi', 'Vegetation greenness', 'vegetation', 'unitless', 'unitless', 'mean', 'How green and leafy the land looks from space.', 'It shows where plants are growing well or struggling.'),
@@ -49,6 +49,12 @@ export const REGIONS: Region[] = [
   reg('sahel', 'Sahel', null, 'desert_edge', 'Dry belt on the southern edge of the Sahara.',
     [-17.0, 12.0, 35.0, 18.0], ['precipitation', 'ndvi', 'soil_moisture', 'air_temperature']),
 ];
+
+/** Last year with all 12 months available, from coverage.end ('YYYY-MM'). */
+export function lastCompleteYear(v: Variable): number {
+  const [y, m] = v.coverage.end.split('-').map(Number) as [number, number];
+  return m === 12 ? y : y - 1;
+}
 
 export type Scenario = 'significant_up' | 'significant_down' | 'not_significant' | 'insufficient';
 const SCENARIOS: Scenario[] = ['significant_up', 'not_significant', 'significant_down', 'insufficient'];
@@ -119,7 +125,7 @@ export function buildTrend(
 }
 
 export const trendMapFor = (variableId: string): TrendMap => ({
-  variableId, period: { startYear: 2001, endYear: 2025 },
+  variableId, period: { startYear: 2001, endYear: lastCompleteYear(VARIABLES.find((x) => x.id === variableId) ?? VARIABLES[0]!) },
   imageUrl: '/fixtures/trend-map-sample.png', bounds: [-180, -90, 180, 90], cellSize: '0.5°',
   legend: { min: -10, max: 10, unit: 'SAMPLE units per decade', palette: 'diverging_brown_green', fadedMeaning: 'SAMPLE: faded cells stand for "not significant"' },
   method: 'SAMPLE fixture image, not computed from data', dataStatus: 'sample',

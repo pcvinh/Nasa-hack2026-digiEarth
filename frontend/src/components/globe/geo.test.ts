@@ -21,3 +21,15 @@ describe('[lon, lat] handling', () => {
     expect(g.coordinates[0]![4]).toEqual(g.coordinates[0]![0]);
   });
 });
+
+import { clampBounds, clampNote } from './geo';
+describe('overlay clamping', () => {
+  it('clamps the MERRA-2 west edge to -180', () => {
+    expect(clampBounds([-180.3125, -90, 179.6875, 90])).toEqual([-180, -90, 179.6875, 90]);
+    expect(clampNote([-180.3125, -90, 179.6875, 90])).toMatch(/west edge clamped to -180/);
+  });
+  it('leaves in-range bounds alone', () => {
+    expect(clampBounds([-180, -90, 180, 90])).toEqual([-180, -90, 180, 90]);
+    expect(clampNote([-180, -90, 180, 90])).toBeNull();
+  });
+});

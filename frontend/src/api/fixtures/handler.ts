@@ -1,5 +1,5 @@
 import type { GuideRequest, GuideResponse, Session, SessionInput, TrendRequest } from '../types';
-import { REGIONS, VARIABLES, buildTrend, scenarioFor, trendMapFor } from './data';
+import { REGIONS, VARIABLES, buildTrend, lastCompleteYear, scenarioFor, trendMapFor } from './data';
 
 /** Record of every fixture request, so tests can count calls. */
 export const fixtureCalls: string[] = [];
@@ -22,7 +22,7 @@ function analyze(req: TrendRequest): Response {
   if (!variable) return err(400, 'invalid_input', 'Unknown variable');
   if (variable.status === 'unavailable') return err(400, 'data_unavailable', variable.unavailableReason ?? 'Unavailable');
   const { presetId, point, bbox } = req.region;
-  const start = req.startYear ?? 2001, end = req.endYear ?? 2025, alpha = req.alpha ?? 0.05;
+  const start = req.startYear ?? 2001, end = req.endYear ?? lastCompleteYear(variable), alpha = req.alpha ?? 0.05;
   if (presetId) {
     const r = REGIONS.find((x) => x.id === presetId);
     if (!r) return err(404, 'not_found', 'Unknown region');
@@ -30,6 +30,10 @@ function analyze(req: TrendRequest): Response {
   }
   if (point) {
     const [lon, lat] = point as [number, number];
+    // Fixture stand-in for open ocean (mid-Atlantic box): land-only variables have no data there.
+    if (variable.id === 'soil_moisture' && lon > -40 && lon < -20 && lat > -20 && lat < 20) {
+      return err(400, 'data_unavailable', 'No data for this point: it is over the ocean and this variable covers land only (SAMPLE message).');
+    }
     const b = cell(lon, lat);
     return json(buildTrend(variable, `Cell at ${lon.toFixed(1)}°, ${lat.toFixed(1)}°`, b, true, null, start, end, alpha, scenarioFor(`${variable.id}|${b.join(',')}`)));
   }

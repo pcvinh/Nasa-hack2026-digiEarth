@@ -1,3 +1,6 @@
 .host { position: absolute; inset: 0; }
 .host[data-pick='true'] { cursor: crosshair; }
 .host :global(.cesium-viewer-bottom) { font-size: 11px; }
+/* No Cesium ion assets are used, so the default ion logo is hidden; the on-screen text credits stay. */
+.host :global(.cesium-credit-logoContainer) { display: none !important; }
+.host :global(.cesium-credit-textContainer) { color: #fff; }

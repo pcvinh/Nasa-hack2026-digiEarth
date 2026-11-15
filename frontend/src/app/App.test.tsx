@@ -54,3 +54,25 @@ describe('analysis requests', () => {
     expect(await screen.findByTestId('verdict')).toBeInTheDocument();
   });
 });
+
+describe('default period', () => {
+  it('omits endYear from the request and shows the API period (rainfall ends before 2025)', async () => {
+    mount();
+    act(() => { useStore.getState().setRegion({ presetId: 'sahel' }); useStore.getState().setVariable('precipitation'); });
+    expect(useStore.getState().endYear).toBeNull();
+    await screen.findByTestId('verdict');
+    expect(screen.getByText(/2001–2024/)).toBeInTheDocument();
+  });
+});
+
+describe('data_unavailable', () => {
+  it('shows the API message, draws no cell and does not retry', async () => {
+    mount();
+    const before = analyzeCount();
+    act(() => { useStore.getState().setVariable('soil_moisture'); useStore.getState().setRegion({ point: [-30, 0] }); });
+    expect(await screen.findByText(/over the ocean and this variable covers land only/)).toBeInTheDocument();
+    expect(screen.queryByTestId('verdict')).not.toBeInTheDocument();
+    await new Promise((r) => setTimeout(r, 300));
+    expect(analyzeCount()).toBe(before + 1); // 4xx is not retried
+  });
+});

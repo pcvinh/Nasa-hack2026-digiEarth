@@ -13,3 +13,14 @@ export const bboxToGeoJson = (b: BBox) => ({
   type: 'Polygon',
   coordinates: [[[b[0], b[1]], [b[2], b[1]], [b[2], b[3]], [b[0], b[3]], [b[0], b[1]]]],
 });
+
+/** Cesium rectangles must stay within the globe. Clamp to [-180, 180] x [-90, 90]. */
+export const clampBounds = (b: BBox): BBox => [Math.max(-180, b[0]), Math.max(-90, b[1]), Math.min(180, b[2]), Math.min(90, b[3])];
+
+/** Note for the legend when the overlay had to be clamped (e.g. MERRA-2 grid edge at -180.3125). */
+export function clampNote(b: BBox): string | null {
+  const c = clampBounds(b);
+  if (c.every((v, i) => v === b[i])) return null;
+  const edge = c[0] !== b[0] ? `west edge clamped to ${c[0]}° (data grid starts at ${b[0]}°)` : 'edges clamped to the globe limits';
+  return `Overlay ${edge}.`;
+}

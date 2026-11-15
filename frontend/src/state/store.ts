@@ -9,7 +9,8 @@ interface State {
   variableId: string | null;
   region: RegionSel | null;
   startYear: number;
-  endYear: number;
+  /** null = let the API choose the variable's last complete year */
+  endYear: number | null;
   showTrendMap: boolean;
   chartMode: ChartMode;
   guideMessages: GuideMessage[];
@@ -38,7 +39,7 @@ interface State {
 }
 
 const initial = {
-  view: 'explore' as View, variableId: null, region: null, startYear: 2001, endYear: 2025,
+  view: 'explore' as View, variableId: null, region: null, startYear: 2001, endYear: null as number | null,
   showTrendMap: false, chartMode: 'annual' as ChartMode, guideMessages: [] as GuideMessage[],
   guideOpen: false, wizardOpen: false, pickMode: false, sessionId: null, notice: null, demo: null,
 };

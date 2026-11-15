@@ -38,7 +38,19 @@ Branch `frontend/p0` · worktree `../DigiEarth-frontend` · contract v0.2.0
 
 ## Notes
 - TypeScript pinned to 5.9: TS 7 conflicts with typescript-eslint and openapi-typescript peers.
-- `npm audit` shows advisories in dev dependencies; not triaged.
+- `npm audit`: see the fixes round table (triaged).
 - Guide drawer starts closed so the globe has room at 1440 px wide.
-- Cesium's default "ion" credit logo still shows although no ion assets are used.
 - Fixture numbers are synthetic and shown only under the SAMPLE banner.
+
+## Fixes round (branch `frontend/fixes`, contract 0.2.1)
+| # | Status | Notes |
+|---|---|---|
+| 1 | done | Types regenerated. `endYear` is omitted unless set (store `endYear: null`); the period shown comes from the API result. Saved sessions with a fixed endYear still load. Fixtures derive the last complete year from `coverage.end` |
+| 2 | done | `ApiError` carries the API message and code; 400s are not retried; no cell is drawn on error |
+| 3 | done | Legend uses `legend.colorStops` when present, else the palette name |
+| 4 | done | Overlay bounds clamped to the globe; legend notes a clamped west edge |
+| 5 | done | Verified on the real backend (contract 0.2.1, dataVersion 2026-11-15.1). Click-to-analyse works; overlay cells follow the coast when zoomed into the Mekong Delta (land-only soil-moisture map; no offset found). Opposite significant trends: air temperature, Sahel (negative) vs central Amazon (positive). Found and fixed a real bug: GIBS basemap tiles beyond level 0 returned 400 (see below) |
+| 6 | done | ion logo hidden with CSS; GIBS credit set to show on screen |
+| 7 | done | 13 PNGs in `docs/screenshots/`, regenerated with `node scripts/screenshots.mjs <real-url> <fixture-url>` (headless Chrome over CDP). The insufficient-data shot is from fixture mode (SAMPLE banner), because real data produced none |
+| extra | done | GIBS basemap tiling scheme fixed (GIBS 500m level 0 is 2x1 tiles of 288 degrees, not Cesium's default). Dev-only `window.__cesiumViewer` hook for the screenshot script. Point marker drawn when the API returns a zero-size bbox. Agreement line hidden for insufficient data |
+| 8 | done | `npm audit`: 0 vulnerabilities in production dependencies; 7 moderate, all dev-only (minimatch DoS advisory GHSA-g3hv-75wg-m249 inside typescript-eslint tooling), not shipped and only reachable through lint globs, so accepted; revisit when typescript-eslint releases a fix |

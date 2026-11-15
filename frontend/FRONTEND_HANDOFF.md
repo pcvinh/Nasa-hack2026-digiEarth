@@ -37,3 +37,26 @@ Not checked: visual alignment of the overlay with coastlines at high zoom (only 
 - `npm audit` advisories on dev dependencies are untriaged.
 - Legend gradient colours are hard-coded per `legend.palette`; they must match the backend PNG palette (visually plausible, not pixel-verified).
 - P1 items (FE-12 compare, FE-13 mobile/glossary/Playwright) not started.
+
+## Fixes round (contract 0.2.1) - verified on the real backend, dataVersion 2026-11-15.1
+- Default period: `endYear` is omitted; rainfall results come back as 2001-2024, other variables 2001-2025. The UI shows `period` from the result.
+- `400 data_unavailable` (topsoil moisture over open ocean): the API message is shown in the panel, no cell or marker is drawn (screenshot 07).
+- Legend uses the API's `colorStops` (present for all four maps).
+- MERRA-2 air-temperature map: bounds start at -180.3125; overlay clamped to -180 and the legend says so (screenshot 10).
+- ion logo hidden; "Imagery: NASA GIBS" stays visible bottom left.
+- Basemap bug found while checking alignment: GIBS tiles from level 1 up returned 400 because Cesium's default tile grid does not match GIBS (level 0 = 2x1 tiles of 288 degrees). Fixed in `GlobeView.tsx`; before the fix the globe went black when zoomed in. The fixture-mode screenshots from the first FE-11 round did not exercise zoom.
+
+### Alignment check (Mekong Delta, soil moisture is land-only)
+Overlay cells follow the Indochina coast and the Mekong delta boundary outline sits on the delta coast of the basemap (screenshots 04, 06). Coastal cells extend over the sea by up to one cell, as expected for 0.5 degree cells. No offset found. Not pixel-measured.
+
+### Opposite trends (real data)
+Air temperature, annual Sen's slope, both Mann-Kendall significant: Sahel negative (about -0.32 C per decade), central Amazon positive (about +0.36 C per decade). Screenshots 08-10. Values are the API's; a negative air-temperature trend in the Sahel is worth a second look by the backend/science owner, but this is a display check only.
+
+### For the Architect / Backend
+1. **Point requests return a zero-size bbox** (`region.bbox = [lon, lat, lon, lat]`, e.g. `[105.3, 10.5, 105.3, 10.5]` for a click at 105.3E 10.5N) although the plan says the returned cell is drawn. The frontend therefore draws a yellow ring at the point instead of the cell outline and does not guess cell edges. Wanted: the real cell extent in `region.bbox` for `single_cell` results. Not filed as a change request because this round forbade editing `contracts/`.
+2. Screenshots in `docs/screenshots/` are 1440x900, headless Chrome with software WebGL.
+
+### Not covered
+- Pixel-level alignment measurement; tablet/mobile; P1 items (compare, glossary, Playwright).
+- Screenshot 13 (insufficient data) comes from fixture mode, so it shows the SAMPLE banner; the real data produced no such case.
+- I looked at screenshots 01, 04, 06, 07, 10 and 13 by eye; the others (02, 03, 05, 08, 09, 11, 12) were generated but not individually reviewed.

@@ -54,7 +54,7 @@ export function Result({ result }: { result: TrendResult }) {
           <div className={styles.stat}><small>Total change</small><span className={styles.big}>{fmtSigned(result.totalChange.value)}</span><small>{result.totalChange.unit}</small></div>
           <div className={styles.stat}><small>Mann-Kendall</small><span className={styles.big}>{fmtP(result.mannKendall.pValue).replace('p ', 'p ')}</span><small>α = {s.alpha}</small></div>
         </div>
-        <small>{AGREE_TEXT[s.agreement]}</small>
+        {enough && <small>{AGREE_TEXT[s.agreement]}</small>}
       </div>
 
       <div className={styles.tabs} role="group" aria-label="Chart view">

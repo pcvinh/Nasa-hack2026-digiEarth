@@ -276,10 +276,10 @@ export interface components {
              */
             startYear: number;
             /**
-             * @default 2025
-             * @example 2025
+             * @description Optional. When omitted, defaults to the variable's last complete year (the last year with all 12 months available, derived from its coverage.end), not a fixed 2025. The response period.endYear and the interpretation text use the same year.
+             * @example 2024
              */
-            endYear: number;
+            endYear?: number;
             /** @default 0.05 */
             alpha: number;
         };
@@ -397,6 +397,8 @@ export interface components {
                 unit: string;
                 /** @enum {string} */
                 palette: "diverging_brown_green" | "diverging_blue_red";
+                /** @description Hex colours (#RRGGBB) from min to max, taken from the same palette used to draw the PNG, so the frontend legend always matches the image. Optional in 0.2.1; the frontend falls back to the palette name when absent. */
+                colorStops?: string[];
                 /** @example Not significant after FDR correction (q = 0.05) */
                 fadedMeaning: string;
             };
@@ -462,7 +464,7 @@ export interface components {
         };
     };
     responses: {
-        /** @description Invalid input (unknown variable, bad period, region outside data coverage, etc.) */
+        /** @description Invalid input (unknown variable, bad period) or no data for the request. Use code 'data_unavailable' when a region or point has no valid data for the variable, for example a point over the ocean for a land-only variable; never return a 200 with cellCount 0. */
         BadRequest: {
             headers: {
                 [name: string]: unknown;

@@ -19,7 +19,7 @@ describe('session restore', () => {
     await act(async () => { await openSession(saved.id); });
     const s = useStore.getState();
     expect([s.variableId, s.region, s.startYear, s.endYear, s.showTrendMap, s.chartMode, s.guideMessages.length])
-      .toEqual(['ndvi', { presetId: 'sahel' }, 2001, 2025, true, 'anomaly', 1]);
+      .toEqual(['ndvi', { presetId: 'sahel' }, 2001, null, true, 'anomaly', 1]);
   });
   it('opens empty with a message when saved state is invalid', async () => {
     const saved = await (await post({ title: 'bad', state: { nonsense: true } })).json();

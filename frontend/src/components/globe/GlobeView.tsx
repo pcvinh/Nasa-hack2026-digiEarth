@@ -7,6 +7,7 @@ import styles from './GlobeView.module.css';
 export interface GlobeProps {
   outline: object | null;        // GeoJSON geometry (preset region)
   cell: BBox | null;             // bbox of the analysed cell/region (result)
+  marker?: LonLat | null;        // clicked point, drawn when the API gives no cell extent
   flyTo: BBox | null;
   overlay: { url: string; bounds: BBox } | null;
   pickMode: boolean;
@@ -16,6 +17,18 @@ export interface GlobeProps {
 // NASA GIBS WMTS, EPSG:4326, no token needed. Layer and matrix set checked against GetCapabilities.
 const GIBS =
   'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/BlueMarble_ShadedRelief_Bathymetry/default/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpeg';
+
+/**
+ * GIBS EPSG:4326 matrix set "500m": level 0 is 2x1 tiles of 512 px at 0.5625 deg/px, i.e. each
+ * level-0 tile spans 288 deg, anchored at the top-left (-180, 90); the tile size halves each level
+ * (matrix widths 2, 3, 5, 10, 20 ...; checked in GetCapabilities). That is not Cesium's default
+ * 180-degree geographic scheme, so describe the real grid: 2x1 level-0 tiles of 288 deg.
+ */
+const gibsTilingScheme = () =>
+  new Cesium.GeographicTilingScheme({
+    rectangle: Cesium.Rectangle.fromDegrees(-180, 90 - 288, -180 + 2 * 288, 90),
+    numberOfLevelZeroTilesX: 2, numberOfLevelZeroTilesY: 1,
+  });
 
 export default function GlobeView(props: GlobeProps) {
   const host = useRef<HTMLDivElement>(null);
@@ -29,8 +42,8 @@ export default function GlobeView(props: GlobeProps) {
     const gibs = new Cesium.WebMapTileServiceImageryProvider({
       url: GIBS, layer: 'BlueMarble_ShadedRelief_Bathymetry', style: 'default', format: 'image/jpeg',
       tileMatrixSetID: '500m', tileMatrixLabels: Array.from({ length: 8 }, (_, i) => String(i)),
-      maximumLevel: 7, tilingScheme: new Cesium.GeographicTilingScheme({ numberOfLevelZeroTilesX: 2, numberOfLevelZeroTilesY: 1 }),
-      tileWidth: 512, tileHeight: 512, credit: 'Imagery: NASA GIBS',
+      maximumLevel: 7, tilingScheme: gibsTilingScheme(), rectangle: Cesium.Rectangle.fromDegrees(-180, -90, 180, 90),
+      tileWidth: 512, tileHeight: 512, credit: new Cesium.Credit('Imagery: NASA GIBS', true), // showOnScreen: always visible
     });
     const v = new Cesium.Viewer(host.current!, {
       baseLayer: new Cesium.ImageryLayer(gibs), baseLayerPicker: false, geocoder: false, timeline: false,
@@ -39,6 +52,8 @@ export default function GlobeView(props: GlobeProps) {
     });
     v.scene.globe.enableLighting = false;
     viewer.current = v;
+    // Dev-only hook so the screenshot script can position the camera. Not present in production builds.
+    if (import.meta.env.DEV) (window as unknown as { __cesiumViewer?: Cesium.Viewer }).__cesiumViewer = v;
     const ds = new Cesium.CustomDataSource('outline');
     outlineDs.current = ds;
     void v.dataSources.add(ds);
@@ -77,7 +92,11 @@ export default function GlobeView(props: GlobeProps) {
       ds.entities.add({ rectangle: { coordinates: ring(props.cell), material: Cesium.Color.YELLOW.withAlpha(0.15),
         outline: true, outlineColor: Cesium.Color.YELLOW, height: 0 } });
     }
-  }, [props.outline, props.cell]);
+    if (props.marker) {
+      ds.entities.add({ position: Cesium.Cartesian3.fromDegrees(props.marker[0], props.marker[1]),
+        point: { pixelSize: 12, color: Cesium.Color.YELLOW.withAlpha(0.3), outlineColor: Cesium.Color.YELLOW, outlineWidth: 3 } });
+    }
+  }, [props.outline, props.cell, props.marker]);
 
   useEffect(() => {
     const v = viewer.current;

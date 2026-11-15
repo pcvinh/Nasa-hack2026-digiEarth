@@ -1,0 +1,2011 @@
+{
+ "request": {
+  "variableId": "air_temperature",
+  "region": {
+   "presetId": "sahel"
+  },
+  "startYear": 2001,
+  "endYear": 2025,
+  "alpha": 0.05
+ },
+ "result": {
+  "variableId": "air_temperature",
+  "region": {
+   "presetId": "sahel",
+   "name": "Sahel",
+   "bbox": [
+    -17.0,
+    12.0,
+    35.0,
+    18.0
+   ],
+   "representativeness": "area_mean",
+   "cellCount": 913,
+   "cellSize": "0.5° × 0.625°"
+  },
+  "period": {
+   "startYear": 2001,
+   "endYear": 2025
+  },
+  "unit": "°C",
+  "annualUnit": "°C",
+  "dataStatus": "source_backed",
+  "monthly": [
+   {
+    "time": "2001-01",
+    "value": 19.9565,
+    "anomaly": -0.9024,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-02",
+    "value": 22.408,
+    "anomaly": -1.522,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-03",
+    "value": 27.5398,
+    "anomaly": -0.2635,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-04",
+    "value": 31.4012,
+    "anomaly": 0.1473,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-05",
+    "value": 33.2609,
+    "anomaly": 0.1011,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-06",
+    "value": 32.2866,
+    "anomaly": -0.5109,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-07",
+    "value": 30.8964,
+    "anomaly": 0.2596,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-08",
+    "value": 29.7756,
+    "anomaly": 0.9358,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-09",
+    "value": 30.0685,
+    "anomaly": 0.9047,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-10",
+    "value": 28.5499,
+    "anomaly": 0.0342,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-11",
+    "value": 25.0695,
+    "anomaly": 0.1304,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2001-12",
+    "value": 23.1481,
+    "anomaly": 1.5187,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-01",
+    "value": 19.8436,
+    "anomaly": -1.0153,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-02",
+    "value": 23.2907,
+    "anomaly": -0.6393,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-03",
+    "value": 27.7777,
+    "anomaly": -0.0257,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-04",
+    "value": 31.5221,
+    "anomaly": 0.2682,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-05",
+    "value": 33.0063,
+    "anomaly": -0.1535,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-06",
+    "value": 33.1455,
+    "anomaly": 0.348,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-07",
+    "value": 32.1901,
+    "anomaly": 1.5533,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-08",
+    "value": 30.4335,
+    "anomaly": 1.5937,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-09",
+    "value": 30.9051,
+    "anomaly": 1.7413,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-10",
+    "value": 29.405,
+    "anomaly": 0.8893,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-11",
+    "value": 25.8459,
+    "anomaly": 0.9068,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2002-12",
+    "value": 22.2947,
+    "anomaly": 0.6653,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-01",
+    "value": 21.5089,
+    "anomaly": 0.65,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-02",
+    "value": 24.9625,
+    "anomaly": 1.0326,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-03",
+    "value": 27.2572,
+    "anomaly": -0.5461,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-04",
+    "value": 31.6502,
+    "anomaly": 0.3962,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-05",
+    "value": 32.7877,
+    "anomaly": -0.3721,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-06",
+    "value": 32.6657,
+    "anomaly": -0.1318,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-07",
+    "value": 30.6453,
+    "anomaly": 0.0086,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-08",
+    "value": 29.3208,
+    "anomaly": 0.4809,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-09",
+    "value": 29.7227,
+    "anomaly": 0.5589,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-10",
+    "value": 29.8949,
+    "anomaly": 1.3792,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-11",
+    "value": 26.1274,
+    "anomaly": 1.1884,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2003-12",
+    "value": 21.8784,
+    "anomaly": 0.2489,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-01",
+    "value": 22.1526,
+    "anomaly": 1.2937,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-02",
+    "value": 23.2529,
+    "anomaly": -0.677,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-03",
+    "value": 26.3375,
+    "anomaly": -1.4658,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-04",
+    "value": 31.3157,
+    "anomaly": 0.0617,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-05",
+    "value": 33.7335,
+    "anomaly": 0.5737,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-06",
+    "value": 32.8311,
+    "anomaly": 0.0336,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-07",
+    "value": 31.257,
+    "anomaly": 0.6203,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-08",
+    "value": 30.3358,
+    "anomaly": 1.4959,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-09",
+    "value": 30.55,
+    "anomaly": 1.3862,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-10",
+    "value": 29.613,
+    "anomaly": 1.0974,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-11",
+    "value": 25.8695,
+    "anomaly": 0.9305,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2004-12",
+    "value": 22.8219,
+    "anomaly": 1.1924,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-01",
+    "value": 20.4707,
+    "anomaly": -0.3881,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-02",
+    "value": 26.4554,
+    "anomaly": 2.5255,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-03",
+    "value": 28.6193,
+    "anomaly": 0.816,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-04",
+    "value": 31.4091,
+    "anomaly": 0.1552,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-05",
+    "value": 32.4041,
+    "anomaly": -0.7556,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-06",
+    "value": 32.7851,
+    "anomaly": -0.0124,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-07",
+    "value": 30.621,
+    "anomaly": -0.0158,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-08",
+    "value": 29.4932,
+    "anomaly": 0.6534,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-09",
+    "value": 29.7074,
+    "anomaly": 0.5436,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-10",
+    "value": 28.6778,
+    "anomaly": 0.1622,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-11",
+    "value": 24.8698,
+    "anomaly": -0.0693,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2005-12",
+    "value": 23.4709,
+    "anomaly": 1.8415,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-01",
+    "value": 22.986,
+    "anomaly": 2.1271,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-02",
+    "value": 25.2523,
+    "anomaly": 1.3224,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-03",
+    "value": 27.5793,
+    "anomaly": -0.2241,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-04",
+    "value": 30.0035,
+    "anomaly": -1.2504,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-05",
+    "value": 33.0073,
+    "anomaly": -0.1524,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-06",
+    "value": 33.0546,
+    "anomaly": 0.2571,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-07",
+    "value": 31.7075,
+    "anomaly": 1.0707,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-08",
+    "value": 29.4885,
+    "anomaly": 0.6486,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-09",
+    "value": 29.5151,
+    "anomaly": 0.3513,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-10",
+    "value": 29.7025,
+    "anomaly": 1.1868,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-11",
+    "value": 24.0273,
+    "anomaly": -0.9118,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2006-12",
+    "value": 19.9564,
+    "anomaly": -1.673,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-01",
+    "value": 19.6314,
+    "anomaly": -1.2275,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-02",
+    "value": 23.6572,
+    "anomaly": -0.2728,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-03",
+    "value": 27.3422,
+    "anomaly": -0.4611,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-04",
+    "value": 31.7221,
+    "anomaly": 0.4681,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-05",
+    "value": 33.5842,
+    "anomaly": 0.4244,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-06",
+    "value": 32.8748,
+    "anomaly": 0.0773,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-07",
+    "value": 30.0402,
+    "anomaly": -0.5966,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-08",
+    "value": 28.2662,
+    "anomaly": -0.5737,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-09",
+    "value": 28.443,
+    "anomaly": -0.7208,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-10",
+    "value": 28.3294,
+    "anomaly": -0.1863,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-11",
+    "value": 25.4611,
+    "anomaly": 0.522,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2007-12",
+    "value": 21.7095,
+    "anomaly": 0.0801,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-01",
+    "value": 19.8058,
+    "anomaly": -1.0531,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-02",
+    "value": 22.4475,
+    "anomaly": -1.4825,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-03",
+    "value": 28.0731,
+    "anomaly": 0.2698,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-04",
+    "value": 30.6467,
+    "anomaly": -0.6072,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-05",
+    "value": 32.9341,
+    "anomaly": -0.2257,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-06",
+    "value": 32.7957,
+    "anomaly": -0.0018,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-07",
+    "value": 30.2974,
+    "anomaly": -0.3394,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-08",
+    "value": 29.1413,
+    "anomaly": 0.3015,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-09",
+    "value": 29.3374,
+    "anomaly": 0.1736,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-10",
+    "value": 27.9358,
+    "anomaly": -0.5799,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-11",
+    "value": 24.53,
+    "anomaly": -0.409,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2008-12",
+    "value": 22.482,
+    "anomaly": 0.8526,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-01",
+    "value": 21.7066,
+    "anomaly": 0.8477,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-02",
+    "value": 25.1616,
+    "anomaly": 1.2316,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-03",
+    "value": 27.5691,
+    "anomaly": -0.2342,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-04",
+    "value": 31.8957,
+    "anomaly": 0.6417,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-05",
+    "value": 32.5678,
+    "anomaly": -0.592,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-06",
+    "value": 32.6574,
+    "anomaly": -0.14,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-07",
+    "value": 30.8633,
+    "anomaly": 0.2266,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-08",
+    "value": 29.5877,
+    "anomaly": 0.7479,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-09",
+    "value": 29.6125,
+    "anomaly": 0.4487,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-10",
+    "value": 29.1688,
+    "anomaly": 0.6531,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-11",
+    "value": 24.7548,
+    "anomaly": -0.1842,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2009-12",
+    "value": 21.9058,
+    "anomaly": 0.2763,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-01",
+    "value": 22.2028,
+    "anomaly": 1.344,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-02",
+    "value": 26.2367,
+    "anomaly": 2.3068,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-03",
+    "value": 27.6589,
+    "anomaly": -0.1444,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-04",
+    "value": 31.7283,
+    "anomaly": 0.4744,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-05",
+    "value": 33.5174,
+    "anomaly": 0.3576,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-06",
+    "value": 32.8208,
+    "anomaly": 0.0233,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-07",
+    "value": 29.8264,
+    "anomaly": -0.8104,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-08",
+    "value": 28.4438,
+    "anomaly": -0.396,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-09",
+    "value": 28.5324,
+    "anomaly": -0.6314,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-10",
+    "value": 28.6983,
+    "anomaly": 0.1826,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-11",
+    "value": 25.604,
+    "anomaly": 0.6649,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2010-12",
+    "value": 21.6091,
+    "anomaly": -0.0203,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-01",
+    "value": 20.3553,
+    "anomaly": -0.5036,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-02",
+    "value": 24.6344,
+    "anomaly": 0.7044,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-03",
+    "value": 27.6448,
+    "anomaly": -0.1585,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-04",
+    "value": 30.7965,
+    "anomaly": -0.4574,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-05",
+    "value": 32.6218,
+    "anomaly": -0.538,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-06",
+    "value": 32.8166,
+    "anomaly": 0.0191,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-07",
+    "value": 31.0455,
+    "anomaly": 0.4088,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-08",
+    "value": 29.0767,
+    "anomaly": 0.2368,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-09",
+    "value": 29.1691,
+    "anomaly": 0.0053,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-10",
+    "value": 28.7763,
+    "anomaly": 0.2607,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-11",
+    "value": 24.009,
+    "anomaly": -0.93,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2011-12",
+    "value": 20.1858,
+    "anomaly": -1.4436,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-01",
+    "value": 20.1817,
+    "anomaly": -0.6772,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-02",
+    "value": 24.3632,
+    "anomaly": 0.4332,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-03",
+    "value": 25.9875,
+    "anomaly": -1.8158,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-04",
+    "value": 31.4425,
+    "anomaly": 0.1885,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-05",
+    "value": 32.874,
+    "anomaly": -0.2858,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-06",
+    "value": 32.1538,
+    "anomaly": -0.6437,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-07",
+    "value": 29.3474,
+    "anomaly": -1.2894,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-08",
+    "value": 27.8253,
+    "anomaly": -1.0145,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-09",
+    "value": 28.2488,
+    "anomaly": -0.915,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-10",
+    "value": 28.3233,
+    "anomaly": -0.1924,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-11",
+    "value": 25.9689,
+    "anomaly": 1.0298,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2012-12",
+    "value": 20.9439,
+    "anomaly": -0.6855,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-01",
+    "value": 21.51,
+    "anomaly": 0.6511,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-02",
+    "value": 24.5465,
+    "anomaly": 0.6166,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-03",
+    "value": 29.1113,
+    "anomaly": 1.308,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-04",
+    "value": 30.627,
+    "anomaly": -0.627,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-05",
+    "value": 33.0629,
+    "anomaly": -0.0968,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-06",
+    "value": 32.586,
+    "anomaly": -0.2115,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-07",
+    "value": 30.7681,
+    "anomaly": 0.1314,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-08",
+    "value": 28.1555,
+    "anomaly": -0.6843,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-09",
+    "value": 28.969,
+    "anomaly": -0.1948,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-10",
+    "value": 27.8583,
+    "anomaly": -0.6574,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-11",
+    "value": 25.3623,
+    "anomaly": 0.4232,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2013-12",
+    "value": 21.5774,
+    "anomaly": -0.0521,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-01",
+    "value": 21.7826,
+    "anomaly": 0.9238,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-02",
+    "value": 22.9458,
+    "anomaly": -0.9841,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-03",
+    "value": 27.6253,
+    "anomaly": -0.178,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-04",
+    "value": 32.0279,
+    "anomaly": 0.7739,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-05",
+    "value": 32.5827,
+    "anomaly": -0.5771,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-06",
+    "value": 32.9828,
+    "anomaly": 0.1853,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-07",
+    "value": 31.0709,
+    "anomaly": 0.4341,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-08",
+    "value": 28.4281,
+    "anomaly": -0.4117,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-09",
+    "value": 29.0243,
+    "anomaly": -0.1395,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-10",
+    "value": 28.3155,
+    "anomaly": -0.2001,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-11",
+    "value": 25.1045,
+    "anomaly": 0.1655,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2014-12",
+    "value": 21.444,
+    "anomaly": -0.1854,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-01",
+    "value": 19.4509,
+    "anomaly": -1.408,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-02",
+    "value": 24.9681,
+    "anomaly": 1.0382,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-03",
+    "value": 27.5104,
+    "anomaly": -0.2929,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-04",
+    "value": 28.9958,
+    "anomaly": -2.2581,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-05",
+    "value": 32.9551,
+    "anomaly": -0.2047,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-06",
+    "value": 33.1101,
+    "anomaly": 0.3126,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-07",
+    "value": 31.4362,
+    "anomaly": 0.7994,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-08",
+    "value": 29.1072,
+    "anomaly": 0.2673,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-09",
+    "value": 29.4449,
+    "anomaly": 0.2811,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-10",
+    "value": 29.0709,
+    "anomaly": 0.5553,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-11",
+    "value": 24.2659,
+    "anomaly": -0.6731,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2015-12",
+    "value": 18.6959,
+    "anomaly": -2.9335,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-01",
+    "value": 19.7306,
+    "anomaly": -1.1283,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-02",
+    "value": 22.5058,
+    "anomaly": -1.4242,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-03",
+    "value": 28.9626,
+    "anomaly": 1.1593,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-04",
+    "value": 31.919,
+    "anomaly": 0.665,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-05",
+    "value": 33.6062,
+    "anomaly": 0.4465,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-06",
+    "value": 32.6895,
+    "anomaly": -0.108,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-07",
+    "value": 30.0141,
+    "anomaly": -0.6227,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-08",
+    "value": 28.6141,
+    "anomaly": -0.2257,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-09",
+    "value": 29.0488,
+    "anomaly": -0.115,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-10",
+    "value": 28.3843,
+    "anomaly": -0.1314,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-11",
+    "value": 25.6062,
+    "anomaly": 0.6671,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2016-12",
+    "value": 22.2496,
+    "anomaly": 0.6202,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-01",
+    "value": 21.9709,
+    "anomaly": 1.112,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-02",
+    "value": 23.1741,
+    "anomaly": -0.7558,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-03",
+    "value": 27.762,
+    "anomaly": -0.0413,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-04",
+    "value": 31.3514,
+    "anomaly": 0.0974,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-05",
+    "value": 33.3738,
+    "anomaly": 0.214,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-06",
+    "value": 32.6772,
+    "anomaly": -0.1203,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-07",
+    "value": 30.3231,
+    "anomaly": -0.3136,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-08",
+    "value": 28.8999,
+    "anomaly": 0.0601,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-09",
+    "value": 29.2311,
+    "anomaly": 0.0673,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-10",
+    "value": 27.9023,
+    "anomaly": -0.6134,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-11",
+    "value": 24.522,
+    "anomaly": -0.417,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2017-12",
+    "value": 21.8166,
+    "anomaly": 0.1872,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-01",
+    "value": 19.3809,
+    "anomaly": -1.478,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-02",
+    "value": 25.2068,
+    "anomaly": 1.2768,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-03",
+    "value": 28.3458,
+    "anomaly": 0.5425,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-04",
+    "value": 30.6599,
+    "anomaly": -0.5941,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-05",
+    "value": 33.4464,
+    "anomaly": 0.2866,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-06",
+    "value": 32.475,
+    "anomaly": -0.3225,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-07",
+    "value": 30.1459,
+    "anomaly": -0.4908,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-08",
+    "value": 28.0434,
+    "anomaly": -0.7964,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-09",
+    "value": 28.5749,
+    "anomaly": -0.5889,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-10",
+    "value": 28.5262,
+    "anomaly": 0.0105,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-11",
+    "value": 24.6886,
+    "anomaly": -0.2504,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2018-12",
+    "value": 20.7532,
+    "anomaly": -0.8762,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-01",
+    "value": 21.3163,
+    "anomaly": 0.4574,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-02",
+    "value": 23.1351,
+    "anomaly": -0.7949,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-03",
+    "value": 27.1045,
+    "anomaly": -0.6988,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-04",
+    "value": 30.9773,
+    "anomaly": -0.2766,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-05",
+    "value": 33.4759,
+    "anomaly": 0.3162,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-06",
+    "value": 33.1338,
+    "anomaly": 0.3363,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-07",
+    "value": 30.8886,
+    "anomaly": 0.2519,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-08",
+    "value": 28.3024,
+    "anomaly": -0.5374,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-09",
+    "value": 29.054,
+    "anomaly": -0.1098,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-10",
+    "value": 28.24,
+    "anomaly": -0.2757,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-11",
+    "value": 25.3057,
+    "anomaly": 0.3667,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2019-12",
+    "value": 20.8358,
+    "anomaly": -0.7937,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-01",
+    "value": 19.8001,
+    "anomaly": -1.0588,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-02",
+    "value": 22.8543,
+    "anomaly": -1.0756,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-03",
+    "value": 28.0988,
+    "anomaly": 0.2955,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-04",
+    "value": 31.312,
+    "anomaly": 0.058,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-05",
+    "value": 32.7846,
+    "anomaly": -0.3752,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-06",
+    "value": 32.7708,
+    "anomaly": -0.0267,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-07",
+    "value": 30.0945,
+    "anomaly": -0.5422,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-08",
+    "value": 27.6603,
+    "anomaly": -1.1795,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-09",
+    "value": 27.796,
+    "anomaly": -1.3678,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-10",
+    "value": 26.9878,
+    "anomaly": -1.5279,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-11",
+    "value": 22.8804,
+    "anomaly": -2.0587,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2020-12",
+    "value": 22.7744,
+    "anomaly": 1.145,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-01",
+    "value": 21.8912,
+    "anomaly": 1.0323,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-02",
+    "value": 22.9994,
+    "anomaly": -0.9306,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-03",
+    "value": 27.8029,
+    "anomaly": -0.0004,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-04",
+    "value": 30.8014,
+    "anomaly": -0.4526,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-05",
+    "value": 33.1505,
+    "anomaly": -0.0093,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-06",
+    "value": 33.0897,
+    "anomaly": 0.2922,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-07",
+    "value": 29.9603,
+    "anomaly": -0.6765,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-08",
+    "value": 28.3057,
+    "anomaly": -0.5341,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-09",
+    "value": 28.3613,
+    "anomaly": -0.8025,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-10",
+    "value": 27.9868,
+    "anomaly": -0.5288,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-11",
+    "value": 25.6059,
+    "anomaly": 0.6668,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2021-12",
+    "value": 21.6698,
+    "anomaly": 0.0403,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-01",
+    "value": 20.2193,
+    "anomaly": -0.6396,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-02",
+    "value": 21.9858,
+    "anomaly": -1.9441,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-03",
+    "value": 27.1582,
+    "anomaly": -0.6452,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-04",
+    "value": 31.9911,
+    "anomaly": 0.7372,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-05",
+    "value": 32.8209,
+    "anomaly": -0.3389,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-06",
+    "value": 31.9859,
+    "anomaly": -0.8116,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-07",
+    "value": 30.0988,
+    "anomaly": -0.5379,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-08",
+    "value": 28.1703,
+    "anomaly": -0.6695,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-09",
+    "value": 28.2556,
+    "anomaly": -0.9082,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-10",
+    "value": 27.1944,
+    "anomaly": -1.3212,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-11",
+    "value": 23.3755,
+    "anomaly": -1.5636,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2022-12",
+    "value": 21.518,
+    "anomaly": -0.1115,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-01",
+    "value": 21.2997,
+    "anomaly": 0.4408,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-02",
+    "value": 23.723,
+    "anomaly": -0.2069,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-03",
+    "value": 28.1162,
+    "anomaly": 0.3129,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-04",
+    "value": 31.0605,
+    "anomaly": -0.1934,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-05",
+    "value": 33.459,
+    "anomaly": 0.2992,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-06",
+    "value": 32.5341,
+    "anomaly": -0.2634,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-07",
+    "value": 31.5121,
+    "anomaly": 0.8753,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-08",
+    "value": 29.6811,
+    "anomaly": 0.8413,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-09",
+    "value": 30.1955,
+    "anomaly": 1.0317,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-10",
+    "value": 29.5365,
+    "anomaly": 1.0209,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-11",
+    "value": 26.9335,
+    "anomaly": 1.9945,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2023-12",
+    "value": 21.9534,
+    "anomaly": 0.324,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-01",
+    "value": 21.2286,
+    "anomaly": 0.3697,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-02",
+    "value": 23.9143,
+    "anomaly": -0.0156,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-03",
+    "value": 29.367,
+    "anomaly": 1.5636,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-04",
+    "value": 32.4595,
+    "anomaly": 1.2056,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-05",
+    "value": 34.4495,
+    "anomaly": 1.2897,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-06",
+    "value": 33.747,
+    "anomaly": 0.9495,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-07",
+    "value": 30.2517,
+    "anomaly": -0.385,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-08",
+    "value": 27.4106,
+    "anomaly": -1.4293,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-09",
+    "value": 27.8489,
+    "anomaly": -1.3149,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-10",
+    "value": 27.2091,
+    "anomaly": -1.3065,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-11",
+    "value": 22.1518,
+    "anomaly": -2.7873,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2024-12",
+    "value": 20.065,
+    "anomaly": -1.5644,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-01",
+    "value": 21.0893,
+    "anomaly": 0.2304,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-02",
+    "value": 24.1673,
+    "anomaly": 0.2373,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-03",
+    "value": 28.7316,
+    "anomaly": 0.9282,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-04",
+    "value": 31.6324,
+    "anomaly": 0.3785,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-05",
+    "value": 33.5278,
+    "anomaly": 0.368,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-06",
+    "value": 33.2678,
+    "anomaly": 0.4703,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-07",
+    "value": 30.617,
+    "anomaly": -0.0197,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-08",
+    "value": 29.029,
+    "anomaly": 0.1892,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-09",
+    "value": 29.4788,
+    "anomaly": 0.315,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-10",
+    "value": 28.6044,
+    "anomaly": 0.0887,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-11",
+    "value": 25.5371,
+    "anomaly": 0.5981,
+    "validCellFraction": 1.0
+   },
+   {
+    "time": "2025-12",
+    "value": 22.9761,
+    "anomaly": 1.3467,
+    "validCellFraction": 1.0
+   }
+  ],
+  "annual": [
+   {
+    "year": 2001,
+    "value": 27.8634
+   },
+   {
+    "year": 2002,
+    "value": 28.305
+   },
+   {
+    "year": 2003,
+    "value": 28.2018
+   },
+   {
+    "year": 2004,
+    "value": 28.3392
+   },
+   {
+    "year": 2005,
+    "value": 28.2487
+   },
+   {
+    "year": 2006,
+    "value": 28.0234
+   },
+   {
+    "year": 2007,
+    "value": 27.5884
+   },
+   {
+    "year": 2008,
+    "value": 27.5356
+   },
+   {
+    "year": 2009,
+    "value": 28.1209
+   },
+   {
+    "year": 2010,
+    "value": 28.0732
+   },
+   {
+    "year": 2011,
+    "value": 27.5943
+   },
+   {
+    "year": 2012,
+    "value": 27.305
+   },
+   {
+    "year": 2013,
+    "value": 27.8445
+   },
+   {
+    "year": 2014,
+    "value": 27.7779
+   },
+   {
+    "year": 2015,
+    "value": 27.4176
+   },
+   {
+    "year": 2016,
+    "value": 27.7776
+   },
+   {
+    "year": 2017,
+    "value": 27.7504
+   },
+   {
+    "year": 2018,
+    "value": 27.5206
+   },
+   {
+    "year": 2019,
+    "value": 27.6475
+   },
+   {
+    "year": 2020,
+    "value": 27.1512
+   },
+   {
+    "year": 2021,
+    "value": 27.6354
+   },
+   {
+    "year": 2022,
+    "value": 27.0645
+   },
+   {
+    "year": 2023,
+    "value": 28.3337
+   },
+   {
+    "year": 2024,
+    "value": 27.5086
+   },
+   {
+    "year": 2025,
+    "value": 28.2215
+   }
+  ],
+  "totalChange": {
+   "value": -0.7676218441978903,
+   "unit": "°C"
+  },
+  "linear": {
+   "method": "OLS on annual values; two-sided t-test; 95% CI = slope ± t(0.975, n−2) × SE",
+   "slopePerDecade": -0.21229474820285896,
+   "ci95": [
+    -0.4104989368300438,
+    -0.014090559575674101
+   ],
+   "pValue": 0.0368851728696394,
+   "rSquared": 0.17590544541503525,
+   "n": 25
+  },
+  "mannKendall": {
+   "method": "Mann-Kendall (original, two-sided) with Sen's slope on annual values",
+   "senSlopePerDecade": -0.31984243508245425,
+   "tau": -0.35333333333333333,
+   "pValue": 0.014195743882660095,
+   "n": 25
+  },
+  "trendLines": {
+   "sen": [
+    {
+     "year": 2001,
+     "value": 28.1613722699105
+    },
+    {
+     "year": 2025,
+     "value": 27.39375042571261
+    }
+   ],
+   "ols": [
+    {
+     "year": 2001,
+     "value": 28.048747765099108
+    },
+    {
+     "year": 2025,
+     "value": 27.53924036941224
+    }
+   ]
+  },
+  "significance": {
+   "alpha": 0.05,
+   "status": "significant",
+   "direction": "decreasing",
+   "agreement": "both"
+  },
+  "interpretation": {
+   "headline": "Air temperature (2 m) decreased, and the trend is statistically significant",
+   "summary": "Air temperature (2 m) in Sahel decreased by about 0.32 °C per decade from 2001 to 2025 (Sen's slope). Along the trend line that is about −0.77 °C over the whole period. This trend is statistically significant (Mann-Kendall p = 0.01). The straight-line (OLS) t-test agrees.",
+   "caveats": [
+    "Linear trend only: a straight-line trend can hide changes that speed up, slow down or reverse.",
+    "Annual values can still be autocorrelated (one year influences the next), which can make p-values look smaller than they should.",
+    "A trend is not a cause: this tool shows what changed, not why.",
+    "Grid cells are about 0.5° × 0.625° (roughly 50 km or more across), so results describe the wider area, not a single field or town."
+   ]
+  },
+  "provenance": {
+   "datasetId": "M2TMNXSLV",
+   "datasetVersion": "5.12.4",
+   "missionOrModel": "MERRA-2 reanalysis (GMAO)",
+   "sourceUrl": "https://disc.gsfc.nasa.gov/datacollection/M2TMNXSLV_5.12.4.html",
+   "doi": "10.5067/AP1B0BA5PD2K",
+   "accessDate": "2026-11-15",
+   "processing": "K − 273.15 → °C; native 0.5° × 0.625° grid (no regridding); cos(lat)-weighted regional mean",
+   "nativeResolution": "0.5° × 0.625°",
+   "servedResolution": "0.5° × 0.625°",
+   "citation": "Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 tavgM_2d_slv_Nx: 2d,Monthly mean,Time-Averaged,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), doi:10.5067/AP1B0BA5PD2K"
+  },
+  "dataVersion": "2026-11-15.1"
+ }
+}

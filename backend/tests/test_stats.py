@@ -131,3 +131,68 @@ def test_interpretation_wording():
     assert "longer record" in out["summary"]
     for text in [out["headline"], out["summary"], *out["caveats"]]:
         assert "yield" not in text.lower()
+
+
+def _fake_ts(p, alpha=0.05):
+    from edt.stats.core import TrendStats
+
+    return TrendStats(
+        n=24,
+        alpha=alpha,
+        status="significant" if p < alpha else "not_significant",
+        direction="increasing",
+        agreement="both",
+        sen_per_year=1.0,
+        sen_intercept=0.0,
+        tau=0.3,
+        mk_p=p,
+        ols_per_year=1.0,
+        ols_intercept=0.0,
+        ols_ci_per_year=(0.5, 1.5),
+        ols_p=p,
+        r_squared=0.2,
+    )
+
+
+def _caveats(p, alpha=0.05):
+    out = interpret(
+        name="Rainfall",
+        region_name="Test",
+        annual_unit="mm/year",
+        start=2001,
+        end=2024,
+        ts=_fake_ts(p, alpha),
+        cell_size="0.5°",
+    )
+    return [c for c in out["caveats"] if "close to the significance threshold" in c]
+
+
+@pytest.mark.parametrize("p", [0.03, 0.045, 0.0499, 0.056, 0.07])
+def test_near_threshold_caveat_is_added_within_0_02_of_alpha(p):
+    got = _caveats(p)
+    assert len(got) == 1
+    assert "could change with a different area or grid" in got[0]
+
+
+@pytest.mark.parametrize("p", [0.001, 0.0299, 0.0701, 0.5])
+def test_no_near_threshold_caveat_far_from_alpha(p):
+    assert _caveats(p) == []
+
+
+def test_near_threshold_caveat_follows_alpha():
+    assert _caveats(0.12, alpha=0.1) and not _caveats(0.12, alpha=0.05)
+
+
+def test_no_near_threshold_caveat_when_insufficient_data():
+    y = np.full(YEARS.size, np.nan)
+    ts = trend_stats(YEARS, y)
+    out = interpret(
+        name="Rainfall",
+        region_name="Test",
+        annual_unit="mm/year",
+        start=2001,
+        end=2025,
+        ts=ts,
+        cell_size="0.5°",
+    )
+    assert not any("close to the significance" in c for c in out["caveats"])

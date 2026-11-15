@@ -1987,6 +1987,7 @@
    "headline": "Air temperature (2 m) increased, and the trend is statistically significant",
    "summary": "Air temperature (2 m) in Central Java increased by about 0.14 °C per decade from 2001 to 2025 (Sen's slope). Along the trend line that is about +0.34 °C over the whole period. This trend is statistically significant (Mann-Kendall p = 0.04). The straight-line (OLS) t-test agrees.",
    "caveats": [
+    "The Mann-Kendall p-value (p = 0.04) is close to the significance threshold (α = 0.05), so the verdict is borderline and could change with a different area or grid.",
     "Linear trend only: a straight-line trend can hide changes that speed up, slow down or reverse.",
     "Annual values can still be autocorrelated (one year influences the next), which can make p-values look smaller than they should.",
     "A trend is not a cause: this tool shows what changed, not why.",

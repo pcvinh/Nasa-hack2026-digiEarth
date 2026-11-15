@@ -328,3 +328,36 @@ def test_sessions_reject_large_state(client, contract):
     r = client.post("/api/v1/sessions", json={"title": "big", "state": {"x": "a" * 300_000}})
     assert r.status_code == 400 and r.json()["code"] == "invalid_input"
     contract.check("post", "/sessions", r)
+
+
+def test_api_adds_borderline_caveat_for_p_near_alpha(cubes, client, contract):
+    """A series built so the Mann-Kendall p lands near 0.05 gets the caveat via the API."""
+    import numpy as np
+    from synth import LAT, LON
+
+    from edt.pipeline import cube as cubemod
+
+    settings = cubes
+    g = cubemod.open_cube(settings.cube_dir / "air_temperature.zarr", "a")
+    # annual means: weak trend + noise tuned (seeded) so that 0.03 <= p <= 0.07
+    for seed in range(200):
+        rng = np.random.default_rng(seed)
+        annual = 20 + 0.03 * np.arange(25) + rng.normal(0, 0.25, 25)
+        from edt.stats.core import trend_stats
+
+        p = trend_stats(np.arange(2001, 2026), annual).mk_p
+        if 0.04 <= p <= 0.06:
+            break
+    else:
+        pytest.fail("no seed found")
+    arr = np.repeat(annual, 12)[:, None, None] * np.ones((300, LAT.size, LON.size))
+    arr[:, :, -2:] = np.nan
+    g["value"][:] = arr.astype("float32")
+    r = client.post(
+        "/api/v1/trends/analyze",
+        json={"variableId": "air_temperature", "region": {"presetId": "mekong-delta"}},
+    )
+    contract.check("post", "/trends/analyze", r)
+    d = r.json()
+    assert abs(d["mannKendall"]["pValue"] - 0.05) <= 0.02
+    assert any("close to the significance threshold" in c for c in d["interpretation"]["caveats"])

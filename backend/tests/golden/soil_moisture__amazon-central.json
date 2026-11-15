@@ -1987,6 +1987,7 @@
    "headline": "No clear change in topsoil moisture (0–10 cm): the trend is not statistically significant",
    "summary": "Topsoil moisture (0–10 cm) in Central Amazon changed by about −0.47 kg/m² per decade from 2001 to 2025 (Sen's slope). Along the trend line that is about −1.1 kg/m² over the whole period. This trend is not statistically significant (Mann-Kendall p = 0.06). A trend can become significant with a longer record. The straight-line (OLS) t-test is significant, but the more robust Mann-Kendall test is not, so the evidence is weak.",
    "caveats": [
+    "The Mann-Kendall p-value (p = 0.06) is close to the significance threshold (α = 0.05), so the verdict is borderline and could change with a different area or grid.",
     "Linear trend only: a straight-line trend can hide changes that speed up, slow down or reverse.",
     "Annual values can still be autocorrelated (one year influences the next), which can make p-values look smaller than they should.",
     "A trend is not a cause: this tool shows what changed, not why.",

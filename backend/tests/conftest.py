@@ -41,3 +41,12 @@ def cubes(settings):
     for vid in ("precipitation", "air_temperature", "soil_moisture", "ndvi"):
         make_cube(settings, vid, no_source_last=3 if vid == "precipitation" else 0)
     return settings
+
+
+@pytest.fixture(autouse=True)
+def _clear_analysis_cache():
+    from edt.trends import _CACHE
+
+    _CACHE.clear()
+    yield
+    _CACHE.clear()

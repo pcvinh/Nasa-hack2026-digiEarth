@@ -35,6 +35,15 @@ class CubeInfo:
             return None
         return self.months[idx[0]], self.months[idx[-1]]
 
+    @property
+    def last_complete_year(self) -> int | None:
+        """Last year whose 12 months are all present (derived from coverage.end)."""
+        cov = self.coverage
+        if cov is None:
+            return None
+        year, month = int(cov[1][:4]), int(cov[1][5:])
+        return year if month == 12 else year - 1
+
     def read(self, y0: int, y1: int, x0: int, x1: int) -> np.ndarray:
         g = cubemod.open_cube(self.path)
         return np.asarray(g["value"][:, y0:y1, x0:x1], dtype=np.float64)

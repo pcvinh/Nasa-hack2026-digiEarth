@@ -62,10 +62,13 @@ def test_analyze_preset_recovers_trend_and_validates(cubes, client, contract):
     d = r.json()
     assert d["region"]["representativeness"] == "area_mean"
     assert d["region"]["cellCount"] > 5
-    assert len(d["monthly"]) == 300 and len(d["annual"]) == 25
-    assert d["annual"][-1] == {"year": 2025, "value": None}  # 3 months without source
-    assert d["monthly"][-1]["value"] is None
+    # precipitation has no source for 2025-10..12 → default endYear is the last complete year
+    assert d["period"] == {"startYear": 2001, "endYear": 2024}
+    assert len(d["monthly"]) == 288 and len(d["annual"]) == 24
+    assert d["annual"][-1]["year"] == 2024 and d["annual"][-1]["value"] is not None
     assert d["mannKendall"]["n"] == 24
+    assert "2001 to 2024" in d["interpretation"]["summary"]
+    assert not any("No source data" in c for c in d["interpretation"]["caveats"])
     # annual sum of monthly values → slope per year = 12 × monthly slope
     assert d["mannKendall"]["senSlopePerDecade"] == pytest.approx(
         12 * TRUE_SLOPE_PER_YEAR * 10, rel=0.05
@@ -74,7 +77,36 @@ def test_analyze_preset_recovers_trend_and_validates(cubes, client, contract):
     assert d["significance"]["direction"] == "increasing"
     assert len(d["trendLines"]["sen"]) == 2
     assert d["dataStatus"] == "source_backed"
+
+
+def test_default_end_year_is_2025_for_complete_variable(cubes, client, contract):
+    r = client.post(
+        "/api/v1/trends/analyze",
+        json={"variableId": "air_temperature", "region": {"presetId": "mekong-delta"}},
+    )
+    contract.check("post", "/trends/analyze", r)
+    d = r.json()
+    assert d["period"] == {"startYear": 2001, "endYear": 2025}
+    assert d["annual"][-1]["year"] == 2025 and "2001 to 2025" in d["interpretation"]["summary"]
+
+
+def test_explicit_end_year_still_works_and_reports_missing_months(cubes, client, contract):
+    r = client.post("/api/v1/trends/analyze", json={**MEKONG, "endYear": 2025})
+    assert r.status_code == 200, r.text
+    contract.check("post", "/trends/analyze", r)
+    d = r.json()
+    assert d["period"]["endYear"] == 2025 and len(d["annual"]) == 25
+    assert d["annual"][-1] == {"year": 2025, "value": None}  # 3 months without source
+    assert d["monthly"][-1]["value"] is None
+    assert d["mannKendall"]["n"] == 24
     assert any("2025" in c for c in d["interpretation"]["caveats"])
+    assert any("No source data" in c for c in d["interpretation"]["caveats"])
+
+
+def test_default_end_year_must_be_after_start_year(cubes, client, contract):
+    r = client.post("/api/v1/trends/analyze", json={**MEKONG, "startYear": 2024})
+    assert r.status_code == 400 and r.json()["code"] == "invalid_input"
+    contract.check("post", "/trends/analyze", r)
 
 
 def test_analyze_bbox_point_and_dropped_cells(cubes, client, contract):

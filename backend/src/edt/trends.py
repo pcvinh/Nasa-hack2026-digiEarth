@@ -83,9 +83,11 @@ def analyze(settings: Settings, req: dict) -> dict:
         raise ApiError(
             400, "data_unavailable", reason or "Data unavailable.", {"variableId": var.id}
         )
-    start, end, alpha = int(req["startYear"]), int(req["endYear"]), float(req["alpha"])
     cov = info.coverage
     cy0, cy1 = int(cov[0][:4]), int(cov[1][:4])
+    start, alpha = int(req["startYear"]), float(req["alpha"])
+    # endYear omitted → the variable's last complete year (contract 0.2.1); explicit values win
+    end = int(req["endYear"]) if req.get("endYear") is not None else info.last_complete_year
     if not (cy0 <= start < end <= cy1):
         raise _bad(
             f"Years must satisfy {cy0} <= startYear < endYear <= {cy1} for {var['name']}.",

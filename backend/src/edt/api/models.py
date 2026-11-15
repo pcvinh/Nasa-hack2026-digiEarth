@@ -98,7 +98,7 @@ class TrendRequest(_In):
     variableId: str
     region: RegionInput
     startYear: int = 2001
-    endYear: int = 2025
+    endYear: int | None = None  # omitted = variable's last complete year
     alpha: float = Field(default=0.05, ge=0.001, le=0.2)
 
 

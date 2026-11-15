@@ -7,8 +7,8 @@ Branch `backend/p0` (worktree `DigiEarth-backend`). `DATA_ROOT=/path/to/DigiEart
 | Package | Status | Evidence |
 |---|---|---|
 | BE-01 scaffold | done | `uv run pytest` 6 passed; `uv run ruff check` clean; uvicorn serves `/api/v1/health` |
-| BE-02 data spike | not started | |
-| BE-03 stats | not started | |
+| BE-02 data spike | done | `uv run edt spike --variable all --month 2020-07` output below; all 4 downloads OK |
+| BE-03 stats | done | `tests/test_stats.py` (MK/Sen vs pymannkendall, BH vs statsmodels, CI contains slope) |
 | BE-04..BE-10 | not started | |
 
 ## Run
@@ -21,17 +21,27 @@ uv run pytest
 uv run ruff check .
 ```
 
-## Verified dataset facts
+## Verified dataset facts (BE-02, real files, 15 Nov 2026, spike month 2020-07)
 
-(filled by BE-02; real files win over ARCHITECTURE.md section 5.1)
+| Variable | Dataset (CMR) | Variable in file | Native unit / fill | Native grid (as stored) | Orientation | Served grid | Coverage at source (CMR) | File / download |
+|---|---|---|---|---|---|---|---|---|
+| precipitation | GPM_3IMERGM V07 (C2723754851-GES_DISC), DOI 10.5067/GPM/IMERG/3B-MONTH/07 | `Grid/precipitation` | mm/hr; `_FillValue` -9999.9 | (1, 3600, 1800), DimensionNames `time,lon,lat` | lat −89.95→89.95 asc, lon −179.95→179.95; transpose to lat×lon. Check: Jul 2020 India 75–85°E 20–25°N = 0.33 mm/hr vs Sahara 0–10°E = 0.009 mm/hr | 360×720, 0.5° (5×5 mean) | **2000-01 → 2025-09 only** (V07 is the only version in CMR) | 18.8 MB, ~6 s |
+| air_temperature | M2TMNXSLV 5.12.4 (C1276812859-GES_DISC), DOI 10.5067/AP1B0BA5PD2K | `T2M` | K; `_FillValue` 1e15 (none present) | (1, 361, 576) | lat −90→90 asc (pole rows are cell centres), lon −180→179.375 | native 361×576, 0.5°×0.625° | 1980-01 → 2026-09; streams MERRA2_200/300/400/401 | 78.8 MB, ~9 s |
+| soil_moisture | GLDAS_NOAH025_M 2.1 (C1342986036-GES_DISC), DOI 10.5067/SXAVCZFAQLNO | `SoilMoi0_10cm_inst` | kg m-2; `_FillValue` -9999 | (1, 600, 1440) | lat −59.875→89.875 asc, lon −179.875→179.875; land only (28% valid) | 300×720, 0.5° (2×2 mean), 60°S–90°N | 2000-01 → 2026-07 | 24.5 MB, ~6 s |
+| ndvi | MOD13C2 061 (C2565788914-LPCLOUD), DOI 10.5067/MODIS/MOD13C2.061 | SDS `CMG 0.05 Deg Monthly NDVI` (int16) | `scale_factor` 10000 (value = raw/10000), `valid_range` −2000..10000, `_FillValue` −3000 | (3600, 7200) | GCTP_GEO, upper-left (−180, 90): rows north→south; flipped to ascending | 360×720, 0.5° (10×10 mean) | 2000-02 → 2026-10 | 106 MB, ~9 s; pyhdf works on arm64 |
 
-Pre-observed before BE-02, to be re-confirmed in the spike: IMERG Grid/precipitation mm/hr, fill -9999.9,
-shape (1, 3600, 1800) = lon x lat; MOD13C2 CMG 0.05 Deg Monthly NDVI 3600x7200, scale 10000, fill -3000,
-readable with pyhdf.
+Served value ranges in the spike month: rainfall 0–2394 mm/month; T2M −65.7…41.5 °C; topsoil 2–100 kg/m²; NDVI −0.2…0.998.
+
+### Differences from ARCHITECTURE.md §5.1
+
+1. **Precipitation coverage ends 2025-09** (GPM_3IMERGM V07 has no granules after Sep 2025; no V08 in CMR). Months 2025-10..12 are stored as missing (status `no source`), so the 2025 annual value is `null` and default-period precipitation statistics use n = 24 years (2001–2024). Rainfall trend map period = 2001–2024. No data is filled in.
+2. MERRA-2 native grid includes pole-centred rows (lat ±90) and lon centres start at −180.0, so the served cell edges are lon −180.3125…179.6875 and lat −90.25…90.25. Trend-map PNG for air temperature uses those exact bounds clipped to ±90 latitude (pole rows dropped from the image only) — see maps note below.
+3. GLDAS covers 60°S–90°N only (served grid 300×720); Antarctica is absent, not zero.
+4. GES DISC CMR "landing page" links point to unrelated collections; `sourceUrl` uses the citation link (`disc.gsfc.nasa.gov/datacollection/...`) instead.
+5. MOD13C2 attribute `scale_factor` is 10000 and is a divisor (MODIS convention), matching the 0.0001 in §5.1.
 
 ## Deviations from the plan
 
-- `catalogue.py` holds only the four variable ids until BE-02 creates `catalogue.yaml` from verified facts.
 - Health `dataVersion` is `"uninitialised"` until the pipeline writes `manifest.json` with a `dataVersion` field.
 - Contract validation helper (`tests/contract.py`) uses openapi-core with a server prefix of `/api/v1`.
 

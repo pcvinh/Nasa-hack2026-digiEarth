@@ -1,0 +1,164 @@
+# Variable catalogue. Filled from facts verified in the BE-02 spike (real files, 15 Nov 2026),
+# not from the ARCHITECTURE.md table. Citations and DOIs are copied from the CMR collection records.
+
+cube:
+  start: "2001-01"   # first month stored in every cube
+  end: "2025-12"     # last month stored in every cube
+  defaultStartYear: 2001
+  defaultEndYear: 2025
+
+variables:
+  - id: precipitation
+    name: Rainfall
+    topic: water
+    shortDefinition: >-
+      How much rain (and melted snow) fell, added up over each month, measured as a depth of
+      water in millimetres.
+    whyItMatters: >-
+      Rainfall feeds rivers, crops and drinking water. Long-term changes can mean more droughts
+      or more floods.
+    unit: mm/month
+    annualUnit: mm/year
+    annualAggregation: sum
+    landOnly: false
+    palette: diverging_brown_green
+    decimals: 0
+    dataset:
+      datasetId: GPM_3IMERGM
+      datasetVersion: "07"
+      missionOrModel: GPM IMERG
+      shortName: GPM_3IMERGM
+      cmrVersion: "07"
+      sourceUrl: https://disc.gsfc.nasa.gov/datacollection/GPM_3IMERGM_07.html
+      doi: 10.5067/GPM/IMERG/3B-MONTH/07
+      citation: >-
+        Huffman, G.J.; Stocker, E.F.; Bolvin, D.T.; Nelkin, E.J.; Tan, J. (2023), GPM IMERG Final
+        Precipitation L3 1 month 0.1 degree x 0.1 degree V07, Greenbelt, MD, Goddard Earth Sciences
+        Data and Information Services Center (GES DISC), doi:10.5067/GPM/IMERG/3B-MONTH/07
+      reader: imerg
+      sourceVariable: Grid/precipitation
+      nativeUnit: mm/hr
+      nativeFill: -9999.9
+      nativeShape: [1, 3600, 1800]
+      nativeResolution: "0.1°"
+      servedResolution: "0.5°"
+      coarsenFactor: 5
+      processing: >-
+        mm/hr × hours in month → mm/month; 5×5 block mean 0.1°→0.5° (cell kept if ≥50% of
+        sub-cells valid); cos(lat)-weighted regional mean
+
+  - id: air_temperature
+    name: Air temperature (2 m)
+    topic: heat
+    shortDefinition: >-
+      The average temperature of the air about 2 metres above the ground (head height) for each
+      month, in degrees Celsius. It comes from a NASA model that combines many observations.
+    whyItMatters: >-
+      Air temperature affects heat stress for people, animals and crops, and how fast water
+      evaporates.
+    unit: °C
+    annualUnit: °C
+    annualAggregation: mean
+    landOnly: false
+    palette: diverging_blue_red
+    decimals: 2
+    dataset:
+      datasetId: M2TMNXSLV
+      datasetVersion: "5.12.4"
+      missionOrModel: MERRA-2 reanalysis (GMAO)
+      shortName: M2TMNXSLV
+      cmrVersion: "5.12.4"
+      sourceUrl: https://disc.gsfc.nasa.gov/datacollection/M2TMNXSLV_5.12.4.html
+      doi: 10.5067/AP1B0BA5PD2K
+      citation: >-
+        Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 tavgM_2d_slv_Nx: 2d,Monthly
+        mean,Time-Averaged,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt,
+        MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC),
+        doi:10.5067/AP1B0BA5PD2K
+      reader: merra2
+      sourceVariable: T2M
+      nativeUnit: K
+      nativeFill: 1.0e15
+      nativeShape: [1, 361, 576]
+      nativeResolution: "0.5° × 0.625°"
+      servedResolution: "0.5° × 0.625°"
+      coarsenFactor: 1
+      processing: >-
+        K − 273.15 → °C; native 0.5° × 0.625° grid (no regridding); cos(lat)-weighted regional mean
+
+  - id: soil_moisture
+    name: Topsoil moisture (0–10 cm)
+    topic: water
+    shortDefinition: >-
+      How much water is held in the top 10 cm of soil, as kilograms of water per square metre
+      (the same as millimetres of water). It comes from a NASA land model driven by observations.
+    whyItMatters: >-
+      Plants take water from the soil. Drier topsoil can stress crops and raise wildfire risk;
+      wetter soil can mean waterlogging.
+    unit: kg/m²
+    annualUnit: kg/m²
+    annualAggregation: mean
+    landOnly: true
+    palette: diverging_brown_green
+    decimals: 1
+    dataset:
+      datasetId: GLDAS_NOAH025_M
+      datasetVersion: "2.1"
+      missionOrModel: GLDAS Noah land surface model
+      shortName: GLDAS_NOAH025_M
+      cmrVersion: "2.1"
+      sourceUrl: https://disc.gsfc.nasa.gov/datacollection/GLDAS_NOAH025_M_2.1.html
+      doi: 10.5067/SXAVCZFAQLNO
+      citation: >-
+        Beaudoing, H. and M. Rodell, NASA/GSFC/HSL (2020), GLDAS Noah Land Surface Model L4
+        monthly 0.25 x 0.25 degree V2.1, Greenbelt, Maryland, USA, Goddard Earth Sciences Data and
+        Information Services Center (GES DISC), doi:10.5067/SXAVCZFAQLNO
+      reader: gldas
+      sourceVariable: SoilMoi0_10cm_inst
+      nativeUnit: kg m-2
+      nativeFill: -9999.0
+      nativeShape: [1, 600, 1440]
+      nativeResolution: "0.25°"
+      servedResolution: "0.5°"
+      coarsenFactor: 2
+      processing: >-
+        kg/m² (unchanged); 2×2 block mean 0.25°→0.5° (cell kept if ≥50% of sub-cells valid);
+        land only, 60°S–90°N; cos(lat)-weighted regional mean
+
+  - id: ndvi
+    name: Vegetation greenness (NDVI)
+    topic: vegetation
+    shortDefinition: >-
+      A satellite measure of how green and leafy the land is, from about −0.2 (water, bare rock)
+      to 1 (dense healthy plants). It has no unit.
+    whyItMatters: >-
+      Greener land usually means more growing plants. A falling trend can signal drought, land
+      clearing or degradation; a rising one can signal regrowth or more farming.
+    unit: NDVI
+    annualUnit: NDVI
+    annualAggregation: mean
+    landOnly: true
+    palette: diverging_brown_green
+    decimals: 3
+    dataset:
+      datasetId: MOD13C2
+      datasetVersion: "061"
+      missionOrModel: MODIS Terra
+      shortName: MOD13C2
+      cmrVersion: "061"
+      sourceUrl: https://doi.org/10.5067/MODIS/MOD13C2.061
+      doi: 10.5067/MODIS/MOD13C2.061
+      citation: >-
+        Didan, K. (2021), MODIS/Terra Vegetation Indices Monthly L3 Global 0.05Deg CMG V061,
+        NASA Land Processes Distributed Active Archive Center, doi:10.5067/MODIS/MOD13C2.061
+      reader: mod13c2
+      sourceVariable: CMG 0.05 Deg Monthly NDVI
+      nativeUnit: scaled integer (÷10000)
+      nativeFill: -3000
+      nativeShape: [3600, 7200]
+      nativeResolution: "0.05°"
+      servedResolution: "0.5°"
+      coarsenFactor: 10
+      processing: >-
+        raw ÷ 10000 (valid range −2000..10000, fill −3000); 10×10 block mean 0.05°→0.5° (cell kept
+        if ≥50% of sub-cells valid); cos(lat)-weighted regional mean

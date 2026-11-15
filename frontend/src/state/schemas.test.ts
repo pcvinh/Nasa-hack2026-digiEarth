@@ -40,3 +40,11 @@ describe('demo walkthrough text', () => {
     for (const d of DEMOS) expect(parseActions(d.steps.map((s) => s.action))).toHaveLength(d.steps.length);
   });
 });
+
+describe('default end year', () => {
+  it('accepts null (API default) and a legacy fixed end year', () => {
+    const base = { version: 1, variableId: null, region: null, startYear: 2001, showTrendMap: false, chartMode: 'annual', guideMessages: [] };
+    expect(sessionStateSchema.safeParse({ ...base, endYear: null }).success).toBe(true);
+    expect(sessionStateSchema.safeParse({ ...base, endYear: 2025 }).success).toBe(true);
+  });
+});

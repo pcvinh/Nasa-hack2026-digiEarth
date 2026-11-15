@@ -1,5 +1,5 @@
 import type { GuideRequest, GuideResponse, Session, SessionInput, TrendRequest } from '../types';
-import { REGIONS, VARIABLES, buildTrend, scenarioFor, trendMapFor } from './data';
+import { REGIONS, VARIABLES, buildTrend, lastCompleteYear, scenarioFor, trendMapFor } from './data';
 
 /** Record of every fixture request, so tests can count calls. */
 export const fixtureCalls: string[] = [];
@@ -22,7 +22,7 @@ function analyze(req: TrendRequest): Response {
   if (!variable) return err(400, 'invalid_input', 'Unknown variable');
   if (variable.status === 'unavailable') return err(400, 'data_unavailable', variable.unavailableReason ?? 'Unavailable');
   const { presetId, point, bbox } = req.region;
-  const start = req.startYear ?? 2001, end = req.endYear ?? 2025, alpha = req.alpha ?? 0.05;
+  const start = req.startYear ?? 2001, end = req.endYear ?? lastCompleteYear(variable), alpha = req.alpha ?? 0.05;
   if (presetId) {
     const r = REGIONS.find((x) => x.id === presetId);
     if (!r) return err(404, 'not_found', 'Unknown region');

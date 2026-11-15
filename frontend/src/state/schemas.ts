@@ -43,7 +43,7 @@ export const sessionStateSchema = z.object({
   variableId: z.string().nullable(),
   region: regionInputSchema.nullable(),
   startYear: z.number().int(),
-  endYear: z.number().int(),
+  endYear: z.number().int().nullable(),
   showTrendMap: z.boolean(),
   chartMode: z.enum(['annual', 'monthly', 'anomaly']),
   camera: z.object({ lon: z.number(), lat: z.number(), height: z.number() }).optional(),

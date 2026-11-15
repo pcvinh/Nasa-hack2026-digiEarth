@@ -54,3 +54,13 @@ describe('analysis requests', () => {
     expect(await screen.findByTestId('verdict')).toBeInTheDocument();
   });
 });
+
+describe('default period', () => {
+  it('omits endYear from the request and shows the API period (rainfall ends before 2025)', async () => {
+    mount();
+    act(() => { useStore.getState().setRegion({ presetId: 'sahel' }); useStore.getState().setVariable('precipitation'); });
+    expect(useStore.getState().endYear).toBeNull();
+    await screen.findByTestId('verdict');
+    expect(screen.getByText(/2001–2024/)).toBeInTheDocument();
+  });
+});

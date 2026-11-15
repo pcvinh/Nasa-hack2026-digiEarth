@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 import pytest
 
 MEKONG = {"variableId": "precipitation", "region": {"presetId": "mekong-delta"}}
@@ -137,16 +139,49 @@ def test_analyze_bbox_point_and_dropped_cells(cubes, client, contract):
     assert len(d["annual"]) == 16
 
 
-def test_analyze_point_in_always_missing_cell_is_insufficient(cubes, client, contract):
+def test_point_in_always_missing_cell_is_data_unavailable(cubes, client, contract):
     r = client.post(
-        "/api/v1/trends/analyze", json={"variableId": "ndvi", "region": {"point": [109.9, 10.0]}}
+        "/api/v1/trends/analyze",
+        json={"variableId": "ndvi", "region": {"point": [109.9, 10.0]}},
     )
+    assert r.status_code == 400, r.text
     contract.check("post", "/trends/analyze", r)
     d = r.json()
-    assert d["significance"]["status"] == "insufficient_data"
-    assert d["trendLines"] == {"sen": [], "ols": []}
-    assert all(m["value"] is None for m in d["monthly"])
-    assert d["totalChange"]["value"] is None
+    assert d["code"] == "data_unavailable"
+    assert "no valid data for this point" in d["error"] and "land-only" in d["error"]
+
+
+def test_bbox_with_no_valid_cells_is_data_unavailable(cubes, client, contract):
+    # synthetic cubes have an always-missing strip at the two easternmost columns (109.25–110°E)
+    r = client.post(
+        "/api/v1/trends/analyze",
+        json={"variableId": "ndvi", "region": {"bbox": [109.3, 8.0, 109.9, 12.0]}},
+    )
+    assert r.status_code == 400 and r.json()["code"] == "data_unavailable"
+    assert "region" in r.json()["error"]
+    contract.check("post", "/trends/analyze", r)
+
+
+@pytest.mark.skipif(not os.environ.get("DATA_ROOT"), reason="needs the real data")
+@pytest.mark.parametrize(
+    "variable,region",
+    [
+        ("ndvi", {"point": [0.0, 0.0]}),
+        ("soil_moisture", {"point": [-30.0, 0.0]}),
+        ("ndvi", {"bbox": [-30.0, -10.0, -20.0, 0.0]}),
+    ],
+)
+def test_real_ocean_is_data_unavailable_not_cellcount_zero(contract, variable, region):
+    from fastapi.testclient import TestClient
+
+    from edt.api.app import create_app
+    from edt.config import load_settings
+
+    c = TestClient(create_app(load_settings()))
+    r = c.post("/api/v1/trends/analyze", json={"variableId": variable, "region": region})
+    assert r.status_code == 400, r.text
+    assert r.json()["code"] == "data_unavailable"
+    contract.check("post", "/trends/analyze", r)
 
 
 def test_short_period_is_insufficient(cubes, client, contract):
@@ -176,7 +211,7 @@ def test_short_period_is_insufficient(cubes, client, contract):
             "invalid_input",
             400,
         ),
-        ({"variableId": "precipitation", "region": {"point": [105, 60]}}, "invalid_input", 400),
+        ({"variableId": "precipitation", "region": {"point": [105, 60]}}, "data_unavailable", 400),
         ({**MEKONG, "alpha": 0.5}, "invalid_input", 400),
         ({"region": {"presetId": "mekong-delta"}}, "invalid_input", 400),
     ],

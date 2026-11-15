@@ -116,7 +116,7 @@ def analyze(settings: Settings, req: dict) -> dict:
     if ncell == 0:
         what = "point" if sel.representativeness == "single_cell" else "region"
         land = (
-            " It is a land-only variable, so ocean and ice-free sea have no values."
+            " It is a land-only variable, so oceans and open water have no values."
             if (var["landOnly"])
             else ""
         )

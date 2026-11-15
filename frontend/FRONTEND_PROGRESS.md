@@ -38,7 +38,18 @@ Branch `frontend/p0` · worktree `../DigiEarth-frontend` · contract v0.2.0
 
 ## Notes
 - TypeScript pinned to 5.9: TS 7 conflicts with typescript-eslint and openapi-typescript peers.
-- `npm audit` shows advisories in dev dependencies; not triaged.
+- `npm audit`: see the fixes round table (triaged).
 - Guide drawer starts closed so the globe has room at 1440 px wide.
-- Cesium's default "ion" credit logo still shows although no ion assets are used.
 - Fixture numbers are synthetic and shown only under the SAMPLE banner.
+
+## Fixes round (branch `frontend/fixes`, contract 0.2.1)
+| # | Status | Notes |
+|---|---|---|
+| 1 | done | Types regenerated. `endYear` is omitted unless set (store `endYear: null`); the period shown comes from the API result. Saved sessions with a fixed endYear still load. Fixtures derive the last complete year from `coverage.end` |
+| 2 | done | `ApiError` carries the API message and code; 400s are not retried; no cell is drawn on error |
+| 3 | done | Legend uses `legend.colorStops` when present, else the palette name |
+| 4 | done | Overlay bounds clamped to the globe; legend notes a clamped west edge |
+| 5 | pending | Needs the backend on :8000 (not running at the time of writing) |
+| 6 | done | ion logo hidden with CSS; GIBS credit set to show on screen |
+| 7 | pending | Screenshots, after 5 |
+| 8 | done | `npm audit`: 0 vulnerabilities in production dependencies; 7 moderate, all dev-only (minimatch DoS advisory GHSA-g3hv-75wg-m249 inside typescript-eslint tooling), not shipped and only reachable through lint globs, so accepted; revisit when typescript-eslint releases a fix |

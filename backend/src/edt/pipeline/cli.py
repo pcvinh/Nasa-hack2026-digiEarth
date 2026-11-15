@@ -38,6 +38,7 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("manifest")
     sub.add_parser("golden")
     sub.add_parser("regions")
+    sub.add_parser("crosscheck-sahel")
     cc = sub.add_parser("crosscheck")
     cc.add_argument("--giovanni-csv", help="Giovanni area-averaged CSV (omit for native check)")
     a = p.parse_args(sys.argv[1:] if argv is None else argv)
@@ -73,6 +74,12 @@ def main(argv: list[str] | None = None) -> int:
         from edt.golden import write_golden
 
         write_golden(settings)
+    elif a.cmd == "crosscheck-sahel":
+        from edt.pipeline.crosscheck import sahel_gldas_check
+
+        vdir = settings.data_root / "validation"
+        vdir.mkdir(parents=True, exist_ok=True)
+        print(json.dumps(sahel_gldas_check(settings, vdir / "sahel_temp_gldas.json"), indent=1))
     elif a.cmd == "crosscheck":
         from edt.pipeline.crosscheck import giovanni_check, native_check
         from edt.regions.select import presets

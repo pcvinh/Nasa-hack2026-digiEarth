@@ -109,3 +109,22 @@ def test_ndvi_scale_fill_and_north_up_flip(tmp_path):
     assert a[0, 1] == pytest.approx(1.0)
     assert a[1, 0] == pytest.approx(0.5)
     assert np.isnan(a[1, 1])  # fill
+
+
+def test_gldas_tair_box_mean_uses_cos_lat_weights_and_skips_fill(tmp_path):
+    import netCDF4
+
+    from edt.pipeline.crosscheck import _gldas_tair_box_month
+
+    p = tmp_path / "g.nc4"
+    with netCDF4.Dataset(p, "w") as n:
+        n.createDimension("time", 1)
+        n.createDimension("lat", 3)
+        n.createDimension("lon", 2)
+        n.createVariable("lat", "f8", ("lat",))[:] = [0.0, 60.0, 80.0]
+        n.createVariable("lon", "f8", ("lon",))[:] = [10.0, 11.0]
+        v = n.createVariable("Tair_f_inst", "f4", ("time", "lat", "lon"), fill_value=-9999.0)
+        v[:] = np.array([[[274.15, 274.15], [276.15, -9999.0], [290.0, 290.0]]], dtype=np.float32)
+    # box covers lat 0..60 only; weights 1 (two cells at 1°C) and 0.5 (one valid cell at 3°C)
+    got = _gldas_tair_box_month(p, [10.0, 0.0, 11.0, 60.0])
+    assert got == pytest.approx((1 * 1 + 1 * 1 + 0.5 * 3) / 2.5, abs=1e-4)

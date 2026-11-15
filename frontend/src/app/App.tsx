@@ -58,6 +58,12 @@ function GlobeContainer() {
     if (region && 'point' in region) return [region.point[0] - 2, region.point[1] - 2, region.point[0] + 2, region.point[1] + 2];
     return null;
   }, [reg.data, region]);
+  // Draw the cell only when the API returns a real extent. For a point with a zero-size bbox, mark the
+  // clicked location instead; the frontend does not guess grid-cell edges.
+  const bb = query.data?.region.bbox;
+  const hasExtent = !!bb && bb[2]! > bb[0]! && bb[3]! > bb[1]!;
+  const cellBox = hasExtent ? asBBox(bb) : null;
+  const markerAt: LonLat | null = bb && !hasExtent ? [bb[0]!, bb[1]!] : null;
   const overlay = useMemo(() => (showTrendMap && map.data ? { url: map.data.imageUrl, bounds: clampBounds(asBBox(map.data.bounds)) } : null), [showTrendMap, map.data]);
   const onPick = (p: LonLat) => {
     setRegion({ point: p });
@@ -67,7 +73,8 @@ function GlobeContainer() {
   return (
     <>
       <Suspense fallback={<div style={{ color: '#fff', padding: 16 }}>Loading globe…</div>}>
-        <GlobeView outline={reg.data?.geometry ?? null} cell={query.data && query.data.region.bbox[2]! > query.data.region.bbox[0]! ? asBBox(query.data.region.bbox) : null}
+        <GlobeView outline={reg.data?.geometry ?? null} cell={cellBox}
+          marker={markerAt}
           flyTo={flyTo} overlay={overlay} pickMode={pickMode} onPick={onPick} />
       </Suspense>
       {showTrendMap && map.data && <Legend map={map.data} />}

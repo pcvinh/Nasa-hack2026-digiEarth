@@ -7,6 +7,7 @@ import styles from './GlobeView.module.css';
 export interface GlobeProps {
   outline: object | null;        // GeoJSON geometry (preset region)
   cell: BBox | null;             // bbox of the analysed cell/region (result)
+  marker?: LonLat | null;        // clicked point, drawn when the API gives no cell extent
   flyTo: BBox | null;
   overlay: { url: string; bounds: BBox } | null;
   pickMode: boolean;
@@ -91,7 +92,11 @@ export default function GlobeView(props: GlobeProps) {
       ds.entities.add({ rectangle: { coordinates: ring(props.cell), material: Cesium.Color.YELLOW.withAlpha(0.15),
         outline: true, outlineColor: Cesium.Color.YELLOW, height: 0 } });
     }
-  }, [props.outline, props.cell]);
+    if (props.marker) {
+      ds.entities.add({ position: Cesium.Cartesian3.fromDegrees(props.marker[0], props.marker[1]),
+        point: { pixelSize: 12, color: Cesium.Color.YELLOW.withAlpha(0.3), outlineColor: Cesium.Color.YELLOW, outlineWidth: 3 } });
+    }
+  }, [props.outline, props.cell, props.marker]);
 
   useEffect(() => {
     const v = viewer.current;

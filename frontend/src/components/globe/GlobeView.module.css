@@ -1,0 +1,3 @@
+.host { position: absolute; inset: 0; }
+.host[data-pick='true'] { cursor: crosshair; }
+.host :global(.cesium-viewer-bottom) { font-size: 11px; }

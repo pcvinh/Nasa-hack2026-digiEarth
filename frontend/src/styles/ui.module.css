@@ -1,0 +1,43 @@
+.h2 { font-size: 18px; margin: 0 0 4px; }
+.sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+.cards { display: grid; gap: 8px; }
+.pick { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; color: var(--ink); }
+.pick:hover:not(:disabled) { background: var(--blue-sel); }
+.pick[aria-pressed='true'] { border-color: var(--blue); background: var(--blue-sel); }
+.pick:disabled { opacity: 0.55; cursor: not-allowed; }
+.pickName { font-weight: 700; display: block; }
+.pickDesc { color: var(--muted); font-size: 13px; }
+.badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--blue-sel); color: var(--blue-dark); border: 1px solid var(--blue); margin-right: 6px; }
+.badgeSample { composes: badge; background: #fee4e2; color: #b42318; border-color: #b42318; }
+.btn { background: var(--blue); color: #fff; border: 0; border-radius: 8px; padding: 8px 14px; font-weight: 600; }
+.btn:hover:not(:disabled) { background: var(--blue-dark); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btnGhost { background: var(--surface); color: var(--blue); border: 1px solid var(--blue); border-radius: 8px; padding: 8px 14px; font-weight: 600; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.big { font-size: 26px; font-weight: 800; line-height: 1.1; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0; }
+.stat small { display: block; color: var(--muted); font-size: 12px; }
+.notice { background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink); border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; font-size: 14px; }
+.error { background: #fef3f2; border: 1px solid #b42318; color: #7a271a; border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; font-size: 14px; }
+.input { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+.chat { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.msgUser { align-self: flex-end; background: var(--blue); color: #fff; border-radius: 12px 12px 2px 12px; padding: 8px 12px; max-width: 90%; }
+.msgGuide { align-self: flex-start; background: var(--blue-sel); border-radius: 12px 12px 12px 2px; padding: 8px 12px; max-width: 95%; }
+.chip { background: var(--surface); border: 1px solid var(--blue); color: var(--blue); border-radius: 999px; padding: 4px 10px; font-size: 13px; margin: 4px 4px 0 0; }
+.legend { position: absolute; right: 12px; bottom: 36px; background: rgba(255, 255, 255, 0.94); border-radius: 10px; padding: 10px 12px; width: 260px; font-size: 12px; box-shadow: var(--shadow); z-index: 5; }
+.gradBrownGreen { height: 10px; border-radius: 5px; background: linear-gradient(90deg, #8c510a, #f5f5f5, #01665e); }
+.gradBlueRed { height: 10px; border-radius: 5px; background: linear-gradient(90deg, #2166ac, #f7f7f7, #b2182b); }
+.legendScale { display: flex; justify-content: space-between; margin-top: 2px; }
+.demoCard { position: absolute; left: 12px; bottom: 36px; width: 340px; background: #fff; border-radius: 12px; box-shadow: var(--shadow); padding: 12px 14px; z-index: 6; }
+.overlay { position: absolute; inset: 0; background: rgba(7, 47, 114, 0.35); display: flex; align-items: center; justify-content: center; z-index: 20; }
+.modal { background: var(--surface); border-radius: 14px; width: min(760px, 92vw); max-height: 86vh; overflow: auto; padding: 20px; box-shadow: var(--shadow); }
+.tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+.tab { border: 1px solid var(--line); background: var(--surface); padding: 4px 10px; border-radius: 8px; font-size: 13px; }
+.tab[aria-pressed='true'] { background: var(--blue); color: #fff; border-color: var(--blue); }
+.list { margin: 4px 0 0; padding-left: 18px; font-size: 13px; }
+.sourceTxt { font-size: 13px; color: var(--muted); }
+.topSearch { position: relative; width: 260px; }
+.dropdown { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); z-index: 30; max-height: 260px; overflow: auto; }
+.dropdown button { display: block; width: 100%; text-align: left; background: none; border: 0; padding: 8px 10px; }
+.dropdown button:hover { background: var(--blue-sel); }

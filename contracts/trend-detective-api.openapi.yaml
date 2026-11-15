@@ -1,0 +1,615 @@
+openapi: 3.0.3
+info:
+  title: Earth Digital Twin — Trend Detective API
+  version: 0.2.0
+  description: >-
+    The only interface between the Frontend and the Backend + Data sessions.
+    Owned by the Solution Architect; change requests go to contracts/CHANGE-REQUESTS.md.
+
+    Conventions:
+    - Coordinates are GeoJSON order [longitude, latitude], WGS84.
+    - Months are 'YYYY-MM' (UTC); years are integers.
+    - Missing values are null, never 0.
+    - Every numeric result carries dataStatus, unit and provenance.
+    - dataStatus 'source_backed' means processed from a cited NASA source; it does not mean a
+      hypothesis or cause has been validated.
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local backend
+  - url: /api/v1
+    description: Through the Vite dev proxy
+tags:
+  - name: system
+  - name: catalogue
+  - name: trends
+  - name: guide
+  - name: sessions
+
+paths:
+  /health:
+    get:
+      tags: [system]
+      operationId: getHealth
+      responses:
+        '200':
+          description: API status and per-variable data readiness
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Health'}
+
+  /variables:
+    get:
+      tags: [catalogue]
+      operationId: listVariables
+      parameters:
+        - in: query
+          name: topic
+          required: false
+          schema: {$ref: '#/components/schemas/Topic'}
+      responses:
+        '200':
+          description: Variable catalogue, including unavailable entries with a reason
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items: {$ref: '#/components/schemas/Variable'}
+
+  /regions:
+    get:
+      tags: [catalogue]
+      operationId: listRegions
+      parameters:
+        - in: query
+          name: q
+          required: false
+          description: Case-insensitive match on name or country
+          schema: {type: string}
+      responses:
+        '200':
+          description: Preset regions
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items: {$ref: '#/components/schemas/Region'}
+
+  /regions/{regionId}:
+    get:
+      tags: [catalogue]
+      operationId: getRegion
+      parameters:
+        - in: path
+          name: regionId
+          required: true
+          schema: {type: string, example: mekong-delta}
+      responses:
+        '200':
+          description: One preset region with geometry
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Region'}
+        '404': {$ref: '#/components/responses/NotFound'}
+
+  /trends/analyze:
+    post:
+      tags: [trends]
+      operationId: analyzeTrend
+      description: >-
+        Time series + trend statistics for one variable over one region (preset, bounding box or
+        point). Deterministic for a given input and dataVersion.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/TrendRequest'}
+      responses:
+        '200':
+          description: Trend result (may have significance.status = insufficient_data)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TrendResult'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '404': {$ref: '#/components/responses/NotFound'}
+
+  /trend-maps/{variableId}:
+    get:
+      tags: [trends]
+      operationId: getTrendMap
+      description: Metadata and legend for the pre-computed global trend map (default period only in P0)
+      parameters:
+        - in: path
+          name: variableId
+          required: true
+          schema: {type: string, example: precipitation}
+      responses:
+        '200':
+          description: Trend map metadata
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TrendMap'}
+        '404': {$ref: '#/components/responses/NotFound'}
+
+  /trend-maps/{variableId}/image.png:
+    get:
+      tags: [trends]
+      operationId: getTrendMapImage
+      description: >-
+        Global equirectangular PNG, west→east from -180, north→south from 90, one pixel per grid
+        cell. Transparent where data is missing. Non-significant cells (after FDR) are drawn
+        faded. Render with nearest-neighbour filtering.
+      parameters:
+        - in: path
+          name: variableId
+          required: true
+          schema: {type: string}
+      responses:
+        '200':
+          description: PNG image
+          content:
+            image/png:
+              schema: {type: string, format: binary}
+        '404': {$ref: '#/components/responses/NotFound'}
+
+  /guide/chat:
+    post:
+      tags: [guide]
+      operationId: guideChat
+      description: >-
+        Detective Guide. Suggests catalogue variables for a region or question and returns
+        whitelisted UI actions. Never returns numbers that were not computed by /trends/analyze.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/GuideRequest'}
+      responses:
+        '200':
+          description: Guide reply
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/GuideResponse'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+
+  /sessions:
+    get:
+      tags: [sessions]
+      operationId: listSessions
+      responses:
+        '200':
+          description: Saved sessions, newest first (local single-user)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items: {$ref: '#/components/schemas/SessionSummary'}
+    post:
+      tags: [sessions]
+      operationId: createSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/SessionInput'}
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Session'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+
+  /sessions/{sessionId}:
+    get:
+      tags: [sessions]
+      operationId: getSession
+      parameters:
+        - {in: path, name: sessionId, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: Saved session
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Session'}
+        '404': {$ref: '#/components/responses/NotFound'}
+    put:
+      tags: [sessions]
+      operationId: updateSession
+      parameters:
+        - {in: path, name: sessionId, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/SessionInput'}
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Session'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '404': {$ref: '#/components/responses/NotFound'}
+
+components:
+  responses:
+    BadRequest:
+      description: Invalid input (unknown variable, bad period, region outside data coverage, etc.)
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+
+  schemas:
+    Error:
+      type: object
+      required: [error, code]
+      properties:
+        error: {type: string, description: Human-readable message}
+        code:
+          type: string
+          enum: [invalid_input, not_found, data_unavailable, internal_error]
+        details: {type: object, additionalProperties: true}
+
+    DataStatus:
+      type: string
+      enum: [source_backed, sample, unavailable]
+
+    Topic:
+      type: string
+      enum: [water, heat, vegetation, air_quality]
+
+    LonLat:
+      type: array
+      description: '[longitude, latitude]'
+      minItems: 2
+      maxItems: 2
+      items: {type: number}
+
+    BBox:
+      type: array
+      description: '[west, south, east, north] in degrees'
+      minItems: 4
+      maxItems: 4
+      items: {type: number}
+
+    Provenance:
+      type: object
+      required: [datasetId, datasetVersion, missionOrModel, sourceUrl, accessDate, processing, nativeResolution, servedResolution, citation]
+      properties:
+        datasetId: {type: string, example: GPM_3IMERGM}
+        datasetVersion: {type: string, example: '07'}
+        missionOrModel: {type: string, example: 'GPM IMERG'}
+        sourceUrl: {type: string, format: uri}
+        doi: {type: string, nullable: true}
+        accessDate: {type: string, format: date}
+        processing:
+          type: string
+          example: 'mm/hr × hours in month → mm/month; 5×5 block mean 0.1°→0.5°; cos(lat)-weighted regional mean'
+        nativeResolution: {type: string, example: '0.1°'}
+        servedResolution: {type: string, example: '0.5°'}
+        citation: {type: string}
+
+    Variable:
+      type: object
+      required: [id, name, topic, shortDefinition, whyItMatters, unit, annualUnit, annualAggregation, coverage, status, provenance]
+      properties:
+        id: {type: string, example: precipitation}
+        name: {type: string, example: Rainfall}
+        topic: {$ref: '#/components/schemas/Topic'}
+        shortDefinition:
+          type: string
+          description: One or two sentences for a high-school reader
+        whyItMatters: {type: string}
+        unit: {type: string, description: Monthly value unit, example: mm/month}
+        annualUnit: {type: string, example: mm/year}
+        annualAggregation: {type: string, enum: [mean, sum]}
+        coverage:
+          type: object
+          required: [start, end]
+          properties:
+            start: {type: string, example: '2001-01'}
+            end: {type: string, example: '2025-12'}
+            landOnly: {type: boolean, default: false}
+        status: {$ref: '#/components/schemas/DataStatus'}
+        unavailableReason: {type: string, nullable: true}
+        provenance: {$ref: '#/components/schemas/Provenance'}
+
+    Region:
+      type: object
+      required: [id, name, regionType, description, center, bbox, geometry, geometrySource, suggestedVariableIds]
+      properties:
+        id: {type: string, example: mekong-delta}
+        name: {type: string, example: Mekong Delta}
+        country: {type: string, nullable: true, example: Vietnam}
+        regionType:
+          type: string
+          enum: [river_delta, rainforest, desert_edge, agricultural, megacity, other]
+        description: {type: string}
+        center: {$ref: '#/components/schemas/LonLat'}
+        bbox: {$ref: '#/components/schemas/BBox'}
+        geometry:
+          type: object
+          description: GeoJSON Polygon or MultiPolygon
+          additionalProperties: true
+        geometrySource: {type: string, description: 'Origin, licence and date of the boundary'}
+        suggestedVariableIds:
+          type: array
+          items: {type: string}
+
+    RegionInput:
+      type: object
+      description: Exactly one of presetId, bbox or point
+      properties:
+        presetId: {type: string, example: mekong-delta}
+        bbox: {$ref: '#/components/schemas/BBox'}
+        point: {$ref: '#/components/schemas/LonLat'}
+
+    TrendRequest:
+      type: object
+      required: [variableId, region]
+      properties:
+        variableId: {type: string, example: precipitation}
+        region: {$ref: '#/components/schemas/RegionInput'}
+        startYear: {type: integer, default: 2001, example: 2001}
+        endYear: {type: integer, default: 2025, example: 2025}
+        alpha: {type: number, default: 0.05, minimum: 0.001, maximum: 0.2}
+
+    ResolvedRegion:
+      type: object
+      required: [name, bbox, representativeness, cellCount]
+      properties:
+        presetId: {type: string, nullable: true}
+        name: {type: string, example: 'Mekong Delta'}
+        bbox: {$ref: '#/components/schemas/BBox'}
+        representativeness: {type: string, enum: [area_mean, single_cell]}
+        cellCount: {type: integer, description: Grid cells averaged}
+        cellSize: {type: string, example: '0.5°'}
+
+    MonthlyPoint:
+      type: object
+      required: [time, value, anomaly]
+      properties:
+        time: {type: string, example: '2024-06'}
+        value: {type: number, nullable: true}
+        anomaly: {type: number, nullable: true, description: Value minus same-month mean over the analysis period}
+        validCellFraction: {type: number, nullable: true}
+
+    AnnualPoint:
+      type: object
+      required: [year, value]
+      properties:
+        year: {type: integer}
+        value: {type: number, nullable: true, description: null if any month of the year is missing}
+
+    LinearTrend:
+      type: object
+      required: [method, slopePerDecade, ci95, pValue, n]
+      properties:
+        method: {type: string, example: 'OLS on annual values; two-sided t-test'}
+        slopePerDecade: {type: number, nullable: true}
+        ci95:
+          type: array
+          nullable: true
+          minItems: 2
+          maxItems: 2
+          items: {type: number}
+        pValue: {type: number, nullable: true}
+        rSquared: {type: number, nullable: true}
+        n: {type: integer}
+
+    MannKendallTrend:
+      type: object
+      required: [method, senSlopePerDecade, tau, pValue, n]
+      properties:
+        method: {type: string, example: "Mann-Kendall (original, two-sided) with Sen's slope on annual values"}
+        senSlopePerDecade: {type: number, nullable: true}
+        tau: {type: number, nullable: true}
+        pValue: {type: number, nullable: true}
+        n: {type: integer}
+
+    Significance:
+      type: object
+      required: [alpha, status, direction, agreement]
+      properties:
+        alpha: {type: number, example: 0.05}
+        status:
+          type: string
+          enum: [significant, not_significant, insufficient_data]
+          description: Based on the Mann-Kendall p-value
+        direction:
+          type: string
+          enum: [increasing, decreasing, no_change]
+          description: Sign of Sen's slope, reported even when not significant
+        agreement:
+          type: string
+          enum: [both, mann_kendall_only, ols_only, neither]
+
+    Interpretation:
+      type: object
+      required: [headline, summary, caveats]
+      properties:
+        headline: {type: string, example: 'Rainfall increased, and the trend is statistically significant'}
+        summary: {type: string}
+        caveats:
+          type: array
+          items: {type: string}
+
+    TrendResult:
+      type: object
+      required: [variableId, region, period, unit, annualUnit, dataStatus, monthly, annual, totalChange, linear, mannKendall, trendLines, significance, interpretation, provenance, dataVersion]
+      properties:
+        variableId: {type: string}
+        region: {$ref: '#/components/schemas/ResolvedRegion'}
+        period:
+          type: object
+          required: [startYear, endYear]
+          properties:
+            startYear: {type: integer}
+            endYear: {type: integer}
+        unit: {type: string, example: mm/month}
+        annualUnit: {type: string, example: mm/year}
+        dataStatus: {$ref: '#/components/schemas/DataStatus'}
+        monthly:
+          type: array
+          items: {$ref: '#/components/schemas/MonthlyPoint'}
+        annual:
+          type: array
+          items: {$ref: '#/components/schemas/AnnualPoint'}
+        totalChange:
+          type: object
+          required: [value, unit]
+          description: Sen's slope per year × (endYear − startYear), i.e. change along the fitted line over the period
+          properties:
+            value: {type: number, nullable: true}
+            unit: {type: string, example: mm/year}
+        linear: {$ref: '#/components/schemas/LinearTrend'}
+        mannKendall: {$ref: '#/components/schemas/MannKendallTrend'}
+        trendLines:
+          type: object
+          description: >-
+            End points of the fitted lines for drawing on the annual chart (startYear and endYear).
+            Empty arrays when significance.status = insufficient_data.
+          required: [sen, ols]
+          properties:
+            sen:
+              type: array
+              maxItems: 2
+              items: {$ref: '#/components/schemas/AnnualPoint'}
+            ols:
+              type: array
+              maxItems: 2
+              items: {$ref: '#/components/schemas/AnnualPoint'}
+        significance: {$ref: '#/components/schemas/Significance'}
+        interpretation: {$ref: '#/components/schemas/Interpretation'}
+        provenance: {$ref: '#/components/schemas/Provenance'}
+        dataVersion: {type: string}
+
+    TrendMap:
+      type: object
+      required: [variableId, period, imageUrl, bounds, cellSize, legend, method, dataStatus, provenance]
+      properties:
+        variableId: {type: string}
+        period:
+          type: object
+          required: [startYear, endYear]
+          properties:
+            startYear: {type: integer}
+            endYear: {type: integer}
+        imageUrl: {type: string, example: /api/v1/trend-maps/precipitation/image.png}
+        bounds: {$ref: '#/components/schemas/BBox'}
+        cellSize: {type: string, example: '0.5°'}
+        legend:
+          type: object
+          required: [min, max, unit, palette, fadedMeaning]
+          properties:
+            min: {type: number}
+            max: {type: number}
+            unit: {type: string, example: 'mm/year per decade'}
+            palette: {type: string, enum: [diverging_brown_green, diverging_blue_red]}
+            fadedMeaning: {type: string, example: 'Not significant after FDR correction (q = 0.05)'}
+        method: {type: string, example: "Per-cell Sen's slope; Mann-Kendall p; Benjamini-Hochberg FDR q = 0.05"}
+        dataStatus: {$ref: '#/components/schemas/DataStatus'}
+        provenance: {$ref: '#/components/schemas/Provenance'}
+
+    GuideAction:
+      type: object
+      required: [type, payload]
+      description: Whitelisted UI action; the frontend ignores any other type
+      properties:
+        type:
+          type: string
+          enum: [select_variable, select_region, run_analysis, show_trend_map]
+        payload:
+          type: object
+          description: >-
+            select_variable {variableId}; select_region {presetId} or {point};
+            run_analysis {variableId, region}; show_trend_map {variableId}
+          additionalProperties: true
+
+    GuideRequest:
+      type: object
+      required: [message]
+      properties:
+        message: {type: string, minLength: 1, maxLength: 1000}
+        regionId: {type: string, nullable: true}
+        variableId: {type: string, nullable: true}
+        topic: {$ref: '#/components/schemas/Topic'}
+
+    GuideResponse:
+      type: object
+      required: [reply, suggestions, actions, mode]
+      properties:
+        reply: {type: string}
+        suggestions:
+          type: array
+          items:
+            type: object
+            required: [variableId, reason]
+            properties:
+              variableId: {type: string}
+              reason: {type: string}
+        actions:
+          type: array
+          items: {$ref: '#/components/schemas/GuideAction'}
+        mode: {type: string, enum: [rules, llm]}
+
+    SessionInput:
+      type: object
+      required: [title, state]
+      properties:
+        title: {type: string, minLength: 1, maxLength: 160}
+        state:
+          type: object
+          description: Frontend-owned workspace state, stored as-is (max 256 KB)
+          additionalProperties: true
+
+    SessionSummary:
+      type: object
+      required: [id, title, createdAt, updatedAt]
+      properties:
+        id: {type: string}
+        title: {type: string}
+        createdAt: {type: string, format: date-time}
+        updatedAt: {type: string, format: date-time}
+
+    Session:
+      allOf:
+        - $ref: '#/components/schemas/SessionSummary'
+        - type: object
+          required: [state]
+          properties:
+            state:
+              type: object
+              additionalProperties: true
+
+    Health:
+      type: object
+      required: [status, dataVersion, variables]
+      properties:
+        status: {type: string, enum: [ok, degraded]}
+        dataVersion: {type: string, example: '2026-11-20.1'}
+        variables:
+          type: array
+          items:
+            type: object
+            required: [id, status]
+            properties:
+              id: {type: string}
+              status: {$ref: '#/components/schemas/DataStatus'}

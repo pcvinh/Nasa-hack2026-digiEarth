@@ -1,0 +1,420 @@
+openapi: 3.0.3
+info:
+  title: Earth Digital Twin — Farming MVP API
+  version: 0.1.0
+  description: >-
+    Shared contract for independently developed React/Cesium frontend and
+    Node/Python backend. All numerical values must include a data status,
+    source provenance, time period, spatial representativeness and units.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/v1/health:
+    get:
+      operationId: getHealth
+      responses:
+        '200':
+          description: API and data-readiness status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: {type: string, enum: [ok, degraded]}
+                  dataVersion: {type: string}
+                  readySources:
+                    type: array
+                    items: {type: string}
+                required: [status, readySources]
+  /api/v1/places:
+    get:
+      operationId: searchPlaces
+      parameters:
+        - {in: query, name: q, schema: {type: string}}
+      responses:
+        '200':
+          description: Searchable region presets
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/Place'}}
+                required: [items]
+  /api/v1/places/{placeId}:
+    get:
+      operationId: getPlace
+      parameters:
+        - {$ref: '#/components/parameters/PlaceId'}
+      responses:
+        '200':
+          description: Region metadata and verified boundary
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Place'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /api/v1/catalog/layers:
+    get:
+      operationId: listLayers
+      parameters:
+        - {in: query, name: placeId, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: Available/disabled layers and data periods
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  layers: {type: array, items: {$ref: '#/components/schemas/Layer'}}
+                required: [layers]
+  /api/v1/places/{placeId}/overview:
+    get:
+      operationId: getPlaceOverview
+      parameters:
+        - {$ref: '#/components/parameters/PlaceId'}
+        - {in: query, name: asOf, schema: {type: string, description: 'YYYY-MM'}}
+      responses:
+        '200':
+          description: Farming indicators and evidence-backed observations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  placeId: {type: string}
+                  asOf: {type: string}
+                  indicators: {type: array, items: {$ref: '#/components/schemas/Indicator'}}
+                  insights: {type: array, items: {$ref: '#/components/schemas/Insight'}}
+                  updatedAt: {type: string, format: date-time}
+                required: [placeId, indicators, insights, updatedAt]
+  /api/v1/places/{placeId}/timeseries:
+    get:
+      operationId: getPlaceTimeseries
+      parameters:
+        - {$ref: '#/components/parameters/PlaceId'}
+        - {in: query, name: metric, required: true, schema: {type: string, enum: [precipitation_mm, temperature_c, soil_moisture, ndvi]}}
+        - {in: query, name: start, schema: {type: string, description: 'YYYY-MM'}}
+        - {in: query, name: end, schema: {type: string, description: 'YYYY-MM'}}
+        - {in: query, name: mode, schema: {type: string, enum: [observed, anomaly]}}
+      responses:
+        '200':
+          description: Historic time series, trend and provenance
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TimeseriesResponse'}
+  /api/v1/places/{placeId}/spatial:
+    get:
+      operationId: getPlaceSpatial
+      parameters:
+        - {$ref: '#/components/parameters/PlaceId'}
+        - {in: query, name: metric, required: true, schema: {type: string}}
+        - {in: query, name: period, required: true, schema: {type: string, description: 'YYYY-MM or YYYY'}}
+        - {in: query, name: mode, required: true, schema: {type: string, enum: [observed, anomaly, trend]}}
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection with per-feature scientific metadata; no invented fine-grained resolution
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/SpatialResponse'}
+  /api/v1/places/{placeId}/projections:
+    get:
+      operationId: getPlaceProjections
+      parameters:
+        - {$ref: '#/components/parameters/PlaceId'}
+        - {in: query, name: metric, required: true, schema: {type: string, enum: [precipitation_mm, temperature_c]}}
+        - {in: query, name: scenario, required: true, schema: {type: string, enum: [ssp126, ssp245, ssp370]}}
+        - {in: query, name: start, schema: {type: integer, minimum: 2026, maximum: 2100}}
+        - {in: query, name: end, schema: {type: integer, minimum: 2026, maximum: 2100}}
+      responses:
+        '200':
+          description: Scenario-conditional climate projections (NOT yield projections)
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectionResponse'}
+  /api/v1/agent/farming/chat:
+    post:
+      operationId: farmingChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [placeId, question]
+              properties:
+                placeId: {type: string}
+                question: {type: string, minLength: 1, maxLength: 2000}
+                sessionId: {type: string}
+                metricIds: {type: array, items: {type: string}}
+                scenario: {type: string, enum: [historical, ssp126, ssp245, ssp370]}
+                year: {type: integer}
+      responses:
+        '200':
+          description: Grounded answer and whitelisted UI actions
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AgentResponse'}
+  /api/v1/analyses:
+    get:
+      operationId: listAnalyses
+      responses:
+        '200':
+          description: Saved sessions (local dev single-user)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/AnalysisSession'}}
+                required: [items]
+    post:
+      operationId: createAnalysis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AnalysisSessionInput'}
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AnalysisSession'}
+  /api/v1/analyses/{analysisId}:
+    get:
+      operationId: getAnalysis
+      parameters:
+        - {in: path, name: analysisId, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: Saved session
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AnalysisSession'}
+        '404': {$ref: '#/components/responses/NotFound'}
+    put:
+      operationId: updateAnalysis
+      parameters:
+        - {in: path, name: analysisId, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AnalysisSessionInput'}
+      responses:
+        '200':
+          description: Saved session updated
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AnalysisSession'}
+components:
+  parameters:
+    PlaceId:
+      in: path
+      name: placeId
+      required: true
+      schema: {type: string}
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error: {type: string}
+            required: [error]
+  schemas:
+    Provenance:
+      type: object
+      description: Source and method provenance, required on every meaningful numerical result
+      required: [datasetId, sourceUrl, productVersion, processingMethod]
+      properties:
+        datasetId: {type: string}
+        sourceUrl: {type: string, format: uri}
+        productVersion: {type: string}
+        accessDate: {type: string, format: date-time}
+        processingMethod: {type: string}
+        originalResolution: {type: string}
+        spatialAggregation: {type: string}
+        temporalAggregation: {type: string}
+        qualityNotes: {type: string}
+    Place:
+      type: object
+      required: [id, name, country, center, geometry, geometrySource, dataStatus]
+      properties:
+        id: {type: string, example: mekong-delta}
+        name: {type: string, example: Mekong Delta}
+        country: {type: string, example: Vietnam}
+        center:
+          type: array
+          description: GeoJSON longitude, latitude
+          minItems: 2
+          maxItems: 2
+          items: {type: number}
+        geometry:
+          type: object
+          description: GeoJSON Polygon or MultiPolygon; source documented
+          additionalProperties: true
+        geometrySource: {type: string}
+        dataStatus: {$ref: '#/components/schemas/DataStatus'}
+    DataStatus:
+      type: string
+      enum: [source_backed, sample, unavailable]
+      description: 'source_backed does not mean that an analytical hypothesis or forecast is scientifically validated'
+    Layer:
+      type: object
+      required: [id, label, metric, status, modes]
+      properties:
+        id: {type: string}
+        label: {type: string}
+        metric: {type: string}
+        status: {$ref: '#/components/schemas/DataStatus'}
+        modes: {type: array, items: {type: string, enum: [observed, anomaly, trend, projection]}}
+        minPeriod: {type: string}
+        maxPeriod: {type: string}
+        sourceIds: {type: array, items: {type: string}}
+        unavailableReason: {type: string}
+    Trend:
+      type: object
+      required: [method, periodStart, periodEnd, slope, slopeUnit, significanceStatus]
+      properties:
+        method: {type: string}
+        periodStart: {type: string}
+        periodEnd: {type: string}
+        slope: {type: number, nullable: true}
+        slopeUnit: {type: string}
+        pValue: {type: number, nullable: true}
+        significanceStatus: {type: string, enum: [significant, not_significant, insufficient_data, not_computed]}
+        alpha: {type: number, default: 0.05}
+        n: {type: integer}
+        limitations: {type: array, items: {type: string}}
+    Indicator:
+      type: object
+      required: [id, label, value, unit, period, dataStatus, provenance]
+      properties:
+        id: {type: string}
+        label: {type: string}
+        value: {type: number, nullable: true}
+        unit: {type: string}
+        period: {type: string}
+        dataStatus: {$ref: '#/components/schemas/DataStatus'}
+        provenance: {$ref: '#/components/schemas/Provenance'}
+        trend: {$ref: '#/components/schemas/Trend'}
+    Insight:
+      type: object
+      required: [id, title, explanation, evidenceIds, classification]
+      properties:
+        id: {type: string}
+        title: {type: string}
+        explanation: {type: string}
+        evidenceIds: {type: array, items: {type: string}}
+        classification: {type: string, enum: [observation, association, hypothesis, scenario]}
+        caveats: {type: array, items: {type: string}}
+    TimeseriesResponse:
+      type: object
+      required: [placeId, metric, unit, mode, dataStatus, points, provenance]
+      properties:
+        placeId: {type: string}
+        metric: {type: string}
+        unit: {type: string}
+        mode: {type: string, enum: [observed, anomaly]}
+        dataStatus: {$ref: '#/components/schemas/DataStatus'}
+        representativeness: {type: string, enum: [point_sample, area_mean, grid_cell, administrative_aggregate]}
+        points:
+          type: array
+          items:
+            type: object
+            required: [time, value]
+            properties:
+              time: {type: string, example: '2024-06'}
+              value: {type: number, nullable: true}
+              qualityFlag: {type: string}
+        trend: {$ref: '#/components/schemas/Trend'}
+        provenance: {$ref: '#/components/schemas/Provenance'}
+    SpatialResponse:
+      type: object
+      required: [placeId, metric, period, mode, dataStatus, featureCollection, provenance]
+      properties:
+        placeId: {type: string}
+        metric: {type: string}
+        period: {type: string}
+        mode: {type: string}
+        unit: {type: string}
+        dataStatus: {$ref: '#/components/schemas/DataStatus'}
+        featureCollection:
+          type: object
+          description: RFC 7946 GeoJSON FeatureCollection; each feature must carry valid value, unit, source resolution, quality and time
+          additionalProperties: true
+        provenance: {$ref: '#/components/schemas/Provenance'}
+    ProjectionResponse:
+      type: object
+      required: [placeId, metric, scenario, model, gridResolution, periods, provenance, isConditionalProjection]
+      properties:
+        placeId: {type: string}
+        metric: {type: string}
+        unit: {type: string}
+        scenario: {type: string, enum: [ssp126, ssp245, ssp370]}
+        model: {type: string}
+        gridResolution: {type: string}
+        isConditionalProjection: {type: boolean, enum: [true]}
+        dataStatus: {$ref: '#/components/schemas/DataStatus'}
+        periods:
+          type: array
+          items:
+            type: object
+            required: [time, value]
+            properties:
+              time: {type: string}
+              value: {type: number, nullable: true}
+              lower: {type: number, nullable: true}
+              upper: {type: number, nullable: true}
+        provenance: {$ref: '#/components/schemas/Provenance'}
+    AgentResponse:
+      type: object
+      required: [answer, evidence, confidenceLabel, caveats, actions, answerType]
+      properties:
+        answer: {type: string}
+        answerType: {type: string, enum: [data_explanation, hypothetical_scenario, unavailable]}
+        confidenceLabel: {type: string, enum: [limited, moderate, supported, insufficient_evidence]}
+        evidence:
+          type: array
+          items:
+            type: object
+            required: [metricId, provenance]
+            properties:
+              metricId: {type: string}
+              provenance: {$ref: '#/components/schemas/Provenance'}
+        caveats: {type: array, items: {type: string}}
+        actions:
+          type: array
+          items:
+            type: object
+            required: [type]
+            properties:
+              type: {type: string, enum: [show_layer, focus_place, open_chart, set_year]}
+              payload: {type: object, additionalProperties: true}
+        sessionId: {type: string}
+    AnalysisSessionInput:
+      type: object
+      required: [title, placeId, year, mode, enabledLayers]
+      properties:
+        title: {type: string, maxLength: 160}
+        placeId: {type: string}
+        year: {type: integer}
+        mode: {type: string, enum: [historical, projection]}
+        scenario: {type: string}
+        enabledLayers: {type: array, items: {type: string}}
+        activeAgent: {type: string, enum: [farming]}
+        uiState: {type: object, additionalProperties: true}
+        messages: {type: array, items: {type: object, additionalProperties: true}}
+    AnalysisSession:
+      allOf:
+        - {$ref: '#/components/schemas/AnalysisSessionInput'}
+        - type: object
+          required: [id, createdAt, updatedAt]
+          properties:
+            id: {type: string}
+            createdAt: {type: string, format: date-time}
+            updatedAt: {type: string, format: date-time}

@@ -17,7 +17,20 @@ Branch `backend/p0` (worktree `DigiEarth-backend`). `DATA_ROOT=/path/to/DigiEart
 | BE-09 sessions | done | create/get/list/update round-trip; >256 KB rejected |
 | BE-10 validation + golden + handoff | done | Giovanni area-averaged CSV vs ours (Mekong bbox): r = 0.9993, mean diff −5.0 mm/month (−2.9%); Sen +117 vs +108 mm/yr per decade; MK p 0.045 vs 0.056 (borderline). Native IMERG check identical. 20 golden files; `BACKEND_HANDOFF.md` |
 
-Tests: 63 passed (`DATA_ROOT` set), ruff clean.
+Tests: 92 passed (`DATA_ROOT` set), ruff clean.
+
+## Review fixes (branch `backend/fixes`, from main a4209c7, contract v0.2.1)
+
+| # | Fix | Status | Evidence |
+|---|---|---|---|
+| 1 | Default `endYear` = last complete year (rainfall 2024) | done | `test_analyze_preset_recovers_trend_and_validates`, `test_default_end_year_*`, `test_explicit_end_year_still_works_*` |
+| 2 | No valid cells → `400 data_unavailable` | done | synthetic tests + real-data ocean tests (NDVI [0,0], soil moisture [-30,0], NDVI ocean bbox) |
+| 3 | Caveat when MK p within 0.02 of α | done | `test_near_threshold_*`, `test_api_adds_borderline_caveat_for_p_near_alpha`; 3 golden results flagged |
+| 4 | Reanalysis note on air temperature (caveat + `provenance.qualityNotes`) | done | `test_air_temperature_results_carry_reanalysis_note` and 2 others |
+| 5 | `legend.colorStops` from the PNG palette | done | `test_trend_map_legend_color_stops_match_the_png`; both ends found in all 4 real PNGs |
+| 6 | Sahel air temperature vs GLDAS (report only) | done | MERRA-2 −0.32 vs GLDAS +0.83 °C/decade: opposite sign; `data/validation/sahel_temp_gldas.json` |
+
+Notes: the in-memory analysis cache is cleared between tests (autouse fixture); out-of-latitude points are now `data_unavailable` (was `invalid_input`); `provenance.qualityNotes` is additive and not yet in the contract.
 
 ## Run
 

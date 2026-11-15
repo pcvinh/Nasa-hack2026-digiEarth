@@ -21,6 +21,8 @@ describe('App shell', () => {
     mount();
     expect(screen.getByRole('navigation', { name: 'Main' })).toBeInTheDocument();
     expect(screen.getByLabelText('Investigation')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Guide')).not.toBeInTheDocument(); // drawer starts closed
+    act(() => useStore.getState().setGuideOpen(true));
     expect(screen.getByLabelText('Guide')).toBeInTheDocument();
   });
 });
@@ -46,7 +48,7 @@ describe('analysis requests', () => {
     mount();
     await u.click(screen.getByRole('button', { name: 'Start investigation' }));          // 1
     const dlg = await screen.findByRole('dialog');
-    await u.click(await within(dlg).findByRole('button', { name: /Amazon \(central\)/ }));     // 2
+    await u.click(await within(dlg).findByRole('button', { name: /Central Amazon/ }));     // 2
     await u.click(await within(dlg).findByRole('button', { name: /Vegetation greenness/ })); // 3
     await u.click(within(dlg).getByRole('button', { name: 'Investigate' }));                  // 4
     expect(await screen.findByTestId('verdict')).toBeInTheDocument();

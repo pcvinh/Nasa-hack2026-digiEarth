@@ -15,7 +15,7 @@ Branch `frontend/p0` · worktree `../DigiEarth-frontend` · contract v0.2.0
 | FE-08 | done | Guide drawer, Zod action whitelist (unknown types dropped and logged), "Rules-based guide" label |
 | FE-09 | done (fixtures) | Mekong, Amazon, Sahel walkthroughs; text has no digits (tested). Not yet run against real API |
 | FE-10 | done (fixtures) | Save/list/restore with Zod validation; URL `/s/:id`. Fixture sessions are in memory only |
-| FE-11 | not started | Waiting for "BE-06 ready" |
+| FE-11 | blocked | Backend not running on :8000 (checked twice). My attempt to start it from the backend worktree was denied by the permission classifier, so the user must start it. Backend branch now has BE-05..BE-09 commits (its progress file still says not started) |
 
 ## Verification
 - `npm run build`, `npm run lint`, `npx tsc`: pass. `npm test`: 20 tests pass.
@@ -23,7 +23,9 @@ Branch `frontend/p0` · worktree `../DigiEarth-frontend` · contract v0.2.0
 - NOT verified manually: click-to-analyse on the live globe (covered only by unit tests of lon/lat conversion), demos and Guide drawer in the browser, session save/restore in the browser (the latter two covered by unit tests), overlay/coastline alignment (fixture image is synthetic, so cannot be checked until the real PNG exists).
 
 ## API assumptions (to reconcile in FE-11)
-- Fixture/demo region ids: `mekong-delta`, `amazon-central`, `sahel`. Variable ids: `precipitation`, `soil_moisture`, `air_temperature`, `ndvi`. Demos hard-code these ids; the backend must use them or the demos need updating.
+- Region ids confirmed from the backend's `presets.geojson` (read-only): `mekong-delta`, `central-java`, `johor`, `amazon-central`, `sahel`. Fixtures now use exactly these five; demo ids already match.
+- Backend notes: rainfall ends 2025-09 (2025 annual is null; default rainfall period effectively 2001-2024); only precipitation and soil_moisture trend maps exist in `data/maps` so far.
+- Variable ids unchanged: Variable ids: `precipitation`, `soil_moisture`, `air_temperature`, `ndvi`. Demos hard-code these ids; the backend must use them or the demos need updating.
 - Legend gradient colours are keyed on `legend.palette` (brown-green or blue-red) in CSS; they must match the colours the backend draws in the PNG.
 - `alpha` is always sent (0.05) because the generated type marks it required.
 - `imageUrl` from the API is used as-is for the overlay.

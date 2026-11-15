@@ -35,13 +35,19 @@ const reg = (id: string, name: string, country: string | null, regionType: Regio
   geometrySource: 'SAMPLE rectangle, not a real boundary', suggestedVariableIds: suggested,
 });
 
+// Ids, names, types and bounding boxes mirror the five presets listed in START-HERE.md / backend presets.
+// Geometry is a rectangle (sample), not the real boundary.
 export const REGIONS: Region[] = [
-  reg('mekong-delta', 'Mekong Delta', 'Vietnam', 'river_delta', 'Low-lying rice-growing delta in southern Vietnam.', [104.5, 8.5, 107.0, 11.5], ['precipitation', 'soil_moisture']),
-  reg('amazon-central', 'Amazon (central)', 'Brazil', 'rainforest', 'Dense rainforest around the central Amazon basin.', [-64, -6, -58, 0], ['ndvi', 'air_temperature']),
-  reg('sahel', 'Sahel', null, 'desert_edge', 'Dry belt on the southern edge of the Sahara.', [-5, 12, 15, 16], ['precipitation', 'ndvi']),
-  reg('nile-delta', 'Nile Delta', 'Egypt', 'river_delta', 'Fertile delta where the Nile meets the Mediterranean.', [30, 30, 32, 31.5], ['air_temperature', 'ndvi']),
-  reg('central-valley', 'California Central Valley', 'United States', 'agricultural', 'Large irrigated farming valley.', [-122.5, 35, -119, 40], ['soil_moisture', 'precipitation']),
-  reg('tokyo-metro', 'Tokyo metropolitan area', 'Japan', 'megacity', 'One of the largest urban areas on Earth.', [138.8, 35, 140.5, 36.3], ['air_temperature']),
+  reg('mekong-delta', 'Mekong Delta', 'Vietnam', 'river_delta', 'Low, flat river delta in southern Vietnam.',
+    [103.838, 8.44, 106.8139, 11.0363], ['precipitation', 'soil_moisture', 'ndvi', 'air_temperature']),
+  reg('central-java', 'Central Java', 'Indonesia', 'agricultural', 'Farming region in the middle of Java, Indonesia.',
+    [108.612, -8.2118, 111.6772, -5.7257], ['precipitation', 'ndvi', 'soil_moisture', 'air_temperature']),
+  reg('johor', 'Johor', 'Malaysia', 'agricultural', 'Farming state at the southern tip of Peninsular Malaysia.',
+    [102.4709, 1.2662, 104.541, 2.9199], ['ndvi', 'precipitation', 'air_temperature', 'soil_moisture']),
+  reg('amazon-central', 'Central Amazon', 'Brazil', 'rainforest', 'Dense rainforest around the central Amazon basin.',
+    [-66.0, -7.0, -56.0, -1.0], ['precipitation', 'ndvi', 'air_temperature', 'soil_moisture']),
+  reg('sahel', 'Sahel', null, 'desert_edge', 'Dry belt on the southern edge of the Sahara.',
+    [-17.0, 12.0, 35.0, 18.0], ['precipitation', 'ndvi', 'soil_moisture', 'air_temperature']),
 ];
 
 export type Scenario = 'significant_up' | 'significant_down' | 'not_significant' | 'insufficient';

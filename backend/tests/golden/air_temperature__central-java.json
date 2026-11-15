@@ -5,7 +5,6 @@
    "presetId": "central-java"
   },
   "startYear": 2001,
-  "endYear": 2025,
   "alpha": 0.05
  },
  "result": {
@@ -1988,10 +1987,12 @@
    "headline": "Air temperature (2 m) increased, and the trend is statistically significant",
    "summary": "Air temperature (2 m) in Central Java increased by about 0.14 °C per decade from 2001 to 2025 (Sen's slope). Along the trend line that is about +0.34 °C over the whole period. This trend is statistically significant (Mann-Kendall p = 0.04). The straight-line (OLS) t-test agrees.",
    "caveats": [
+    "The Mann-Kendall p-value (p = 0.04) is close to the significance threshold (α = 0.05), so the verdict is borderline and could change with a different area or grid.",
     "Linear trend only: a straight-line trend can hide changes that speed up, slow down or reverse.",
     "Annual values can still be autocorrelated (one year influences the next), which can make p-values look smaller than they should.",
     "A trend is not a cause: this tool shows what changed, not why.",
-    "Grid cells are about 0.5° × 0.625° (roughly 50 km or more across), so results describe the wider area, not a single field or town."
+    "Grid cells are about 0.5° × 0.625° (roughly 50 km or more across), so results describe the wider area, not a single field or town.",
+    "MERRA-2 is a reanalysis (a weather model constrained by observations), so its temperatures and trends can differ from weather-station records."
    ]
   },
   "provenance": {
@@ -2004,7 +2005,10 @@
    "processing": "K − 273.15 → °C; native 0.5° × 0.625° grid (no regridding); cos(lat)-weighted regional mean",
    "nativeResolution": "0.5° × 0.625°",
    "servedResolution": "0.5° × 0.625°",
-   "citation": "Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 tavgM_2d_slv_Nx: 2d,Monthly mean,Time-Averaged,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), doi:10.5067/AP1B0BA5PD2K"
+   "citation": "Global Modeling and Assimilation Office (GMAO) (2015), MERRA-2 tavgM_2d_slv_Nx: 2d,Monthly mean,Time-Averaged,Single-Level,Assimilation,Single-Level Diagnostics V5.12.4, Greenbelt, MD, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), doi:10.5067/AP1B0BA5PD2K",
+   "qualityNotes": [
+    "MERRA-2 is a reanalysis (a weather model constrained by observations), so its temperatures and trends can differ from weather-station records."
+   ]
   },
   "dataVersion": "2026-11-15.1"
  }

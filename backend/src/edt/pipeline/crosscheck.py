@@ -133,3 +133,93 @@ def giovanni_check(settings: Settings, bbox: list[float], csv_path: Path, out: P
         )
     )
     return result
+
+
+def _gldas_tair_box_month(path: Path, bbox: list[float]) -> float:
+    """cos(lat)-weighted mean of GLDAS Tair_f_inst (°C) over native 0.25° cells inside bbox."""
+    import netCDF4
+
+    w, s, e, n = bbox
+    with netCDF4.Dataset(path) as nc:
+        lat = np.asarray(nc["lat"][:], dtype=np.float64)
+        lon = np.asarray(nc["lon"][:], dtype=np.float64)
+        ys = np.nonzero((lat >= s) & (lat <= n))[0]
+        xs = np.nonzero((lon >= w) & (lon <= e))[0]
+        v = nc["Tair_f_inst"]
+        v.set_auto_maskandscale(False)
+        a = np.asarray(v[0, ys[0] : ys[-1] + 1, xs[0] : xs[-1] + 1], dtype=np.float64)
+    a[a < -9000] = np.nan
+    wts = np.cos(np.deg2rad(lat[ys]))[:, None] * np.isfinite(a)
+    return float(np.nansum(np.where(np.isfinite(a), a, 0.0) * wts) / wts.sum()) - 273.15
+
+
+def sahel_gldas_check(settings: Settings, out: Path) -> dict:
+    """Does GLDAS (Noah, forced by observations) show the same Sahel air-temperature trend
+    direction as MERRA-2 (our served series)? Report only; results are not changed."""
+    from edt.pipeline.cube import month_list
+    from edt.regions.select import presets
+    from edt.stats.core import annual_values, trend_stats
+
+    bbox = presets()["sahel"]["bbox"]
+    ours = analyze(
+        settings,
+        {
+            "variableId": "air_temperature",
+            "region": {"presetId": "sahel"},
+            "startYear": 2001,
+            "endYear": 2025,
+            "alpha": 0.05,
+        },
+    )
+    ours_m = np.array([np.nan if m["value"] is None else m["value"] for m in ours["monthly"]])
+    months = month_list("2001-01", "2025-12")
+    granules = fetch.search_months("GLDAS_NOAH025_M", "2.1", "2001-01", "2025-12")
+    tmp = settings.raw_dir / "crosscheck_gldas"
+
+    def one(month: str):
+        path, _ = fetch.download(granules[month], tmp)
+        try:
+            return month, _gldas_tair_box_month(path, bbox)
+        finally:
+            path.unlink(missing_ok=True)
+
+    with ThreadPoolExecutor(4) as pool:
+        gl = dict(pool.map(one, months))
+    gl_m = np.array([gl[m] for m in months])
+    years = np.arange(2001, 2026)
+
+    def summary(series: np.ndarray) -> dict:
+        ts = trend_stats(years, annual_values(series, "mean"), 0.05)
+        return {
+            "senPerDecade": round(ts.sen_per_year * 10, 3),
+            "mkP": round(ts.mk_p, 4),
+            "status": ts.status,
+            "direction": ts.direction,
+            "olsPerDecade": round(ts.ols_per_year * 10, 3),
+            "olsP": round(ts.ols_p, 4),
+            "n": ts.n,
+            "meanAnnualC": round(float(np.nanmean(annual_values(series, "mean"))), 2),
+        }
+
+    result = {
+        "bbox": bbox,
+        "years": [2001, 2025],
+        "merra2_T2M": summary(ours_m),
+        "gldas_Tair_f_inst": summary(gl_m),
+        "monthlyCorrelation": float(np.corrcoef(ours_m, gl_m)[0, 1]),
+        "meanDifferenceC_merra2_minus_gldas": float(np.mean(ours_m - gl_m)),
+        "note": "Report only; served results are unchanged. GLDAS 0.25° native, cos(lat) weights, "
+        "cells with centre inside the box.",
+    }
+    out.write_text(
+        json.dumps(
+            {
+                "summary": result,
+                "months": months,
+                "merra2": ours_m.tolist(),
+                "gldas": gl_m.tolist(),
+            },
+            indent=1,
+        )
+    )
+    return result

@@ -21,6 +21,17 @@ METHOD = (
     "q = 0.05 across all cells with a complete record"
 )
 CHUNK = 20000
+N_COLOR_STOPS = 11
+
+
+def color_stops(palette: str, n: int = N_COLOR_STOPS) -> list[str]:
+    """Hex colours from legend.min to legend.max, sampled from the exact colormap (and the same
+    call, cmap(x) with x in 0..1) that colours the PNG, so legend and image always match."""
+    import matplotlib
+    from matplotlib.colors import to_hex
+
+    cmap = matplotlib.colormaps[PALETTES[palette]]
+    return [to_hex(cmap(float(x)), keep_alpha=False).upper() for x in np.linspace(0, 1, n)]
 
 
 def map_years(info, var: VariableDef) -> tuple[int, int]:
@@ -96,6 +107,7 @@ def build_map(settings: Settings, var: VariableDef) -> dict:
             "max": round(limit, 6),
             "unit": f"{var['annualUnit']} per decade",
             "palette": var["palette"],
+            "colorStops": color_stops(var["palette"]),
             "fadedMeaning": f"Not significant after FDR correction (q = {FDR_Q})",
         },
         "method": METHOD,

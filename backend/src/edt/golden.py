@@ -14,7 +14,7 @@ GOLDEN_DIR = Path(__file__).resolve().parents[2] / "tests" / "golden"
 
 
 def golden_requests():
-    y0, y1 = default_years()
+    y0, _ = default_years()
     for vid in variables():
         for rid in presets():
             yield (
@@ -23,7 +23,6 @@ def golden_requests():
                     "variableId": vid,
                     "region": {"presetId": rid},
                     "startYear": y0,
-                    "endYear": y1,
                     "alpha": 0.05,
                 },
             )

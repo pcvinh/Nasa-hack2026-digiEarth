@@ -42,6 +42,8 @@ class Provenance(_M):
     nativeResolution: str
     servedResolution: str
     citation: str
+    # Additive field (not in contract 0.2.1): data-quality notes; [] when there are none
+    qualityNotes: list[str] = []
 
 
 class Coverage(_M):
@@ -98,7 +100,7 @@ class TrendRequest(_In):
     variableId: str
     region: RegionInput
     startYear: int = 2001
-    endYear: int = 2025
+    endYear: int | None = None  # omitted = variable's last complete year
     alpha: float = Field(default=0.05, ge=0.001, le=0.2)
 
 
@@ -192,6 +194,7 @@ class Legend(_M):
     max: float
     unit: str
     palette: Literal["diverging_brown_green", "diverging_blue_red"]
+    colorStops: list[str] | None = None  # optional in contract 0.2.1
     fadedMeaning: str
 
 

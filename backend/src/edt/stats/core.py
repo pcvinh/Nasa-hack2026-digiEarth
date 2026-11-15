@@ -14,6 +14,7 @@ import pymannkendall as pmk
 from scipy import stats as sps
 
 MIN_YEARS = 10
+NEAR_THRESHOLD = 0.02  # |p − alpha| within this → "close to the threshold" caveat
 MK_METHOD = "Mann-Kendall (original, two-sided) with Sen's slope on annual values"
 OLS_METHOD = "OLS on annual values; two-sided t-test; 95% CI = slope ± t(0.975, n−2) × SE"
 
@@ -161,7 +162,14 @@ def interpret(
     cell_size: str,
     extra_caveats: list[str] | None = None,
 ) -> dict:
-    caveats = list(ALWAYS_CAVEATS)
+    caveats = []
+    if ts.mk_p is not None and round(abs(ts.mk_p - ts.alpha), 9) <= NEAR_THRESHOLD:
+        caveats.append(
+            f"The Mann-Kendall p-value ({fmt_p(ts.mk_p)}) is close to the significance threshold "
+            f"(α = {ts.alpha:g}), so the verdict is borderline and could change with a "
+            "different area or grid."
+        )
+    caveats.extend(ALWAYS_CAVEATS)
     caveats.append(
         f"Grid cells are about {cell_size} (roughly 50 km or more across), so results describe "
         "the wider area, not a single field or town."

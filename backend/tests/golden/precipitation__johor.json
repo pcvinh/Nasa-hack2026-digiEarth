@@ -5,7 +5,6 @@
    "presetId": "johor"
   },
   "startYear": 2001,
-  "endYear": 2025,
   "alpha": 0.05
  },
  "result": {
@@ -25,7 +24,7 @@
   },
   "period": {
    "startYear": 2001,
-   "endYear": 2025
+   "endYear": 2024
   },
   "unit": "mm/month",
   "annualUnit": "mm/year",
@@ -34,55 +33,55 @@
    {
     "time": "2001-01",
     "value": 434.5607,
-    "anomaly": 152.4024,
+    "anomaly": 155.5785,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-02",
     "value": 129.4472,
-    "anomaly": -7.467,
+    "anomaly": -7.4055,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-03",
     "value": 191.1499,
-    "anomaly": -2.347,
+    "anomaly": 6.3687,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-04",
     "value": 225.1509,
-    "anomaly": 19.3978,
+    "anomaly": 23.9627,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-05",
     "value": 154.4807,
-    "anomaly": -39.0261,
+    "anomaly": -38.838,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-06",
     "value": 123.2861,
-    "anomaly": -31.6446,
+    "anomaly": -33.5667,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-07",
     "value": 111.9896,
-    "anomaly": -34.8992,
+    "anomaly": -37.0919,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-08",
     "value": 141.3694,
-    "anomaly": -26.5797,
+    "anomaly": -27.4058,
     "validCellFraction": 1.0
    },
    {
     "time": "2001-09",
     "value": 174.6831,
-    "anomaly": -6.5776,
+    "anomaly": -5.0993,
     "validCellFraction": 1.0
    },
    {
@@ -106,55 +105,55 @@
    {
     "time": "2002-01",
     "value": 158.3998,
-    "anomaly": -123.7585,
+    "anomaly": -120.5824,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-02",
     "value": 82.5679,
-    "anomaly": -54.3463,
+    "anomaly": -54.2848,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-03",
     "value": 130.4733,
-    "anomaly": -63.0236,
+    "anomaly": -54.308,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-04",
     "value": 204.8318,
-    "anomaly": -0.9212,
+    "anomaly": 3.6436,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-05",
     "value": 215.0163,
-    "anomaly": 21.5095,
+    "anomaly": 21.6976,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-06",
     "value": 119.2399,
-    "anomaly": -35.6908,
+    "anomaly": -37.6129,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-07",
     "value": 184.6316,
-    "anomaly": 37.7429,
+    "anomaly": 35.5502,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-08",
     "value": 157.5631,
-    "anomaly": -10.3859,
+    "anomaly": -11.212,
     "validCellFraction": 1.0
    },
    {
     "time": "2002-09",
     "value": 187.048,
-    "anomaly": 5.7873,
+    "anomaly": 7.2656,
     "validCellFraction": 1.0
    },
    {
@@ -178,55 +177,55 @@
    {
     "time": "2003-01",
     "value": 408.7654,
-    "anomaly": 126.6071,
+    "anomaly": 129.7831,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-02",
     "value": 133.5445,
-    "anomaly": -3.3696,
+    "anomaly": -3.3082,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-03",
     "value": 159.7364,
-    "anomaly": -33.7604,
+    "anomaly": -25.0448,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-04",
     "value": 236.4535,
-    "anomaly": 30.7004,
+    "anomaly": 35.2653,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-05",
     "value": 120.8147,
-    "anomaly": -72.6921,
+    "anomaly": -72.504,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-06",
     "value": 137.4275,
-    "anomaly": -17.5032,
+    "anomaly": -19.4253,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-07",
     "value": 156.003,
-    "anomaly": 9.1143,
+    "anomaly": 6.9216,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-08",
     "value": 156.5937,
-    "anomaly": -11.3554,
+    "anomaly": -12.1815,
     "validCellFraction": 1.0
    },
    {
     "time": "2003-09",
     "value": 203.6371,
-    "anomaly": 22.3764,
+    "anomaly": 23.8547,
     "validCellFraction": 1.0
    },
    {
@@ -250,55 +249,55 @@
    {
     "time": "2004-01",
     "value": 290.1014,
-    "anomaly": 7.9431,
+    "anomaly": 11.1192,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-02",
     "value": 51.6019,
-    "anomaly": -85.3123,
+    "anomaly": -85.2508,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-03",
     "value": 321.6305,
-    "anomaly": 128.1336,
+    "anomaly": 136.8493,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-04",
     "value": 168.4616,
-    "anomaly": -37.2915,
+    "anomaly": -32.7266,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-05",
     "value": 125.1298,
-    "anomaly": -68.3771,
+    "anomaly": -68.189,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-06",
     "value": 100.9834,
-    "anomaly": -53.9473,
+    "anomaly": -55.8694,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-07",
     "value": 201.2725,
-    "anomaly": 54.3837,
+    "anomaly": 52.191,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-08",
     "value": 117.9748,
-    "anomaly": -49.9742,
+    "anomaly": -50.8003,
     "validCellFraction": 1.0
    },
    {
     "time": "2004-09",
     "value": 190.7066,
-    "anomaly": 9.4459,
+    "anomaly": 10.9242,
     "validCellFraction": 1.0
    },
    {
@@ -322,55 +321,55 @@
    {
     "time": "2005-01",
     "value": 146.221,
-    "anomaly": -135.9373,
+    "anomaly": -132.7613,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-02",
     "value": 57.6348,
-    "anomaly": -79.2794,
+    "anomaly": -79.2179,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-03",
     "value": 121.2298,
-    "anomaly": -72.267,
+    "anomaly": -63.5514,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-04",
     "value": 151.4073,
-    "anomaly": -54.3458,
+    "anomaly": -49.7809,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-05",
     "value": 212.3895,
-    "anomaly": 18.8827,
+    "anomaly": 19.0708,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-06",
     "value": 120.5446,
-    "anomaly": -34.3861,
+    "anomaly": -36.3082,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-07",
     "value": 183.1694,
-    "anomaly": 36.2806,
+    "anomaly": 34.0879,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-08",
     "value": 193.3941,
-    "anomaly": 25.4451,
+    "anomaly": 24.619,
     "validCellFraction": 1.0
    },
    {
     "time": "2005-09",
     "value": 190.0217,
-    "anomaly": 8.761,
+    "anomaly": 10.2393,
     "validCellFraction": 1.0
    },
    {
@@ -394,55 +393,55 @@
    {
     "time": "2006-01",
     "value": 279.0793,
-    "anomaly": -3.079,
+    "anomaly": 0.0971,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-02",
     "value": 166.9445,
-    "anomaly": 30.0304,
+    "anomaly": 30.0918,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-03",
     "value": 129.7796,
-    "anomaly": -63.7173,
+    "anomaly": -55.0017,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-04",
     "value": 209.6433,
-    "anomaly": 3.8903,
+    "anomaly": 8.4551,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-05",
     "value": 181.951,
-    "anomaly": -11.5558,
+    "anomaly": -11.3677,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-06",
     "value": 197.0073,
-    "anomaly": 42.0766,
+    "anomaly": 40.1545,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-07",
     "value": 150.7522,
-    "anomaly": 3.8635,
+    "anomaly": 1.6708,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-08",
     "value": 144.3463,
-    "anomaly": -23.6027,
+    "anomaly": -24.4288,
     "validCellFraction": 1.0
    },
    {
     "time": "2006-09",
     "value": 155.3794,
-    "anomaly": -25.8813,
+    "anomaly": -24.403,
     "validCellFraction": 1.0
    },
    {
@@ -466,55 +465,55 @@
    {
     "time": "2007-01",
     "value": 518.7962,
-    "anomaly": 236.6378,
+    "anomaly": 239.8139,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-02",
     "value": 113.918,
-    "anomaly": -22.9961,
+    "anomaly": -22.9347,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-03",
     "value": 171.8727,
-    "anomaly": -21.6242,
+    "anomaly": -12.9085,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-04",
     "value": 224.338,
-    "anomaly": 18.5849,
+    "anomaly": 23.1498,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-05",
     "value": 224.6361,
-    "anomaly": 31.1293,
+    "anomaly": 31.3174,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-06",
     "value": 183.8917,
-    "anomaly": 28.961,
+    "anomaly": 27.039,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-07",
     "value": 188.8957,
-    "anomaly": 42.007,
+    "anomaly": 39.8143,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-08",
     "value": 195.5229,
-    "anomaly": 27.5738,
+    "anomaly": 26.7477,
     "validCellFraction": 1.0
    },
    {
     "time": "2007-09",
     "value": 174.7607,
-    "anomaly": -6.5,
+    "anomaly": -5.0217,
     "validCellFraction": 1.0
    },
    {
@@ -538,55 +537,55 @@
    {
     "time": "2008-01",
     "value": 254.4617,
-    "anomaly": -27.6966,
+    "anomaly": -24.5205,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-02",
     "value": 174.7942,
-    "anomaly": 37.8801,
+    "anomaly": 37.9415,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-03",
     "value": 351.4028,
-    "anomaly": 157.9059,
+    "anomaly": 166.6215,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-04",
     "value": 239.1724,
-    "anomaly": 33.4193,
+    "anomaly": 37.9842,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-05",
     "value": 140.4184,
-    "anomaly": -53.0885,
+    "anomaly": -52.9004,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-06",
     "value": 195.1753,
-    "anomaly": 40.2446,
+    "anomaly": 38.3225,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-07",
     "value": 190.1298,
-    "anomaly": 43.2411,
+    "anomaly": 41.0484,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-08",
     "value": 203.7355,
-    "anomaly": 35.7865,
+    "anomaly": 34.9604,
     "validCellFraction": 1.0
    },
    {
     "time": "2008-09",
     "value": 176.0656,
-    "anomaly": -5.1951,
+    "anomaly": -3.7168,
     "validCellFraction": 1.0
    },
    {
@@ -610,55 +609,55 @@
    {
     "time": "2009-01",
     "value": 184.1068,
-    "anomaly": -98.0515,
+    "anomaly": -94.8754,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-02",
     "value": 134.1301,
-    "anomaly": -2.7841,
+    "anomaly": -2.7226,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-03",
     "value": 291.7801,
-    "anomaly": 98.2832,
+    "anomaly": 106.9988,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-04",
     "value": 189.757,
-    "anomaly": -15.996,
+    "anomaly": -11.4312,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-05",
     "value": 153.8628,
-    "anomaly": -39.644,
+    "anomaly": -39.4559,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-06",
     "value": 106.7897,
-    "anomaly": -48.141,
+    "anomaly": -50.063,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-07",
     "value": 141.5127,
-    "anomaly": -5.376,
+    "anomaly": -7.5688,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-08",
     "value": 155.2402,
-    "anomaly": -12.7088,
+    "anomaly": -13.535,
     "validCellFraction": 1.0
    },
    {
     "time": "2009-09",
     "value": 168.6248,
-    "anomaly": -12.6359,
+    "anomaly": -11.1576,
     "validCellFraction": 1.0
    },
    {
@@ -682,55 +681,55 @@
    {
     "time": "2010-01",
     "value": 112.4349,
-    "anomaly": -169.7234,
+    "anomaly": -166.5473,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-02",
     "value": 78.4789,
-    "anomaly": -58.4352,
+    "anomaly": -58.3738,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-03",
     "value": 204.607,
-    "anomaly": 11.1101,
+    "anomaly": 19.8257,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-04",
     "value": 248.5982,
-    "anomaly": 42.8452,
+    "anomaly": 47.41,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-05",
     "value": 224.824,
-    "anomaly": 31.3172,
+    "anomaly": 31.5052,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-06",
     "value": 229.5911,
-    "anomaly": 74.6604,
+    "anomaly": 72.7383,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-07",
     "value": 213.9843,
-    "anomaly": 67.0956,
+    "anomaly": 64.9028,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-08",
     "value": 206.724,
-    "anomaly": 38.775,
+    "anomaly": 37.9489,
     "validCellFraction": 1.0
    },
    {
     "time": "2010-09",
     "value": 182.5538,
-    "anomaly": 1.2931,
+    "anomaly": 2.7713,
     "validCellFraction": 1.0
    },
    {
@@ -754,55 +753,55 @@
    {
     "time": "2011-01",
     "value": 488.6715,
-    "anomaly": 206.5132,
+    "anomaly": 209.6893,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-02",
     "value": 51.8209,
-    "anomaly": -85.0933,
+    "anomaly": -85.0318,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-03",
     "value": 249.8982,
-    "anomaly": 56.4013,
+    "anomaly": 65.1169,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-04",
     "value": 173.4886,
-    "anomaly": -32.2644,
+    "anomaly": -27.6996,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-05",
     "value": 164.4252,
-    "anomaly": -29.0816,
+    "anomaly": -28.8935,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-06",
     "value": 135.4626,
-    "anomaly": -19.4681,
+    "anomaly": -21.3902,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-07",
     "value": 65.2863,
-    "anomaly": -81.6024,
+    "anomaly": -83.7951,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-08",
     "value": 136.8253,
-    "anomaly": -31.1238,
+    "anomaly": -31.9499,
     "validCellFraction": 1.0
    },
    {
     "time": "2011-09",
     "value": 178.9569,
-    "anomaly": -2.3038,
+    "anomaly": -0.8256,
     "validCellFraction": 1.0
    },
    {
@@ -826,55 +825,55 @@
    {
     "time": "2012-01",
     "value": 187.8025,
-    "anomaly": -94.3558,
+    "anomaly": -91.1797,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-02",
     "value": 158.606,
-    "anomaly": 21.6918,
+    "anomaly": 21.7533,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-03",
     "value": 281.9165,
-    "anomaly": 88.4196,
+    "anomaly": 97.1352,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-04",
     "value": 212.6737,
-    "anomaly": 6.9207,
+    "anomaly": 11.4855,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-05",
     "value": 222.7281,
-    "anomaly": 29.2213,
+    "anomaly": 29.4094,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-06",
     "value": 87.0754,
-    "anomaly": -67.8553,
+    "anomaly": -69.7774,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-07",
     "value": 127.6892,
-    "anomaly": -19.1996,
+    "anomaly": -21.3923,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-08",
     "value": 144.6118,
-    "anomaly": -23.3372,
+    "anomaly": -24.1633,
     "validCellFraction": 1.0
    },
    {
     "time": "2012-09",
     "value": 179.4035,
-    "anomaly": -1.8572,
+    "anomaly": -0.379,
     "validCellFraction": 1.0
    },
    {
@@ -898,55 +897,55 @@
    {
     "time": "2013-01",
     "value": 255.6591,
-    "anomaly": -26.4992,
+    "anomaly": -23.3231,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-02",
     "value": 331.7624,
-    "anomaly": 194.8482,
+    "anomaly": 194.9097,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-03",
     "value": 109.0448,
-    "anomaly": -84.4521,
+    "anomaly": -75.7365,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-04",
     "value": 216.4516,
-    "anomaly": 10.6986,
+    "anomaly": 15.2634,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-05",
     "value": 190.7621,
-    "anomaly": -2.7448,
+    "anomaly": -2.5567,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-06",
     "value": 86.299,
-    "anomaly": -68.6318,
+    "anomaly": -70.5538,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-07",
     "value": 133.6195,
-    "anomaly": -13.2692,
+    "anomaly": -15.462,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-08",
     "value": 141.2654,
-    "anomaly": -26.6837,
+    "anomaly": -27.5098,
     "validCellFraction": 1.0
    },
    {
     "time": "2013-09",
     "value": 216.6941,
-    "anomaly": 35.4334,
+    "anomaly": 36.9117,
     "validCellFraction": 1.0
    },
    {
@@ -970,55 +969,55 @@
    {
     "time": "2014-01",
     "value": 130.1944,
-    "anomaly": -151.9639,
+    "anomaly": -148.7878,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-02",
     "value": 27.7282,
-    "anomaly": -109.186,
+    "anomaly": -109.1245,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-03",
     "value": 107.3844,
-    "anomaly": -86.1125,
+    "anomaly": -77.3969,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-04",
     "value": 160.8862,
-    "anomaly": -44.8668,
+    "anomaly": -40.302,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-05",
     "value": 253.8295,
-    "anomaly": 60.3227,
+    "anomaly": 60.5108,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-06",
     "value": 100.7832,
-    "anomaly": -54.1475,
+    "anomaly": -56.0696,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-07",
     "value": 165.3706,
-    "anomaly": 18.4819,
+    "anomaly": 16.2891,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-08",
     "value": 185.131,
-    "anomaly": 17.182,
+    "anomaly": 16.3559,
     "validCellFraction": 1.0
    },
    {
     "time": "2014-09",
     "value": 117.085,
-    "anomaly": -64.1757,
+    "anomaly": -62.6974,
     "validCellFraction": 1.0
    },
    {
@@ -1042,55 +1041,55 @@
    {
     "time": "2015-01",
     "value": 191.9586,
-    "anomaly": -90.1997,
+    "anomaly": -87.0236,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-02",
     "value": 83.2878,
-    "anomaly": -53.6263,
+    "anomaly": -53.5649,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-03",
     "value": 124.8837,
-    "anomaly": -68.6132,
+    "anomaly": -59.8976,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-04",
     "value": 166.2677,
-    "anomaly": -39.4854,
+    "anomaly": -34.9205,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-05",
     "value": 161.6733,
-    "anomaly": -31.8335,
+    "anomaly": -31.6454,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-06",
     "value": 124.4261,
-    "anomaly": -30.5046,
+    "anomaly": -32.4267,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-07",
     "value": 122.9964,
-    "anomaly": -23.8923,
+    "anomaly": -26.085,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-08",
     "value": 231.2479,
-    "anomaly": 63.2989,
+    "anomaly": 62.4728,
     "validCellFraction": 1.0
    },
    {
     "time": "2015-09",
     "value": 127.0126,
-    "anomaly": -54.2481,
+    "anomaly": -52.7698,
     "validCellFraction": 1.0
    },
    {
@@ -1114,55 +1113,55 @@
    {
     "time": "2016-01",
     "value": 119.3112,
-    "anomaly": -162.8471,
+    "anomaly": -159.671,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-02",
     "value": 173.4438,
-    "anomaly": 36.5296,
+    "anomaly": 36.5911,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-03",
     "value": 66.9868,
-    "anomaly": -126.51,
+    "anomaly": -117.7944,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-04",
     "value": 132.2469,
-    "anomaly": -73.5062,
+    "anomaly": -68.9413,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-05",
     "value": 172.2881,
-    "anomaly": -21.2187,
+    "anomaly": -21.0306,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-06",
     "value": 178.1934,
-    "anomaly": 23.2627,
+    "anomaly": 21.3406,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-07",
     "value": 122.3213,
-    "anomaly": -24.5674,
+    "anomaly": -26.7602,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-08",
     "value": 125.9021,
-    "anomaly": -42.047,
+    "anomaly": -42.8731,
     "validCellFraction": 1.0
    },
    {
     "time": "2016-09",
     "value": 162.1202,
-    "anomaly": -19.1405,
+    "anomaly": -17.6622,
     "validCellFraction": 1.0
    },
    {
@@ -1186,55 +1185,55 @@
    {
     "time": "2017-01",
     "value": 307.1584,
-    "anomaly": 25.0001,
+    "anomaly": 28.1762,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-02",
     "value": 181.1853,
-    "anomaly": 44.2712,
+    "anomaly": 44.3327,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-03",
     "value": 216.163,
-    "anomaly": 22.6661,
+    "anomaly": 31.3817,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-04",
     "value": 235.7896,
-    "anomaly": 30.0366,
+    "anomaly": 34.6014,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-05",
     "value": 241.5667,
-    "anomaly": 48.0599,
+    "anomaly": 48.248,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-06",
     "value": 85.5695,
-    "anomaly": -69.3612,
+    "anomaly": -71.2833,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-07",
     "value": 128.0765,
-    "anomaly": -18.8122,
+    "anomaly": -21.0049,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-08",
     "value": 215.0239,
-    "anomaly": 47.0749,
+    "anomaly": 46.2488,
     "validCellFraction": 1.0
    },
    {
     "time": "2017-09",
     "value": 219.6468,
-    "anomaly": 38.3862,
+    "anomaly": 39.8644,
     "validCellFraction": 1.0
    },
    {
@@ -1258,55 +1257,55 @@
    {
     "time": "2018-01",
     "value": 494.0452,
-    "anomaly": 211.8869,
+    "anomaly": 215.063,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-02",
     "value": 121.5482,
-    "anomaly": -15.366,
+    "anomaly": -15.3045,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-03",
     "value": 132.1519,
-    "anomaly": -61.345,
+    "anomaly": -52.6294,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-04",
     "value": 187.1099,
-    "anomaly": -18.6431,
+    "anomaly": -14.0783,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-05",
     "value": 215.9554,
-    "anomaly": 22.4486,
+    "anomaly": 22.6367,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-06",
     "value": 179.6504,
-    "anomaly": 24.7197,
+    "anomaly": 22.7976,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-07",
     "value": 125.7772,
-    "anomaly": -21.1115,
+    "anomaly": -23.3043,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-08",
     "value": 103.9335,
-    "anomaly": -64.0155,
+    "anomaly": -64.8416,
     "validCellFraction": 1.0
    },
    {
     "time": "2018-09",
     "value": 177.2173,
-    "anomaly": -4.0434,
+    "anomaly": -2.5651,
     "validCellFraction": 1.0
    },
    {
@@ -1330,55 +1329,55 @@
    {
     "time": "2019-01",
     "value": 134.651,
-    "anomaly": -147.5073,
+    "anomaly": -144.3312,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-02",
     "value": 58.8978,
-    "anomaly": -78.0163,
+    "anomaly": -77.9549,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-03",
     "value": 115.822,
-    "anomaly": -77.6749,
+    "anomaly": -68.9593,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-04",
     "value": 182.1039,
-    "anomaly": -23.6492,
+    "anomaly": -19.0843,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-05",
     "value": 167.7977,
-    "anomaly": -25.7091,
+    "anomaly": -25.521,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-06",
     "value": 227.4877,
-    "anomaly": 72.557,
+    "anomaly": 70.6349,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-07",
     "value": 94.5846,
-    "anomaly": -52.3041,
+    "anomaly": -54.4968,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-08",
     "value": 91.1436,
-    "anomaly": -76.8055,
+    "anomaly": -77.6316,
     "validCellFraction": 1.0
    },
    {
     "time": "2019-09",
     "value": 93.1205,
-    "anomaly": -88.1402,
+    "anomaly": -86.662,
     "validCellFraction": 1.0
    },
    {
@@ -1402,55 +1401,55 @@
    {
     "time": "2020-01",
     "value": 113.7705,
-    "anomaly": -168.3878,
+    "anomaly": -165.2118,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-02",
     "value": 175.6502,
-    "anomaly": 38.736,
+    "anomaly": 38.7975,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-03",
     "value": 90.7937,
-    "anomaly": -102.7031,
+    "anomaly": -93.9875,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-04",
     "value": 198.7156,
-    "anomaly": -7.0375,
+    "anomaly": -2.4727,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-05",
     "value": 194.3934,
-    "anomaly": 0.8866,
+    "anomaly": 1.0747,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-06",
     "value": 246.9475,
-    "anomaly": 92.0168,
+    "anomaly": 90.0947,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-07",
     "value": 232.518,
-    "anomaly": 85.6293,
+    "anomaly": 83.4365,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-08",
     "value": 133.0068,
-    "anomaly": -34.9422,
+    "anomaly": -35.7683,
     "validCellFraction": 1.0
    },
    {
     "time": "2020-09",
     "value": 206.6357,
-    "anomaly": 25.375,
+    "anomaly": 26.8533,
     "validCellFraction": 1.0
    },
    {
@@ -1474,55 +1473,55 @@
    {
     "time": "2021-01",
     "value": 419.2039,
-    "anomaly": 137.0456,
+    "anomaly": 140.2216,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-02",
     "value": 47.073,
-    "anomaly": -89.8412,
+    "anomaly": -89.7797,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-03",
     "value": 257.2429,
-    "anomaly": 63.746,
+    "anomaly": 72.4616,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-04",
     "value": 232.9583,
-    "anomaly": 27.2052,
+    "anomaly": 31.7701,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-05",
     "value": 238.5324,
-    "anomaly": 45.0256,
+    "anomaly": 45.2137,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-06",
     "value": 171.507,
-    "anomaly": 16.5763,
+    "anomaly": 14.6543,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-07",
     "value": 141.7254,
-    "anomaly": -5.1633,
+    "anomaly": -7.356,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-08",
     "value": 229.7797,
-    "anomaly": 61.8306,
+    "anomaly": 61.0045,
     "validCellFraction": 1.0
    },
    {
     "time": "2021-09",
     "value": 253.1395,
-    "anomaly": 71.8788,
+    "anomaly": 73.3571,
     "validCellFraction": 1.0
    },
    {
@@ -1546,55 +1545,55 @@
    {
     "time": "2022-01",
     "value": 205.9502,
-    "anomaly": -76.2081,
+    "anomaly": -73.032,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-02",
     "value": 326.9448,
-    "anomaly": 190.0306,
+    "anomaly": 190.0921,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-03",
     "value": 195.193,
-    "anomaly": 1.6961,
+    "anomaly": 10.4117,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-04",
     "value": 249.8377,
-    "anomaly": 44.0846,
+    "anomaly": 48.6495,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-05",
     "value": 213.1594,
-    "anomaly": 19.6526,
+    "anomaly": 19.8407,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-06",
     "value": 224.9898,
-    "anomaly": 70.0591,
+    "anomaly": 68.137,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-07",
     "value": 142.8967,
-    "anomaly": -3.9921,
+    "anomaly": -6.1848,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-08",
     "value": 204.1219,
-    "anomaly": 36.1728,
+    "anomaly": 35.3467,
     "validCellFraction": 1.0
    },
    {
     "time": "2022-09",
     "value": 196.1315,
-    "anomaly": 14.8708,
+    "anomaly": 16.3491,
     "validCellFraction": 1.0
    },
    {
@@ -1618,55 +1617,55 @@
    {
     "time": "2023-01",
     "value": 363.1194,
-    "anomaly": 80.9611,
+    "anomaly": 84.1372,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-02",
     "value": 354.1246,
-    "anomaly": 217.2104,
+    "anomaly": 217.2719,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-03",
     "value": 279.4621,
-    "anomaly": 85.9652,
+    "anomaly": 94.6808,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-04",
     "value": 152.3063,
-    "anomaly": -53.4468,
+    "anomaly": -48.8819,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-05",
     "value": 131.4276,
-    "anomaly": -62.0792,
+    "anomaly": -61.8911,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-06",
     "value": 165.7158,
-    "anomaly": 10.7851,
+    "anomaly": 8.863,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-07",
     "value": 167.9662,
-    "anomaly": 21.0775,
+    "anomaly": 18.8847,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-08",
     "value": 192.1052,
-    "anomaly": 24.1562,
+    "anomaly": 23.3301,
     "validCellFraction": 1.0
    },
    {
     "time": "2023-09",
     "value": 185.9966,
-    "anomaly": 4.7359,
+    "anomaly": 6.2142,
     "validCellFraction": 1.0
    },
    {
@@ -1690,55 +1689,55 @@
    {
     "time": "2024-01",
     "value": 497.1504,
-    "anomaly": 214.9921,
+    "anomaly": 218.1681,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-02",
     "value": 69.3294,
-    "anomaly": -67.5848,
+    "anomaly": -67.5233,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-03",
     "value": 134.1455,
-    "anomaly": -59.3514,
+    "anomaly": -50.6358,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-04",
     "value": 229.8669,
-    "anomaly": 24.1138,
+    "anomaly": 28.6787,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-05",
     "value": 317.587,
-    "anomaly": 124.0802,
+    "anomaly": 124.2682,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-06",
     "value": 236.4228,
-    "anomaly": 81.4921,
+    "anomaly": 79.57,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-07",
     "value": 84.786,
-    "anomaly": -62.1027,
+    "anomaly": -64.2955,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-08",
     "value": 244.0415,
-    "anomaly": 76.0924,
+    "anomaly": 75.2663,
     "validCellFraction": 1.0
    },
    {
     "time": "2024-09",
     "value": 198.137,
-    "anomaly": 16.8763,
+    "anomaly": 18.3546,
     "validCellFraction": 1.0
    },
    {
@@ -1758,78 +1757,6 @@
     "value": 274.3828,
     "anomaly": -53.4013,
     "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-01",
-    "value": 358.3842,
-    "anomaly": 76.2259,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-02",
-    "value": 138.3897,
-    "anomaly": 1.4755,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-03",
-    "value": 402.6714,
-    "anomaly": 209.1745,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-04",
-    "value": 315.3097,
-    "anomaly": 109.5567,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-05",
-    "value": 198.0211,
-    "anomaly": 4.5143,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-06",
-    "value": 108.8006,
-    "anomaly": -46.1301,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-07",
-    "value": 94.2633,
-    "anomaly": -52.6254,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-08",
-    "value": 148.1225,
-    "anomaly": -19.8265,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-09",
-    "value": 216.7393,
-    "anomaly": 35.4786,
-    "validCellFraction": 1.0
-   },
-   {
-    "time": "2025-10",
-    "value": null,
-    "anomaly": null,
-    "validCellFraction": 0.0
-   },
-   {
-    "time": "2025-11",
-    "value": null,
-    "anomaly": null,
-    "validCellFraction": 0.0
-   },
-   {
-    "time": "2025-12",
-    "value": null,
-    "anomaly": null,
-    "validCellFraction": 0.0
    }
   ],
   "annual": [
@@ -1928,14 +1855,10 @@
    {
     "year": 2024,
     "value": 2869.1132
-   },
-   {
-    "year": 2025,
-    "value": null
    }
   ],
   "totalChange": {
-   "value": 269.19316393401647,
+   "value": 257.97678210343247,
    "unit": "mm/year"
   },
   "linear": {
@@ -1963,8 +1886,8 @@
      "value": 2345.8449222930176
     },
     {
-     "year": 2025,
-     "value": 2615.038086227032
+     "year": 2024,
+     "value": 2603.821704396447
     }
    ],
    "ols": [
@@ -1973,8 +1896,8 @@
      "value": 2369.929540317964
     },
     {
-     "year": 2025,
-     "value": 2585.3279248079416
+     "year": 2024,
+     "value": 2576.352992120861
     }
    ]
   },
@@ -1986,14 +1909,12 @@
   },
   "interpretation": {
    "headline": "No clear change in rainfall: the trend is not statistically significant",
-   "summary": "Rainfall in Johor changed by about +110 mm/year per decade from 2001 to 2025 (Sen's slope). Along the trend line that is about +270 mm/year over the whole period. This trend is not statistically significant (Mann-Kendall p = 0.33). A trend can become significant with a longer record. The straight-line (OLS) t-test is not significant either.",
+   "summary": "Rainfall in Johor changed by about +110 mm/year per decade from 2001 to 2024 (Sen's slope). Along the trend line that is about +260 mm/year over the whole period. This trend is not statistically significant (Mann-Kendall p = 0.33). A trend can become significant with a longer record. The straight-line (OLS) t-test is not significant either.",
    "caveats": [
     "Linear trend only: a straight-line trend can hide changes that speed up, slow down or reverse.",
     "Annual values can still be autocorrelated (one year influences the next), which can make p-values look smaller than they should.",
     "A trend is not a cause: this tool shows what changed, not why.",
-    "Grid cells are about 0.5° (roughly 50 km or more across), so results describe the wider area, not a single field or town.",
-    "1 year(s) had at least one missing month and were left out: 2025.",
-    "No source data is available for 3 month(s) (2025-10 to 2025-12); they are shown as missing."
+    "Grid cells are about 0.5° (roughly 50 km or more across), so results describe the wider area, not a single field or town."
    ]
   },
   "provenance": {
@@ -2006,7 +1927,8 @@
    "processing": "mm/hr × hours in month → mm/month; 5×5 block mean 0.1°→0.5° (cell kept if ≥50% of sub-cells valid); cos(lat)-weighted regional mean",
    "nativeResolution": "0.1°",
    "servedResolution": "0.5°",
-   "citation": "Huffman, G.J.; Stocker, E.F.; Bolvin, D.T.; Nelkin, E.J.; Tan, J. (2023), GPM IMERG Final Precipitation L3 1 month 0.1 degree x 0.1 degree V07, Greenbelt, MD, Goddard Earth Sciences Data and Information Services Center (GES DISC), doi:10.5067/GPM/IMERG/3B-MONTH/07"
+   "citation": "Huffman, G.J.; Stocker, E.F.; Bolvin, D.T.; Nelkin, E.J.; Tan, J. (2023), GPM IMERG Final Precipitation L3 1 month 0.1 degree x 0.1 degree V07, Greenbelt, MD, Goddard Earth Sciences Data and Information Services Center (GES DISC), doi:10.5067/GPM/IMERG/3B-MONTH/07",
+   "qualityNotes": []
   },
   "dataVersion": "2026-11-15.1"
  }

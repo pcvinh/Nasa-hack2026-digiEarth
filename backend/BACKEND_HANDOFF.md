@@ -1,6 +1,6 @@
 # Backend handoff — Trend Detective (P0)
 
-Branch `backend/p0` · 15 Nov 2026 · `dataVersion` **2026-11-15.1** · contract v0.2 (unchanged)
+Branch `backend/p0` + review fixes on `backend/fixes` · 15 Nov 2026 · `dataVersion` **2026-11-15.1** · contract v0.2.1
 
 ## Run
 
@@ -8,12 +8,30 @@ Branch `backend/p0` · 15 Nov 2026 · `dataVersion` **2026-11-15.1** · contract
 cd backend
 export DATA_ROOT=/path/to/DigiEarth/data
 uv run uvicorn edt.api.app:app --port 8000     # http://localhost:8000/api/v1, docs at /docs
-uv run pytest                                  # 63 tests; golden tests need DATA_ROOT
+uv run pytest                                  # 92 tests; real-data and golden tests need DATA_ROOT
 uv run ruff check .
 ```
 
 Pipeline commands: see `README.md` (`spike`, `ingest`, `maps`, `manifest`, `golden`, `regions`, `crosscheck`).
 Environment variables: `DATA_ROOT` (required, absolute), `SESSION_STORE=sqlite`, `ALLOWED_ORIGINS` (default `http://localhost:5173`), `GUIDE_LLM=off`. Earthdata Login comes from `~/.netrc` and is used only by the pipeline.
+
+## Review fixes (branch `backend/fixes`, contract v0.2.1 and Architect rulings A–C)
+
+Each fix is its own commit with tests; golden files were regenerated in each commit.
+
+1. **Default `endYear`.** Omitted `endYear` now means the variable's last complete year, derived from `coverage.end` (rainfall 2024, all other variables 2025). `period.endYear`, the annual series and the interpretation text use the same year. An explicit `endYear` (even 2025 for rainfall) still works and reports the missing months in caveats. A default end that is not after `startYear` returns `400 invalid_input`.
+2. **No data → `400 data_unavailable`.** A point, bbox or preset with no valid cells for the variable (for example NDVI at [0, 0] in the ocean) returns `400 data_unavailable` with a clear message, never `200` with `cellCount 0`. Behaviour change: a point or bbox outside a variable's latitude range (for example soil moisture south of 60°S) is now also `data_unavailable`; it was `invalid_input`.
+3. **Borderline caveat.** If the Mann-Kendall p-value is within 0.02 of α (either side), the first caveat says the verdict is close to the threshold and could change with a different area or grid. In the golden set this applies to Central Java air temperature, Central Amazon topsoil moisture and Sahel rainfall.
+4. **Reanalysis note.** All `air_temperature` results carry a caveat and `provenance.qualityNotes` saying MERRA-2 is a reanalysis and can differ from station records. The note text lives in `catalogue.yaml` (`qualityNotes`), so other variables can use it later.
+5. **`legend.colorStops`.** Trend-map JSON and `/trend-maps/{id}` return 11 hex colours from `min` to `max`, sampled with the exact colormap call that paints the PNG. Verified on the real PNGs: both end colours appear in each image. Maps built before this change get the same stops computed on the fly. The real maps were rebuilt.
+6. **Sahel air temperature vs GLDAS (report only, results unchanged).** Same box (−17..35°E, 12..18°N), annual means 2001–2025:
+
+   | Series | Sen's slope (°C/decade) | Mann-Kendall p | Mean annual |
+   |---|---|---|---|
+   | MERRA-2 T2M (served) | **−0.32** (decreasing) | 0.014 | 27.8 °C |
+   | GLDAS Noah 2.1 `Tair_f_inst` | **+0.83** (increasing) | 0.0002 | 28.9 °C |
+
+   Monthly correlation is 0.95 and MERRA-2 is 1.1 °C cooler on average, but the **trend direction is opposite** and both are significant. So the Sahel cooling in our served result is not robust across NASA products. I have not diagnosed the cause (for example MERRA-2 production-stream changes in 2011 and 2020, or GLDAS forcing changes); that needs a station-based check. Command: `uv run edt crosscheck-sahel`; output in `data/validation/sahel_temp_gldas.json`.
 
 ## What is enabled
 
@@ -87,12 +105,12 @@ Full ingest: about 28 minutes in total (precipitation 4 min, soil moisture 5 min
 | Central Amazon | −40, p = 0.71 | +0.36, p = 0.013 ✔ | −0.47, p = 0.059 | +0.0020, p = 0.006 ✔ |
 | Sahel | +31, p = 0.031 ✔ | **−0.32, p = 0.014 ✔** | −0.077, p = 0.34 | +0.0095, p < 0.001 ✔ |
 
-✔ = significant (Mann-Kendall). Rainfall uses n = 24 (2025 is `null`); the other variables use n = 25.
+✔ = significant (Mann-Kendall). Rainfall uses the default period 2001–2024 (n = 24); the other variables use 2001–2025 (n = 25). Borderline (p within 0.02 of 0.05, now flagged in caveats): Central Java air temperature, Central Amazon topsoil moisture, Sahel rainfall.
 
 ## Known limitations
 
-- **IMERG V07 ends 2025-09.** 2025 rainfall is `null`, rainfall statistics use 2001–2024 (n = 24), and the rainfall map period is 2001–2024. This is stated in caveats and in `TrendMap.period`.
-- **Sahel air temperature cooling** (−0.32 °C/decade, significant; the blue patch over North Africa on the map). The pipeline matches native MERRA-2 exactly, so this is a property of the MERRA-2 reanalysis, not a processing error. I have not checked it against station data. Suggest the Architect adds a "reanalysis, may differ from station records" note, or picks a different region for the heat demo.
+- **IMERG V07 ends 2025-09.** 2025 rainfall is `null`. The default rainfall period is now 2001–2024 (n = 24), also in the trend map's `period`. Asking for `endYear` 2025 explicitly still works and says why the last year is missing.
+- **Sahel air temperature cooling** (−0.32 °C/decade, significant). The pipeline matches native MERRA-2 exactly, so it is not a processing error, but GLDAS shows +0.83 °C/decade for the same box (fix 6), so the sign is not robust. A reanalysis note is now on every air-temperature result. Recommend not using the Sahel for the heat demo, or showing it as a data-disagreement example.
 - **MERRA-2 map bounds** are `[-180.3125, -89.75, 179.6875, 89.75]`. The native lon centres start at −180, and the pole-centred rows are not drawn. West < −180 may need handling in Cesium (wrap or clamp) — see open questions.
 - Boxes crossing the antimeridian are rejected (400).
 - The point/box name is generated (for example "Point 10.10°N, 105.10°E").
@@ -102,15 +120,14 @@ Full ingest: about 28 minutes in total (precipitation 4 min, soil moisture 5 min
 
 ## Open change requests
 
-None filed. The contract v0.2 fitted all P0 behaviour.
+None filed by the backend. One additive item for the Architect to document: `Provenance.qualityNotes` (array of strings, `[]` when there are none) is returned by the API but is not in contract 0.2.1. It is optional for clients; the frontend should ignore unknown fields or the field should be added to the contract.
 
 ## Open questions for the Architect
 
-0. **Borderline significance (Giovanni check):** for the Mekong bbox, Mann-Kendall p is 0.045 on our 0.5° grid and 0.056 on Giovanni's native grid. Should the interpretation add a caveat when p is close to α (for example 0.03–0.07), such as "close to the significance threshold; small changes in area or grid can change the verdict"? It would be a backend-only wording change, with no contract change.
-
-1. **MERRA-2 trend map:** keep the exact bounds (west −180.3125), or should the frontend clamp or wrap? Any server-side fix would shift cells, so I have not made one.
-2. **Sahel heat result:** add a reanalysis caveat, or change the demo region for heat?
-3. **Region cells exclude permanently missing cells** (sea for land-only variables) before the 50% rule. This is my interpretation of §5.3; without it, coastal regions would be `null` for soil moisture and NDVI.
+0. ~~Borderline significance caveat~~ — done (fix 3, ruling).
+1. ~~MERRA-2 map bounds~~ — ruling: keep the exact bounds; the frontend clamps the west edge to −180°.
+2. **Sahel heat demo:** the reanalysis note is added (fix 4), but GLDAS disagrees on the sign of the trend (fix 6). Keep the Sahel for heat, relabel it as a disagreement example, or replace it?
+3. **Region cells exclude permanently missing cells (and, if none remain, the request is `data_unavailable`)** (sea for land-only variables) before the 50% rule. This is my interpretation of §5.3; without it, coastal regions would be `null` for soil moisture and NDVI.
 4. **Licences:**
    - Vietnam ADM1 (geoBoundaries) is Public Domain with 2008 boundaries, not CC BY 4.0 as in the plan.
    - Indonesia and Malaysia ADM1 are ODbL 1.0 (© OpenStreetMap contributors), which needs attribution and share-alike for the derived `presets.geojson`.

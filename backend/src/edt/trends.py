@@ -33,6 +33,10 @@ def _bad(msg: str, **details) -> ApiError:
     return ApiError(400, "invalid_input", msg, details or None)
 
 
+def _no_data(msg: str, **details) -> ApiError:
+    return ApiError(400, "data_unavailable", msg, details or None)
+
+
 def validate_region(region: dict) -> None:
     given = [k for k in ("presetId", "bbox", "point") if region.get(k) is not None]
     if len(given) != 1:
@@ -65,7 +69,7 @@ def _check_in_domain(region: dict, lat: np.ndarray, var_name: str) -> None:
     else:
         return
     if not inside:
-        raise _bad(
+        raise _no_data(
             f"The region is outside the area covered by {var_name} "
             f"(latitude {lo:.0f}° to {hi:.0f}°)."
         )
@@ -83,9 +87,11 @@ def analyze(settings: Settings, req: dict) -> dict:
         raise ApiError(
             400, "data_unavailable", reason or "Data unavailable.", {"variableId": var.id}
         )
-    start, end, alpha = int(req["startYear"]), int(req["endYear"]), float(req["alpha"])
     cov = info.coverage
     cy0, cy1 = int(cov[0][:4]), int(cov[1][:4])
+    start, alpha = int(req["startYear"]), float(req["alpha"])
+    # endYear omitted → the variable's last complete year (contract 0.2.1); explicit values win
+    end = int(req["endYear"]) if req.get("endYear") is not None else info.last_complete_year
     if not (cy0 <= start < end <= cy1):
         raise _bad(
             f"Years must satisfy {cy0} <= startYear < endYear <= {cy1} for {var['name']}.",
@@ -107,14 +113,27 @@ def analyze(settings: Settings, req: dict) -> dict:
     block = info.read(y0, y1, x0, x1)[t0:t1]
     mean, frac, ncell, dropped = regional_series(block, info.lat[y0:y1], sel.iy - y0, sel.ix - x0)
 
+    if ncell == 0:
+        what = "point" if sel.representativeness == "single_cell" else "region"
+        land = (
+            " It is a land-only variable, so oceans and open water have no values."
+            if (var["landOnly"])
+            else ""
+        )
+        raise _no_data(
+            f"{var['name']} has no valid data for this {what} between {start} and {end}.{land} "
+            "Try a different location.",
+            variableId=var.id,
+            cellsChecked=int(sel.iy.size),
+        )
+
     caveats = list(sel.caveats)
+    caveats.extend(" ".join(n.split()) for n in var.raw.get("qualityNotes", []))
     if dropped:
         caveats.append(
             f"{dropped} grid cell(s) in the region were left out because the dataset has no "
             "data there (for example sea, for a land-only variable)."
         )
-    if ncell == 0:
-        caveats.append("The dataset has no data in this region.")
     months = info.months[t0:t1]
     no_source = [m for m, s in zip(months, info.status[t0:t1], strict=True) if s == 2]
     if no_source:

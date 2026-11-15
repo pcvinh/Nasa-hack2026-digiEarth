@@ -5,7 +5,6 @@
    "presetId": "amazon-central"
   },
   "startYear": 2001,
-  "endYear": 2025,
   "alpha": 0.05
  },
  "result": {
@@ -1988,6 +1987,7 @@
    "headline": "No clear change in topsoil moisture (0–10 cm): the trend is not statistically significant",
    "summary": "Topsoil moisture (0–10 cm) in Central Amazon changed by about −0.47 kg/m² per decade from 2001 to 2025 (Sen's slope). Along the trend line that is about −1.1 kg/m² over the whole period. This trend is not statistically significant (Mann-Kendall p = 0.06). A trend can become significant with a longer record. The straight-line (OLS) t-test is significant, but the more robust Mann-Kendall test is not, so the evidence is weak.",
    "caveats": [
+    "The Mann-Kendall p-value (p = 0.06) is close to the significance threshold (α = 0.05), so the verdict is borderline and could change with a different area or grid.",
     "Linear trend only: a straight-line trend can hide changes that speed up, slow down or reverse.",
     "Annual values can still be autocorrelated (one year influences the next), which can make p-values look smaller than they should.",
     "A trend is not a cause: this tool shows what changed, not why.",
@@ -2004,7 +2004,8 @@
    "processing": "kg/m² (unchanged); 2×2 block mean 0.25°→0.5° (cell kept if ≥50% of sub-cells valid); land only, 60°S–90°N; cos(lat)-weighted regional mean",
    "nativeResolution": "0.25°",
    "servedResolution": "0.5°",
-   "citation": "Beaudoing, H. and M. Rodell, NASA/GSFC/HSL (2020), GLDAS Noah Land Surface Model L4 monthly 0.25 x 0.25 degree V2.1, Greenbelt, Maryland, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), doi:10.5067/SXAVCZFAQLNO"
+   "citation": "Beaudoing, H. and M. Rodell, NASA/GSFC/HSL (2020), GLDAS Noah Land Surface Model L4 monthly 0.25 x 0.25 degree V2.1, Greenbelt, Maryland, USA, Goddard Earth Sciences Data and Information Services Center (GES DISC), doi:10.5067/SXAVCZFAQLNO",
+   "qualityNotes": []
   },
   "dataVersion": "2026-11-15.1"
  }

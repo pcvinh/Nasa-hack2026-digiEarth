@@ -42,6 +42,8 @@ class Provenance(_M):
     nativeResolution: str
     servedResolution: str
     citation: str
+    # Additive field (not in contract 0.2.1): data-quality notes; [] when there are none
+    qualityNotes: list[str] = []
 
 
 class Coverage(_M):

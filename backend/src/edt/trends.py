@@ -128,6 +128,7 @@ def analyze(settings: Settings, req: dict) -> dict:
         )
 
     caveats = list(sel.caveats)
+    caveats.extend(" ".join(n.split()) for n in var.raw.get("qualityNotes", []))
     if dropped:
         caveats.append(
             f"{dropped} grid cell(s) in the region were left out because the dataset has no "

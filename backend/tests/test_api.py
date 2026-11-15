@@ -361,3 +361,44 @@ def test_api_adds_borderline_caveat_for_p_near_alpha(cubes, client, contract):
     d = r.json()
     assert abs(d["mannKendall"]["pValue"] - 0.05) <= 0.02
     assert any("close to the significance threshold" in c for c in d["interpretation"]["caveats"])
+
+
+NOTE = "reanalysis"
+
+
+@pytest.mark.parametrize(
+    "region", [{"presetId": "johor"}, {"point": [105.1, 10.1]}, {"bbox": [102.0, 8.0, 106.0, 12.0]}]
+)
+def test_air_temperature_results_carry_reanalysis_note(cubes, client, contract, region):
+    r = client.post(
+        "/api/v1/trends/analyze", json={"variableId": "air_temperature", "region": region}
+    )
+    contract.check("post", "/trends/analyze", r)
+    d = r.json()
+    assert any(NOTE in c and "station records" in c for c in d["interpretation"]["caveats"])
+    assert any(NOTE in n and "station records" in n for n in d["provenance"]["qualityNotes"])
+
+
+def test_other_variables_have_no_quality_notes_or_reanalysis_caveat(cubes, client, contract):
+    for vid in ("precipitation", "soil_moisture", "ndvi"):
+        r = client.post(
+            "/api/v1/trends/analyze", json={"variableId": vid, "region": {"presetId": "johor"}}
+        )
+        d = r.json()
+        assert d["provenance"]["qualityNotes"] == []
+        assert not any(NOTE in c for c in d["interpretation"]["caveats"])
+
+
+def test_variables_and_trend_map_provenance_include_quality_notes(cubes, client, contract):
+    from edt.catalogue import get_variable
+    from edt.pipeline.maps import build_map
+
+    items = {i["id"]: i for i in client.get("/api/v1/variables").json()["items"]}
+    assert items["air_temperature"]["provenance"]["qualityNotes"]
+    assert items["ndvi"]["provenance"]["qualityNotes"] == []
+    r = client.get("/api/v1/variables")
+    contract.check("get", "/variables", r)
+    build_map(cubes, get_variable("air_temperature"))
+    r = client.get("/api/v1/trend-maps/air_temperature")
+    contract.check("get", "/trend-maps/air_temperature", r)
+    assert r.json()["provenance"]["qualityNotes"]

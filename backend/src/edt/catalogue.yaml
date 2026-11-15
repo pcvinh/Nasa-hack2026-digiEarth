@@ -62,6 +62,10 @@ variables:
     landOnly: false
     palette: diverging_blue_red
     decimals: 2
+    qualityNotes:
+      - >-
+        MERRA-2 is a reanalysis (a weather model constrained by observations), so its
+        temperatures and trends can differ from weather-station records.
     dataset:
       datasetId: M2TMNXSLV
       datasetVersion: "5.12.4"

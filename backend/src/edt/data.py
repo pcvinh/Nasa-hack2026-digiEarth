@@ -121,6 +121,7 @@ def provenance(settings: Settings, var: VariableDef) -> dict:
         "nativeResolution": ds["nativeResolution"],
         "servedResolution": ds["servedResolution"],
         "citation": " ".join(ds["citation"].split()),
+        "qualityNotes": [" ".join(n.split()) for n in var.raw.get("qualityNotes", [])],
     }
 
 

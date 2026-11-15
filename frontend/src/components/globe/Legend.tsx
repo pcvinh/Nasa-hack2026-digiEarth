@@ -1,5 +1,7 @@
 import type { TrendMap } from '../../api/types';
+import { asBBox } from '../../api/types';
 import { fmtSig } from '../common/format';
+import { clampNote } from './geo';
 import styles from '../../styles/ui.module.css';
 
 export function Legend({ map }: { map: TrendMap }) {
@@ -13,6 +15,7 @@ export function Legend({ map }: { map: TrendMap }) {
         style={{ marginTop: 6, ...(stops ? { background: `linear-gradient(90deg, ${stops.join(', ')})` } : {}) }} />
       <div className={styles.legendScale}><span>{fmtSig(legend.min)}</span><span>{legend.unit}</span><span>{fmtSig(legend.max)}</span></div>
       <div style={{ marginTop: 4 }}>Faded: {legend.fadedMeaning}</div>
+      {clampNote(asBBox(map.bounds)) && <div data-testid="legend-clamp">{clampNote(asBBox(map.bounds))}</div>}
       {map.dataStatus === 'sample' && <div style={{ color: '#b42318', fontWeight: 700 }}>SAMPLE DATA</div>}
     </div>
   );

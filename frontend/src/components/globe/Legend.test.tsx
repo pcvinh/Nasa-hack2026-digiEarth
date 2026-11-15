@@ -18,3 +18,11 @@ describe('legend colours', () => {
     expect(screen.getByTestId('legend-bar').getAttribute('style') ?? '').not.toContain('linear-gradient');
   });
 });
+
+describe('legend clamp note', () => {
+  it('mentions the clamped west edge in the legend', () => {
+    const m = withStops();
+    render(<Legend map={{ ...m, bounds: [-180.3125, -90, 179.6875, 90] }} />);
+    expect(screen.getByTestId('legend-clamp')).toHaveTextContent('clamped to -180');
+  });
+});

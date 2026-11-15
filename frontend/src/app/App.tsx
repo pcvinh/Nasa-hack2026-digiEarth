@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo } from 'react';
 import { useRegion, useTrendMap, useVariables } from '../api/queries';
 import { asBBox, type BBox, type LonLat } from '../api/types';
+import { clampBounds } from '../components/globe/geo';
 import { Legend } from '../components/globe/Legend';
 import { Shell } from '../components/layout/Shell';
 import { DemoCard, DemoList } from '../features/demos/Demos';
@@ -57,7 +58,7 @@ function GlobeContainer() {
     if (region && 'point' in region) return [region.point[0] - 2, region.point[1] - 2, region.point[0] + 2, region.point[1] + 2];
     return null;
   }, [reg.data, region]);
-  const overlay = useMemo(() => (showTrendMap && map.data ? { url: map.data.imageUrl, bounds: asBBox(map.data.bounds) } : null), [showTrendMap, map.data]);
+  const overlay = useMemo(() => (showTrendMap && map.data ? { url: map.data.imageUrl, bounds: clampBounds(asBBox(map.data.bounds)) } : null), [showTrendMap, map.data]);
   const onPick = (p: LonLat) => {
     setRegion({ point: p });
     if (!useStore.getState().variableId) setNotice('Point selected. Choose a variable to analyse it.');

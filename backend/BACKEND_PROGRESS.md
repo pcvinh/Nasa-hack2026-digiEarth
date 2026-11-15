@@ -15,7 +15,7 @@ Branch `backend/p0` (worktree `DigiEarth-backend`). `DATA_ROOT=/path/to/DigiEart
 | BE-07 trend maps | done | 4 PNG + JSON; inspected visually (continents/north-up correct) |
 | BE-08 Guide | done | suggestions for every region type; yield/forecast/cause refused; whitelisted actions only |
 | BE-09 sessions | done | create/get/list/update round-trip; >256 KB rejected |
-| BE-10 validation + golden + handoff | done except Giovanni | native IMERG cross-check r = 0.9993, mean diff −2.9%; 20 golden files; `BACKEND_HANDOFF.md`. Giovanni CSV comparison waits on a CSV from the Giovanni web UI |
+| BE-10 validation + golden + handoff | done | Giovanni area-averaged CSV vs ours (Mekong bbox): r = 0.9993, mean diff −5.0 mm/month (−2.9%); Sen +117 vs +108 mm/yr per decade; MK p 0.045 vs 0.056 (borderline). Native IMERG check identical. 20 golden files; `BACKEND_HANDOFF.md` |
 
 Tests: 63 passed (`DATA_ROOT` set), ruff clean.
 
@@ -55,4 +55,4 @@ Served value ranges in the spike month: rainfall 0–2394 mm/month; T2M −65.7�
 
 ## Blockers
 
-- Giovanni cross-check needs an area-averaged CSV downloaded from the Giovanni web UI (the REST API serves single points only). See BACKEND_HANDOFF.md.
+None.

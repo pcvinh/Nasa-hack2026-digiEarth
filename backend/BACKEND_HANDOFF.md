@@ -59,10 +59,21 @@ Full ingest: about 28 minutes in total (precipitation 4 min, soil moisture 5 min
 
   The small negative bias is expected: the 0.5° cells whose centres fall inside the box cover a slightly different area from the native cells. Results are in `data/validation/native_mekong.json`.
 - **MERRA-2 pipeline check (done).** Our Sahel box values equal the native T2M box mean to 4 decimals in 5 test months (2001-07, 2010-12, 2011-01, 2020-09, 2024-07), across the MERRA2_300 → 400 → 401 stream changes.
-- **Giovanni cross-check (not done; tooling ready).** Giovanni's REST `/timeseries` endpoint is reported to return single points only, not area averages. Area averages come from the Giovanni web UI as a CSV, or from a Harmony-based service with quotas that I have not verified. To finish this check:
-  1. In Giovanni, choose "Time Series, Area-Averaged" for GPM_3IMERGM v07 precipitation.
-  2. Use bbox 103.838, 8.44, 106.8139, 11.0363 and 2001-01 to 2025-09.
-  3. Download the CSV and run `uv run edt crosscheck --giovanni-csv <file>`. It reports correlation and mean difference and writes `data/validation/giovanni_mekong.json`.
+- **Giovanni cross-check (done, 15 Nov 2026).** Giovanni "Time Series, Area-Averaged", GPM_3IMERGM v07 precipitation, bbox 103.838, 8.44, 106.8139, 11.0363, 2001-01 to 2025-09. Giovanni's own data bounding box is 103.85, 8.45, 106.75, 10.95. The CSV values are in mm/hr and were converted to mm/month using each month's hours. Compared with our `/trends/analyze` for the same bbox (30 cells at 0.5°):
+  - Correlation: **0.9993** (n = 297 months)
+  - Mean difference: **−5.0 mm/month (−2.9%)**
+  - Largest monthly difference: 32.6 mm
+
+  Giovanni's series agrees with my native-file area mean to about 6 decimal places, which independently confirms the native check above. Trend statistics on annual sums, 2001–2024 (n = 24):
+
+  | Series | Sen's slope (mm/yr per decade) | Mann-Kendall p | OLS slope, p | Mean annual |
+  |---|---|---|---|---|
+  | Ours (bbox, 0.5°) | +117 | **0.045 (significant)** | +104, 0.045 | 2,003 mm |
+  | Giovanni (native 0.1°) | +108 | **0.056 (not significant)** | +105, 0.048 | 2,063 mm |
+
+  Direction and size agree within 8%, and the OLS t-test is significant in both. The Mann-Kendall verdict, however, sits right at α = 0.05 and flips between the two grids. The difference comes from the 0.5° cell selection (about 3% less area-mean rainfall), not from a processing error. Results, including this table, are in `data/validation/giovanni_mekong.json`. The source CSV is `data/validation/giovanni_mekong.csv`.
+
+  The Mekong **preset** (province polygon, 13 cells) is a different area from this box and gives +121 mm/yr per decade with p = 0.011, well clear of the threshold.
 - **Golden files.** `tests/golden/` holds 20 files (5 presets × 4 variables). The re-run reproduces them exactly, and each one validates against the contract.
 - **Trend maps.** I inspected all four visually. Soil moisture and NDVI trace the continents with north up. Air temperature shows Arctic amplification and the North Atlantic warming hole. NDVI shows the India and China greening.
 
@@ -94,6 +105,8 @@ Full ingest: about 28 minutes in total (precipitation 4 min, soil moisture 5 min
 None filed. The contract v0.2 fitted all P0 behaviour.
 
 ## Open questions for the Architect
+
+0. **Borderline significance (Giovanni check):** for the Mekong bbox, Mann-Kendall p is 0.045 on our 0.5° grid and 0.056 on Giovanni's native grid. Should the interpretation add a caveat when p is close to α (for example 0.03–0.07), such as "close to the significance threshold; small changes in area or grid can change the verdict"? It would be a backend-only wording change, with no contract change.
 
 1. **MERRA-2 trend map:** keep the exact bounds (west −180.3125), or should the frontend clamp or wrap? Any server-side fix would shift cells, so I have not made one.
 2. **Sahel heat result:** add a reanalysis caveat, or change the demo region for heat?

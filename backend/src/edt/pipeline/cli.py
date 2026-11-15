@@ -38,6 +38,8 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("manifest")
     sub.add_parser("golden")
     sub.add_parser("regions")
+    cc = sub.add_parser("crosscheck")
+    cc.add_argument("--giovanni-csv", help="Giovanni area-averaged CSV (omit for native check)")
     a = p.parse_args(sys.argv[1:] if argv is None else argv)
     settings = load_settings()
 
@@ -71,6 +73,20 @@ def main(argv: list[str] | None = None) -> int:
         from edt.golden import write_golden
 
         write_golden(settings)
+    elif a.cmd == "crosscheck":
+        from edt.pipeline.crosscheck import giovanni_check, native_check
+        from edt.regions.select import presets
+
+        bbox = presets()["mekong-delta"]["bbox"]
+        vdir = settings.data_root / "validation"
+        vdir.mkdir(parents=True, exist_ok=True)
+        if a.giovanni_csv:
+            from pathlib import Path
+
+            r = giovanni_check(settings, bbox, Path(a.giovanni_csv), vdir / "giovanni_mekong.json")
+        else:
+            r = native_check(settings, bbox, vdir / "native_mekong.json")
+        print(json.dumps(r, indent=1))
     elif a.cmd == "regions":
         from edt.regions.build import build_presets
 

@@ -77,10 +77,10 @@ def build_map(settings: Settings, var: VariableDef) -> dict:
     rgba, lat_k = rgba[keep], lat[keep]
     dy, dx = abs(lat[1] - lat[0]), abs(lon[1] - lon[0])
     bounds = [
-        round(float(lon[0] - dx / 2), 6),
-        round(float(lat_k[0] - dy / 2), 6),
-        round(float(lon[-1] + dx / 2), 6),
-        round(float(lat_k[-1] + dy / 2), 6),
+        round(float(lon[0] - dx / 2), 4),
+        round(float(lat_k[0] - dy / 2), 4),
+        round(float(lon[-1] + dx / 2), 4),
+        round(float(lat_k[-1] + dy / 2), 4),
     ]
     img = (rgba[::-1] * 255).round().astype(np.uint8)  # north at top
     settings.maps_dir.mkdir(parents=True, exist_ok=True)

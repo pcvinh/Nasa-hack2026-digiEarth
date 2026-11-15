@@ -71,6 +71,6 @@ export const useStore = create<State>((set, get) => ({
       showTrendMap: s.showTrendMap, chartMode: s.chartMode, guideMessages: s.guideMessages };
   },
   restore: (st, id) => set({ ...initial, variableId: st.variableId, region: st.region, startYear: st.startYear,
-    endYear: st.endYear, showTrendMap: st.showTrendMap, chartMode: st.chartMode, guideMessages: st.guideMessages, sessionId: id }),
+    endYear: st.endYear, showTrendMap: st.showTrendMap, chartMode: st.chartMode, guideMessages: st.guideMessages, guideOpen: st.guideMessages.length > 0, sessionId: id }),
   reset: () => set({ ...initial }),
 }));

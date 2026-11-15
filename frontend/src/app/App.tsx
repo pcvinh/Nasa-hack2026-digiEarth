@@ -66,7 +66,7 @@ function GlobeContainer() {
   return (
     <>
       <Suspense fallback={<div style={{ color: '#fff', padding: 16 }}>Loading globe…</div>}>
-        <GlobeView outline={reg.data?.geometry ?? null} cell={query.data ? asBBox(query.data.region.bbox) : null}
+        <GlobeView outline={reg.data?.geometry ?? null} cell={query.data && query.data.region.bbox[2]! > query.data.region.bbox[0]! ? asBBox(query.data.region.bbox) : null}
           flyTo={flyTo} overlay={overlay} pickMode={pickMode} onPick={onPick} />
       </Suspense>
       {showTrendMap && map.data && <Legend map={map.data} />}

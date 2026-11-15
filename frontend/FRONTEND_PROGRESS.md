@@ -15,7 +15,7 @@ Branch `frontend/p0` · worktree `../DigiEarth-frontend` · contract v0.2.0
 | FE-08 | done | Guide drawer, Zod action whitelist (unknown types dropped and logged), "Rules-based guide" label |
 | FE-09 | done (fixtures) | Mekong, Amazon, Sahel walkthroughs; text has no digits (tested). Not yet run against real API |
 | FE-10 | done (fixtures) | Save/list/restore with Zod validation; URL `/s/:id`. Fixture sessions are in memory only |
-| FE-11 | blocked | Backend not running on :8000 (checked twice). My attempt to start it from the backend worktree was denied by the permission classifier, so the user must start it. Backend branch now has BE-05..BE-09 commits (its progress file still says not started) |
+| FE-11 | done | Real API verified; see FRONTEND_HANDOFF.md |
 
 ## Verification
 - `npm run build`, `npm run lint`, `npx tsc`: pass. `npm test`: 20 tests pass.

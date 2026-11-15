@@ -32,3 +32,16 @@ def test_golden_reproduces():
         g = json.loads(path.read_text())
         got = json.loads(json.dumps(analyze(settings, g["request"])))
         assert got == g["result"], path.name
+
+
+@pytest.mark.skipif(not GOLDEN, reason="no golden files yet")
+def test_golden_results_validate_against_contract(contract):
+    class Resp:
+        status_code = 200
+        headers = {"content-type": "application/json"}
+
+        def __init__(self, body):
+            self.content = json.dumps(body).encode()
+
+    for path in GOLDEN:
+        contract.check("post", "/trends/analyze", Resp(json.loads(path.read_text())["result"]))

@@ -6,10 +6,18 @@ Branch `backend/p0` (worktree `DigiEarth-backend`). `DATA_ROOT=/path/to/DigiEart
 
 | Package | Status | Evidence |
 |---|---|---|
-| BE-01 scaffold | done | `uv run pytest` 6 passed; `uv run ruff check` clean; uvicorn serves `/api/v1/health` |
+| BE-01 scaffold | done | uvicorn serves `/api/v1/health`; tests pass |
 | BE-02 data spike | done | `uv run edt spike --variable all --month 2020-07` output below; all 4 downloads OK |
 | BE-03 stats | done | `tests/test_stats.py` (MK/Sen vs pymannkendall, BH vs statsmodels, CI contains slope) |
-| BE-04..BE-10 | not started | |
+| BE-04 ingest | done | 4 cubes complete (1,197 months ingested; precipitation 2025-10..12 have no source); `data/manifest.json` dataVersion 2026-11-15.1 |
+| BE-05 regions + catalogue | done | 5 presets (<500 vertices); Mekong cellCount 13 (0.5°); contract-valid |
+| BE-06 /trends/analyze | done | contract-valid for all 5 presets × 4 variables (golden test); Mekong rainfall +121 mm/yr per decade, MK p = 0.011 |
+| BE-07 trend maps | done | 4 PNG + JSON; inspected visually (continents/north-up correct) |
+| BE-08 Guide | done | suggestions for every region type; yield/forecast/cause refused; whitelisted actions only |
+| BE-09 sessions | done | create/get/list/update round-trip; >256 KB rejected |
+| BE-10 validation + golden + handoff | done except Giovanni | native IMERG cross-check r = 0.9993, mean diff −2.9%; 20 golden files; `BACKEND_HANDOFF.md`. Giovanni CSV comparison waits on a CSV from the Giovanni web UI |
+
+Tests: 63 passed (`DATA_ROOT` set), ruff clean.
 
 ## Run
 
@@ -47,4 +55,4 @@ Served value ranges in the spike month: rainfall 0–2394 mm/month; T2M −65.7�
 
 ## Blockers
 
-None.
+- Giovanni cross-check needs an area-averaged CSV downloaded from the Giovanni web UI (the REST API serves single points only). See BACKEND_HANDOFF.md.

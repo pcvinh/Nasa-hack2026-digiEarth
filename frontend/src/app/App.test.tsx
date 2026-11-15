@@ -64,3 +64,15 @@ describe('default period', () => {
     expect(screen.getByText(/2001–2024/)).toBeInTheDocument();
   });
 });
+
+describe('data_unavailable', () => {
+  it('shows the API message, draws no cell and does not retry', async () => {
+    mount();
+    const before = analyzeCount();
+    act(() => { useStore.getState().setVariable('soil_moisture'); useStore.getState().setRegion({ point: [-30, 0] }); });
+    expect(await screen.findByText(/over the ocean and this variable covers land only/)).toBeInTheDocument();
+    expect(screen.queryByTestId('verdict')).not.toBeInTheDocument();
+    await new Promise((r) => setTimeout(r, 300));
+    expect(analyzeCount()).toBe(before + 1); // 4xx is not retried
+  });
+});

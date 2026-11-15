@@ -8,9 +8,14 @@ export const client = createClient<paths>({
   ...(USE_FIXTURES ? { fetch: fixtureFetch } : {}),
 });
 
-/** Unwraps an openapi-fetch result: returns data or throws a readable error. */
-export function unwrap<T>(r: { data?: T; error?: unknown }): T {
+/** Error body from the API (contract `Error`): `error` message and `code`. */
+export class ApiError extends Error {
+  constructor(message: string, readonly code?: string, readonly status?: number) { super(message); }
+}
+
+/** Unwraps an openapi-fetch result: returns data or throws an ApiError carrying the API's message. */
+export function unwrap<T>(r: { data?: T; error?: unknown; response?: Response }): T {
   if (r.data !== undefined) return r.data;
-  const e = r.error as { error?: string } | undefined;
-  throw new Error(e?.error ?? 'Request failed');
+  const e = r.error as { error?: string; code?: string } | undefined;
+  throw new ApiError(e?.error ?? 'Request failed', e?.code, r.response?.status);
 }

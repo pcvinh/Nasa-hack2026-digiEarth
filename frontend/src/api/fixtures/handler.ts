@@ -30,6 +30,10 @@ function analyze(req: TrendRequest): Response {
   }
   if (point) {
     const [lon, lat] = point as [number, number];
+    // Fixture stand-in for open ocean (mid-Atlantic box): land-only variables have no data there.
+    if (variable.id === 'soil_moisture' && lon > -40 && lon < -20 && lat > -20 && lat < 20) {
+      return err(400, 'data_unavailable', 'No data for this point: it is over the ocean and this variable covers land only (SAMPLE message).');
+    }
     const b = cell(lon, lat);
     return json(buildTrend(variable, `Cell at ${lon.toFixed(1)}°, ${lat.toFixed(1)}°`, b, true, null, start, end, alpha, scenarioFor(`${variable.id}|${b.join(',')}`)));
   }

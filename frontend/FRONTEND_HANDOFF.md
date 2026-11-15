@@ -59,4 +59,4 @@ Air temperature, annual Sen's slope, both Mann-Kendall significant: Sahel negati
 ### Not covered
 - Pixel-level alignment measurement; tablet/mobile; P1 items (compare, glossary, Playwright).
 - Screenshot 13 (insufficient data) comes from fixture mode, so it shows the SAMPLE banner; the real data produced no such case.
-- Screenshots 08-12 were generated but I only inspected 01-07 (partly), 10 and 13 by eye.
+- I looked at screenshots 01, 04, 06, 07, 10 and 13 by eye; the others (02, 03, 05, 08, 09, 11, 12) were generated but not individually reviewed.

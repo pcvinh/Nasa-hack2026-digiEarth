@@ -30,7 +30,7 @@ export default function GlobeView(props: GlobeProps) {
       url: GIBS, layer: 'BlueMarble_ShadedRelief_Bathymetry', style: 'default', format: 'image/jpeg',
       tileMatrixSetID: '500m', tileMatrixLabels: Array.from({ length: 8 }, (_, i) => String(i)),
       maximumLevel: 7, tilingScheme: new Cesium.GeographicTilingScheme({ numberOfLevelZeroTilesX: 2, numberOfLevelZeroTilesY: 1 }),
-      tileWidth: 512, tileHeight: 512, credit: 'Imagery: NASA GIBS',
+      tileWidth: 512, tileHeight: 512, credit: new Cesium.Credit('Imagery: NASA GIBS', true), // showOnScreen: always visible
     });
     const v = new Cesium.Viewer(host.current!, {
       baseLayer: new Cesium.ImageryLayer(gibs), baseLayerPicker: false, geocoder: false, timeline: false,

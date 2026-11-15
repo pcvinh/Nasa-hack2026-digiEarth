@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Earth Digital Twin — Trend Detective API
-  version: 0.2.0
+  version: 0.2.1
   description: >-
     The only interface between the Frontend and the Backend + Data sessions.
     Owned by the Solution Architect; change requests go to contracts/CHANGE-REQUESTS.md.
@@ -246,7 +246,10 @@ paths:
 components:
   responses:
     BadRequest:
-      description: Invalid input (unknown variable, bad period, region outside data coverage, etc.)
+      description: >-
+        Invalid input (unknown variable, bad period) or no data for the request. Use code
+        'data_unavailable' when a region or point has no valid data for the variable, for example
+        a point over the ocean for a land-only variable; never return a 200 with cellCount 0.
       content:
         application/json:
           schema: {$ref: '#/components/schemas/Error'}
@@ -367,8 +370,17 @@ components:
       properties:
         variableId: {type: string, example: precipitation}
         region: {$ref: '#/components/schemas/RegionInput'}
-        startYear: {type: integer, default: 2001, example: 2001}
-        endYear: {type: integer, default: 2025, example: 2025}
+        startYear:
+          type: integer
+          default: 2001
+          example: 2001
+        endYear:
+          type: integer
+          example: 2024
+          description: >-
+            Optional. When omitted, defaults to the variable's last complete year (the last year
+            with all 12 months available, derived from its coverage.end), not a fixed 2025.
+            The response period.endYear and the interpretation text use the same year.
         alpha: {type: number, default: 0.05, minimum: 0.001, maximum: 0.2}
 
     ResolvedRegion:
@@ -523,6 +535,14 @@ components:
             max: {type: number}
             unit: {type: string, example: 'mm/year per decade'}
             palette: {type: string, enum: [diverging_brown_green, diverging_blue_red]}
+            colorStops:
+              type: array
+              minItems: 2
+              description: >-
+                Hex colours (#RRGGBB) from min to max, taken from the same palette used to draw the
+                PNG, so the frontend legend always matches the image. Optional in 0.2.1; the
+                frontend falls back to the palette name when absent.
+              items: {type: string, pattern: '^#[0-9A-Fa-f]{6}$'}
             fadedMeaning: {type: string, example: 'Not significant after FDR correction (q = 0.05)'}
         method: {type: string, example: "Per-cell Sen's slope; Mann-Kendall p; Benjamini-Hochberg FDR q = 0.05"}
         dataStatus: {$ref: '#/components/schemas/DataStatus'}

@@ -95,13 +95,14 @@ data/                      # outside git; DATA_ROOT points here (absolute path)
 
 - Missing / fill values → NaN in the cube → `null` in the API.
 - Regional mean = cos(latitude)-weighted mean of cells whose **centre** falls inside the region polygon. A month with < 50 % of the region's cells valid is `null`.
+- Cells that have no data in any month of the analysis period (for example sea for land-only variables) are dropped from the region before the 50 % rule and listed in caveats. A region or point left with no valid cells returns `400 data_unavailable`.
 - A point request (globe click) uses the single cell containing the point (`representativeness: single_cell`).
 - A year is valid only if all 12 months are valid; otherwise its annual value is `null` (stated in caveats).
 - Monthly anomaly (chart only) = value − mean of the same calendar month over the analysis period.
 
 ## 6. Statistics (one module, `edt.stats`)
 
-Input: annual values for `start..end` (default 2001–2025). Minimum 10 non-null years, otherwise `insufficient_data`.
+Input: annual values for `start..end` (default 2001 to the variable's last complete year; for rainfall this is 2024 because IMERG V07 ends in 2025-09). Minimum 10 non-null years, otherwise `insufficient_data`.
 
 | Output | Method | Library |
 |---|---|---|

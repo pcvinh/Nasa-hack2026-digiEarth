@@ -9,6 +9,7 @@ from edt.api.errors import ApiError
 from edt.api.models import TrendMap
 from edt.catalogue import get_variable
 from edt.data import provenance
+from edt.pipeline.maps import color_stops
 
 router = APIRouter(tags=["trends"])
 
@@ -29,9 +30,13 @@ def get_trend_map(request: Request, variableId: str) -> dict:  # noqa: N803
     s = request.app.state.settings
     var, _, meta_path = _paths(s, variableId)
     meta = json.loads(meta_path.read_text())
-    keys = ("variableId", "period", "bounds", "cellSize", "legend", "method")
+    keys = ("variableId", "period", "bounds", "cellSize", "method")
+    legend = dict(meta["legend"])
+    if not legend.get("colorStops"):  # map built before colorStops existed
+        legend["colorStops"] = color_stops(legend["palette"])
     return {
         **{k: meta[k] for k in keys},
+        "legend": legend,
         "imageUrl": f"/api/v1/trend-maps/{variableId}/image.png",
         "dataStatus": "source_backed",
         "provenance": provenance(s, var),

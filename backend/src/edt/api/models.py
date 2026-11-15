@@ -194,6 +194,7 @@ class Legend(_M):
     max: float
     unit: str
     palette: Literal["diverging_brown_green", "diverging_blue_red"]
+    colorStops: list[str] | None = None  # optional in contract 0.2.1
     fadedMeaning: str
 
 

@@ -402,3 +402,62 @@ def test_variables_and_trend_map_provenance_include_quality_notes(cubes, client,
     r = client.get("/api/v1/trend-maps/air_temperature")
     contract.check("get", "/trend-maps/air_temperature", r)
     assert r.json()["provenance"]["qualityNotes"]
+
+
+@pytest.mark.parametrize(
+    "variable,palette",
+    [("precipitation", "diverging_brown_green"), ("air_temperature", "diverging_blue_red")],
+)
+def test_trend_map_legend_color_stops_match_the_png(cubes, client, contract, variable, palette):
+    import re
+    from io import BytesIO
+
+    from PIL import Image
+
+    from edt.catalogue import get_variable
+    from edt.pipeline.maps import build_map
+
+    build_map(cubes, get_variable(variable))
+    r = client.get(f"/api/v1/trend-maps/{variable}")
+    contract.check("get", f"/trend-maps/{variable}", r)
+    legend = r.json()["legend"]
+    stops = legend["colorStops"]
+    assert legend["palette"] == palette and len(stops) >= 2
+    assert all(re.fullmatch(r"#[0-9A-F]{6}", c) for c in stops)
+    # cells at or beyond the colour limit (top 2% of |slope|, all positive here) are clipped to
+    # the end of the palette, so their pixel colour must equal the last colour stop
+    im = Image.open(BytesIO(client.get(r.json()["imageUrl"]).content)).convert("RGBA")
+    drawn = [p for p in im.getdata() if p[3] > 0]
+    assert drawn
+    assert any("#{:02X}{:02X}{:02X}".format(*p[:3]) == stops[-1] for p in drawn)
+    assert all("#{:02X}{:02X}{:02X}".format(*p[:3]) != stops[0] for p in drawn)
+    assert stops[0] != stops[-1]
+
+
+def test_color_stops_are_sampled_from_the_palette_endpoints():
+    import matplotlib
+    from matplotlib.colors import to_hex
+
+    from edt.pipeline.maps import PALETTES, color_stops
+
+    for name, cm in PALETTES.items():
+        s = color_stops(name)
+        assert len(s) == 11
+        assert s[0] == to_hex(matplotlib.colormaps[cm](0.0)).upper()
+        assert s[-1] == to_hex(matplotlib.colormaps[cm](1.0)).upper()
+
+
+def test_trend_map_without_stored_color_stops_falls_back_to_palette(cubes, client, contract):
+    import json
+
+    from edt.catalogue import get_variable
+    from edt.pipeline.maps import build_map
+
+    build_map(cubes, get_variable("ndvi"))
+    meta_path = cubes.maps_dir / "ndvi.json"
+    meta = json.loads(meta_path.read_text())
+    del meta["legend"]["colorStops"]
+    meta_path.write_text(json.dumps(meta))
+    r = client.get("/api/v1/trend-maps/ndvi")
+    contract.check("get", "/trend-maps/ndvi", r)
+    assert len(r.json()["legend"]["colorStops"]) == 11

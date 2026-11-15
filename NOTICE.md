@@ -20,4 +20,4 @@ Basemap imagery: NASA GIBS (Blue Marble). Values shown are processed (resampled 
 geoBoundaries: Runfola et al. (2020), PLoS ONE 15(4): e0231866.
 
 ## Code licence
-Not yet chosen by the repository owner. Until a LICENSE file is added, all rights are reserved.
+The source code is released under the MIT License (see `LICENSE`). The MIT License does not cover third-party data: NASA data keeps its own terms, and `backend/src/edt/regions/presets.geojson` keeps the ODbL 1.0 terms described above for the OpenStreetMap-derived regions.
